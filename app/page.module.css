@@ -1,142 +1,101 @@
-.page {
-  --background: #fafafa;
-  --foreground: #fff;
+/*.page {*/
+/*    display: flex;*/
+/*    flex-direction: row;*/
+/*    !*justify-content: space-evenly;*!*/
+/*    !*align-items: center;*!*/
 
-  --text-primary: #000;
-  --text-secondary: #666;
+/*    section {*/
+/*        background-color: red;*/
+/*        flex: 1;*/
+/*    }*/
+/*}*/
 
-  --button-primary-hover: #383838;
-  --button-secondary-hover: #f2f2f2;
-  --button-secondary-border: #ebebeb;
-
-  display: flex;
-  flex: 1;
-  flex-direction: column;
-  align-items: center;
-  justify-content: center;
-  font-family: var(--font-geist-sans);
-  background-color: var(--background);
+.PlaygroundRoot :global(.rt-Heading):where([id]) {
+    scroll-margin-top: calc(var(--header-height) + var(--space-6));
 }
 
-.main {
-  display: flex;
-  flex: 1;
-  width: 100%;
-  max-width: 800px;
-  flex-direction: column;
-  align-items: flex-start;
-  justify-content: space-between;
-  background-color: var(--foreground);
-  padding: 120px 60px;
+.PlaygroundTable {
+    border-collapse: collapse;
 }
 
-.intro {
-  display: flex;
-  flex-direction: column;
-  align-items: flex-start;
-  text-align: left;
-  gap: 24px;
+.PlaygroundTable:not(.rt-TableRootTable) {
+    margin-bottom: calc(var(--space-4) * -1);
+
+    /* Prevent intrinsic line height from influencing alignment inside the table cells */
+    line-height: 0;
 }
 
-.intro h1 {
-  max-width: 320px;
-  font-size: 40px;
-  font-weight: 600;
-  line-height: 48px;
-  letter-spacing: -2.4px;
-  text-wrap: balance;
-  color: var(--text-primary);
+.PlaygroundTable
+th:not(:global(.rt-TableColumnHeaderCell), :global(.rt-TableRowHeaderCell)) {
+    font-weight: var(--font-weight-regular);
 }
 
-.intro p {
-  max-width: 440px;
-  font-size: 18px;
-  line-height: 32px;
-  text-wrap: balance;
-  color: var(--text-secondary);
+.PlaygroundTable tr:not(:global(.rt-TableRow)) {
+    vertical-align: middle;
 }
 
-.intro a {
-  font-weight: 500;
-  color: var(--text-primary);
+.PlaygroundTable
+th:not(:global(.rt-TableColumnHeaderCell), :global(.rt-TableRowHeaderCell)),
+.PlaygroundTable td:not(:global(.rt-TableCell)) {
+    padding: 0;
+    padding-right: var(--space-4);
+    padding-bottom: var(--space-4);
+    text-align: center;
 }
 
-.ctas {
-  display: flex;
-  flex-direction: row;
-  width: 100%;
-  max-width: 440px;
-  gap: 16px;
-  font-size: 14px;
+.PlaygroundTable tbody tr td:first-child:not(:global(.rt-TableCell)) {
+    padding-left: 0;
+    padding-right: var(--space-4);
+    min-width: 64px;
+    text-align: left;
 }
 
-.ctas a {
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  height: 40px;
-  padding: 0 16px;
-  border-radius: 128px;
-  border: 1px solid transparent;
-  transition: 0.2s;
-  cursor: pointer;
-  width: fit-content;
-  font-weight: 500;
+.PlaygroundTable
+thead
+th:not(:global(.rt-TableColumnHeaderCell), :global(.rt-TableRowHeaderCell)),
+.PlaygroundTable tbody tr td:first-child:not(:global(.rt-TableCell)) {
+    font-size: var(--font-size-1);
+    letter-spacing: var(--letter-spacing-1);
+    line-height: var(--line-height-1);
+    color: var(--gray-a11);
 }
 
-a.primary {
-  background: var(--text-primary);
-  color: var(--background);
-  gap: 8px;
+.PlaygroundTable :global(.rt-TextFieldRoot) {
+    width: 180px;
 }
 
-a.secondary {
-  border-color: var(--button-secondary-border);
+.PlaygroundTable :global(.rt-TextArea) {
+    width: 180px;
 }
 
-/* Enable hover only on non-touch devices */
-@media (hover: hover) and (pointer: fine) {
-  a.primary:hover {
-    background: var(--button-primary-hover);
-    border-color: transparent;
-  }
-
-  a.secondary:hover {
-    background: var(--button-secondary-hover);
-    border-color: transparent;
-  }
+.PlaygroundTable :global(.rt-CalloutRoot) {
+    white-space: nowrap;
 }
 
-@media (max-width: 600px) {
-  .main {
-    padding: 48px 24px;
-  }
-
-  .intro {
-    gap: 16px;
-  }
-
-  .intro h1 {
-    font-size: 32px;
-    line-height: 40px;
-    letter-spacing: -1.92px;
-  }
+.PlaygroundTable :global(.rt-Badge) {
+    vertical-align: top;
 }
 
-@media (prefers-color-scheme: dark) {
-  .logo {
-    filter: invert();
-  }
+.PlaygroundTable :global(.rt-SliderRoot) {
+    width: 160px;
+}
 
-  .page {
-    --background: #000;
-    --foreground: #000;
+/**
+ * Docs link
+ */
+@media (hover: hover) {
+    .PlaygroundDocsLink {
+        opacity: 0;
+        transition: opacity 50ms linear;
+    }
 
-    --text-primary: #ededed;
-    --text-secondary: #999;
+    .PlaygroundSection:hover .PlaygroundDocsLink {
+        opacity: 1;
+    }
+}
 
-    --button-primary-hover: #ccc;
-    --button-secondary-hover: #1a1a1a;
-    --button-secondary-border: #1a1a1a;
-  }
+@media (hover: none) {
+    .PlaygroundDocsLink {
+        display: none;
+    }
 }
