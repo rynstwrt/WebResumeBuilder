@@ -13,8 +13,7 @@
 {@render children()}
 
 <style>
-    @import "tailwindcss";
-    /*@import "@tailwindcss/forms";*/
+    @import "tailwindcss"; /*@import "@tailwindcss/forms";*/
 
     @plugin 'flowbite/plugin';
     @custom-variant dark (&:where(.dark, .dark *));

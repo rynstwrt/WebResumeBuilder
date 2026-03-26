@@ -28,6 +28,9 @@
 	},
 	"dependencies": {
 		"@fontsource/open-sans": "^5.2.7",
+		"html2pdf.js": "^0.14.0",
+		"jspdf": "^4.2.1",
+		"pdfjs-dist": "^5.5.207",
 		"tailwindcss": "^4.2.2"
 	}
 }

@@ -19,7 +19,7 @@
                 <GraduationCapSolid class="inline align-middle"/>
                 Start Date
             </span>
-            <Datepicker id="start-year" dateFormat={'month-year'} />
+<!--            <Datepicker id="start-year" dateFormat={'month-year'} />-->
         </Label>
 
         <Label for="end-year" class="my-3">
