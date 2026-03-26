@@ -1,16 +1,29 @@
+<!--SECTIONS:-->
+<!-- - About-->
+<!-- - Education-->
+<!-- - Experience-->
+<!-- - Projects-->
+<!-- - Certifications-->
+<!-- - Skills-->
+<!-- - Links-->
+
+
 <script lang="ts">
-    import AboutSection from "./AboutSection.svelte";
     import { Drawer, DrawerHandle } from "flowbite-svelte";
     import {
         DrawSquareOutline,
     } from "flowbite-svelte-icons";
+    import { data } from "./data.svelte.ts";
+    import AboutSection from "./AboutSection.svelte";
     import EducationSection from "./EducationSection.svelte";
+    import ExperienceSection from "./ExperienceSection.svelte";
 
     let open = $state(false);
 
     setTimeout(() => {
         open = !open
     }, 10);
+
 </script>
 
 
@@ -25,8 +38,9 @@
     </DrawerHandle>
 
     <form class="mt-16">
-        <AboutSection/>
-        <EducationSection/>
+        <AboutSection bind:name={data.name} bind:phone={data.phone} bind:email={data.email} bind:location={data.location}/>
+        <ExperienceSection />
+<!--        <EducationSection/>-->
     </form>
 </Drawer>
 
