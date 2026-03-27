@@ -6,9 +6,9 @@ export const data = $state({
     workExperience:  [
         {
             company: "Oracle",
-            position: "Senior DevOps Engineering",
-            start: "2019",
-            end: "2025"
+            position: "Senior DevOps Engineer",
+            start: "03/03/2020",
+            end: "03/03/2026"
         }
     ]
 });
