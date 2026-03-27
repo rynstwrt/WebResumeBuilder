@@ -31,7 +31,12 @@
         UsersSolid,
         MapPinSolid,
         BuildingSolid,
-        PlusOutline
+        PlusOutline,
+        GraduationCapSolid,
+        PaperPlaneSolid,
+        PenSolid,
+        StarOutline,
+        LinkOutline
     } from "flowbite-svelte-icons";
 
     let experienceCount = $state(1);
@@ -62,6 +67,14 @@
 </script>
 
 
+<!--{#snippet aboutInputSection(label, placeholder, required, bindTo)}-->
+<!--    <Label for="name">-->
+<!--        {label}-->
+<!--        <Input name={label} placeholder={placeholder} required={required}/>-->
+<!--    </Label>-->
+<!--{/snippet}-->
+
+
 <Drawer bind:open offset="52px" placement="bottom" outsideclose={false} class="rounded-t-lg"
         aria-labelledby="drawer-swipe-label">
     <DrawerHandle onclick={() => (open = !open)} class="h-14 hover:bg-gray-50">
@@ -73,12 +86,8 @@
     </DrawerHandle>
 
 
-    <Accordion class="mt-16">
+    <Accordion class="mt-10">
         <AccordionItem id="about">
-<!--            <span class="flex">-->
-<!--                <UsersSolid class="mr-1 h-auto"/>-->
-<!--                <h3>About</h3>-->
-<!--            </span>-->
             {#snippet header()}
                 <div class="flex items-center gap-2">
                     <UsersSolid/>
@@ -90,6 +99,7 @@
                     Name
                     <Input name="name" placeholder="John Doe" required={true} bind:value={data.name}/>
                 </Label>
+                <!--{@render aboutInputSection("name", "John Doe", true, data.name)}-->
 
                 <Label for="phone">
                     Phone Number
@@ -115,10 +125,8 @@
                     <span>Experience</span>
                 </div>
             {/snippet}
-
             <div class="grid gap-1 grid-auto-rows grid-cols-1 sm:grid-cols-2 md:grid-cols-4 lg:grid-cols-6">
                 {#each data.workExperience as job, idx}
-                    <!--                    <h4 class="text-lg font-light tracking-wide">Experience #{idx + 1}</h4>-->
                     <div class="border-1 border-gray-300 p-2 ">
                         <h5>{job.company}</h5>
                         <h6>{job.position}</h6>
@@ -153,6 +161,56 @@
                 <Button class="w-fit mt-3 justify-center" onclick={addExperienceClick}>Add Experience</Button>
             </div>
         </AccordionItem>
+
+
+        <AccordionItem>
+            {#snippet header()}
+                <div class="flex items-center gap-2">
+                    <GraduationCapSolid/>
+                    <span>Education</span>
+                </div>
+            {/snippet}
+        </AccordionItem>
+
+
+        <AccordionItem>
+            {#snippet header()}
+                <div class="flex items-center gap-2">
+                    <PaperPlaneSolid/>
+                    <span>Projects</span>
+                </div>
+            {/snippet}
+        </AccordionItem>
+
+
+        <AccordionItem>
+            {#snippet header()}
+                <div class="flex items-center gap-2">
+                    <PenSolid/>
+                    <span>Certifications</span>
+                </div>
+            {/snippet}
+        </AccordionItem>
+
+
+        <AccordionItem>
+            {#snippet header()}
+                <div class="flex items-center gap-2">
+                    <StarOutline/>
+                    <span>Skills</span>
+                </div>
+            {/snippet}
+        </AccordionItem>
+
+
+        <AccordionItem>
+            {#snippet header()}
+                <div class="flex items-center gap-2">
+                    <LinkOutline/>
+                    <span>Links</span>
+                </div>
+            {/snippet}
+        </AccordionItem>
     </Accordion>
 </Drawer>
 
@@ -161,7 +219,6 @@
     @import "tailwindcss";
 
     h3 {
-        /*@apply block w-full break-after-auto text-xl font-light mb-1 uppercase tracking-wider underline underline-offset-3 decoration-0;*/
         @apply block text-lg font-light uppercase tracking-wider;
     }
 
