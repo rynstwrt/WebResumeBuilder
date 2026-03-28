@@ -9,17 +9,16 @@
 <svelte:head>
     <link rel="icon" href={favicon}/>
     <title>Resume Web Builder</title>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/html2pdf.js/0.10.1/html2pdf.bundle.min.js" integrity="sha512-GsLlZN/3F2ErC5ifS5QtgpiJtWd43JWSuIgh7mbzZ8zBps+dvLusV+eNQATqgA/HdeKFVgA5v3S/cIrLF7QnIg==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
-    <script>
-        html2pdf(document.querySelector("main")).save();
-    </script>
+<!--    <script src="https://cdnjs.cloudflare.com/ajax/libs/html2pdf.js/0.10.1/html2pdf.bundle.min.js" integrity="sha512-GsLlZN/3F2ErC5ifS5QtgpiJtWd43JWSuIgh7mbzZ8zBps+dvLusV+eNQATqgA/HdeKFVgA5v3S/cIrLF7QnIg==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>-->
+<!--    <script>-->
+<!--        html2pdf(document.querySelector("main")).save();-->
+<!--    </script>-->
 </svelte:head>
 
 {@render children()}
 
 <style>
-    @import "tailwindcss"; /*@import "@tailwindcss/forms";*/
-
+    @import "tailwindcss";
     @plugin 'flowbite/plugin';
     @custom-variant dark (&:where(.dark, .dark *));
 
@@ -50,10 +49,10 @@
     @source "../../node_modules/flowbite-svelte/dist";
     @source "../../node_modules/flowbite-svelte-icons/dist";
 
-    @layer base {
-        /* disable chrome cancel button */
-        input[type="search"]::-webkit-search-cancel-button {
-            display: none;
-        }
-    }
+    /*@layer base {*/
+    /*    !* disable chrome cancel button *!*/
+    /*    input[type="search"]::-webkit-search-cancel-button {*/
+    /*        display: none;*/
+    /*    }*/
+    /*}*/
 </style>

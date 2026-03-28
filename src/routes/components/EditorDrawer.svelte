@@ -1,8 +1,6 @@
 <script lang="ts">
     import { data } from "../data.svelte.ts";
 
-    let open = $state(false);
-
     import {
         Drawer,
         DrawerHandle,
@@ -30,6 +28,9 @@
         CloseOutline
     } from "flowbite-svelte-icons";
 
+    let open = $state(false);
+    setTimeout(() => {open = !open}, 10);
+
     function addExperienceClick(e: any) {
         const parent = e.target.parentElement;
 
@@ -48,15 +49,16 @@
         data.workExperience.push(entry);
     }
 
-    setTimeout(() => {
-        open = !open
-    }, 10);
-
     function addSkillEntry(e: any) {
         const input = e.currentTarget?.parentElement?.querySelector("input[name='skill']");
-        const skill: string = input?.value;
-        // data.skills.add(skill);
-        data.skills.push(skill);
+        const skill: (string | null) = input?.value;
+        if (skill && !data.skills.includes(skill))
+            data.skills.push(skill);
+    }
+
+    function onSkillItemClick(e: any) {
+        const skill = e.currentTarget?.textContent.trim();
+        data.skills.splice(data.skills.indexOf(skill), 1)
     }
 </script>
 
@@ -73,6 +75,7 @@
 
 
     <Accordion class="mt-10">
+        <!-- ABOUT SECTION -->
         <AccordionItem id="about">
             {#snippet header()}
                 <div class="flex items-center gap-2">
@@ -104,6 +107,7 @@
             </div>
         </AccordionItem>
 
+        <!-- EXPERIENCE SECTION -->
         <AccordionItem id="experience" open={false}>
             {#snippet header()}
                 <div class="flex items-center gap-2">
@@ -112,7 +116,7 @@
                 </div>
             {/snippet}
             <div class="grid gap-1 grid-auto-rows grid-cols-1 sm:grid-cols-2 md:grid-cols-4 lg:grid-cols-6">
-                {#each data.workExperience as job, idx}
+                {#each data.workExperience as job}
                     <List tag="dl">
                         <div class="py-2 border-1 border-gray-300 p-2">
                             <DescriptionList tag="dt" class="mb-1">{job.company}</DescriptionList>
@@ -150,6 +154,7 @@
             </div>
         </AccordionItem>
 
+        <!-- EDUCATION SECTION -->
         <AccordionItem>
             {#snippet header()}
                 <div class="flex items-center gap-2">
@@ -161,6 +166,7 @@
             <p>Education content</p>
         </AccordionItem>
 
+        <!-- PROJECTS SECTION -->
         <AccordionItem>
             {#snippet header()}
                 <div class="flex items-center gap-2">
@@ -172,6 +178,7 @@
             <p>Projects content</p>
         </AccordionItem>
 
+        <!-- CERTIFICATIONS SECTION -->
         <AccordionItem>
             {#snippet header()}
                 <div class="flex items-center gap-2">
@@ -183,6 +190,7 @@
             <p>Cert content</p>
         </AccordionItem>
 
+        <!-- SKILLS SECTION -->
         <AccordionItem open={true}>
             {#snippet header()}
                 <div class="flex items-center gap-2">
@@ -191,9 +199,12 @@
                 </div>
             {/snippet}
 
-            <div id="skill-list" class="grid gap-1 grid-flow-col bg-red-500 grid-cols-[repeat(auto-fit, minmax(100px, 1fr))]">
+<!--            <div id="skill-list" class="grid gap-1 grid-flow-row bg-red-500 grid-cols-[repeat(auto-fit, minmax(100px, 1fr))] auto-rows-auto">-->
+            <div class="flex flex-wrap gap-1">
                 {#each data.skills as skill}
-                    <p class="bg-gray-300 px-1 rounded-xs text-sm block">{skill}</p>
+                    <Button onclick={onSkillItemClick}
+                            color="alternative"
+                            class="px-2 py-1">{skill}</Button>
                     <Tooltip>Click to remove</Tooltip>
                 {/each}
             </div>
@@ -205,29 +216,5 @@
                 </Button>
             </div>
         </AccordionItem>
-
-        <AccordionItem>
-            {#snippet header()}
-                <div class="flex items-center gap-2">
-                    <LinkOutline/>
-                    <span>Links</span>
-                </div>
-            {/snippet}
-
-            <p>Links Content</p>
-        </AccordionItem>
     </Accordion>
 </Drawer>
-
-
-<style>
-    @import "tailwindcss";
-
-    h3 {
-        @apply block text-lg font-light uppercase tracking-wider;
-    }
-
-    section {
-        margin: 30px 0;
-    }
-</style>
