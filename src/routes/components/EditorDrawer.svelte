@@ -1,6 +1,8 @@
 <script lang="ts">
     import { data } from "../data.svelte.ts";
 
+    import EducationForm from "./EducationForm.svelte";
+
     import {
         Drawer,
         DrawerHandle,
@@ -12,7 +14,9 @@
         AccordionItem,
         DescriptionList,
         List,
-        Tooltip
+        Tooltip,
+        Modal,
+        Checkbox
     } from "flowbite-svelte";
 
     import {
@@ -29,7 +33,16 @@
     } from "flowbite-svelte-icons";
 
     let open = $state(false);
-    setTimeout(() => {open = !open}, 10);
+    setTimeout(() => {
+        open = !open
+    }, 10);
+    let educationModalOpen = $state(false);
+    let error = $state("");
+    let ongoing = $state(false);
+
+    function onaction() {
+
+    }
 
     function addExperienceClick(e: any) {
         const parent = e.target.parentElement;
@@ -60,14 +73,20 @@
         const skill = e.currentTarget?.textContent.trim();
         data.skills.splice(data.skills.indexOf(skill), 1)
     }
+
+    function addEducation(e: any) {
+        data.education.push({
+
+        });
+    }
 </script>
 
 
-<Drawer bind:open offset="52px" placement="bottom" outsideclose={false} class="rounded-t-lg"
+<Drawer bind:open offset="52px" placement="bottom" outsideclose={false} class="rounded-t-lg dark:text-gray-300!"
         aria-labelledby="drawer-swipe-label">
-    <DrawerHandle onclick={() => (open = !open)} class="h-14 hover:bg-gray-50">
+    <DrawerHandle onclick={() => (open = !open)} class="h-14 hover:bg-gray-50 dark:hover:bg-gray-900">
         <h5 id="drawer-swipe-label"
-            class="inline-flex items-center gap-2 text-base font-medium text-gray-500">
+            class="inline-flex items-center gap-2 text-base font-medium text-gray-500 dark:text-gray-300">
             <DrawSquareOutline/>
             Editor
         </h5>
@@ -155,7 +174,7 @@
         </AccordionItem>
 
         <!-- EDUCATION SECTION -->
-        <AccordionItem>
+        <AccordionItem open={true}>
             {#snippet header()}
                 <div class="flex items-center gap-2">
                     <GraduationCapSolid/>
@@ -163,7 +182,56 @@
                 </div>
             {/snippet}
 
-            <p>Education content</p>
+            <!--{#each data.education as educationEntry}-->
+            <!--    <EducationForm />-->
+            <!--{/each}-->
+<!--            <EducationForm/>-->
+
+            <Modal form bind:open={educationModalOpen} size="xs" {onaction}>
+                <div class="flex flex-col space-y-3">
+                    <h3 class="mb-4 text-xl font-medium text-gray-900 dark:text-white">Add Education</h3>
+                    {#if error}
+                        <Label color="red">{error}</Label>
+                    {/if}
+                    <Label>
+                        <span>Institution</span>
+                        <Input name="institution" placeholder="University of Fictionville" required/>
+                    </Label>
+
+                    <Label>
+                        <span>Degree</span>
+                        <Input name="degree" placeholder="B.A. Graphic Design" required/>
+                    </Label>
+
+                    <div class="grid grid-cols-2 gap-1">
+                        <Label>
+                            <span>Start Date</span>
+                            <!--                <Select>-->
+                            <!--                    <option>January</option>-->
+                            <!--                    <option>Febuary</option>-->
+                            <!--                    <option>January</option>-->
+                            <!--                    <option>January</option>-->
+                            <!--                    <option>January</option>-->
+                            <!--                </Select>-->
+                            <Datepicker required/>
+                        </Label>
+
+                        <div class="gap-2 grid">
+                            <Label>
+                                <span>End Date</span>
+                                <Datepicker disabled={ongoing}/>
+                            </Label>
+
+                            <Checkbox name="ongoing" class="row-3 col-2" bind:checked={ongoing}>Ongoing</Checkbox>
+                        </div>
+                    </div>
+
+                    <Button type="submit" value="add-education" class="mt-3">Add Education</Button>
+                </div>
+            </Modal>
+
+<!--            <Button onclick={addEducation}>Add Education</Button>-->
+            <Button onclick={() => (educationModalOpen=true)}>Add Education</Button>
         </AccordionItem>
 
         <!-- PROJECTS SECTION -->
@@ -191,7 +259,7 @@
         </AccordionItem>
 
         <!-- SKILLS SECTION -->
-        <AccordionItem open={true}>
+        <AccordionItem open={false}>
             {#snippet header()}
                 <div class="flex items-center gap-2">
                     <StarOutline/>
@@ -199,7 +267,7 @@
                 </div>
             {/snippet}
 
-<!--            <div id="skill-list" class="grid gap-1 grid-flow-row bg-red-500 grid-cols-[repeat(auto-fit, minmax(100px, 1fr))] auto-rows-auto">-->
+            <!--            <div id="skill-list" class="grid gap-1 grid-flow-row bg-red-500 grid-cols-[repeat(auto-fit, minmax(100px, 1fr))] auto-rows-auto">-->
             <div class="flex flex-wrap gap-1">
                 {#each data.skills as skill}
                     <Button onclick={onSkillItemClick}

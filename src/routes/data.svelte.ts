@@ -9,15 +9,19 @@ export const data: {
         start: string | never,
         end: string | never
     }[],
-    skills: string[]
+    skills: string[],
+    educationModalOpen: boolean,
+    education: object[]
 } = $state({
     name: "John Doe",
     phone: "000-000-000",
     email: "john.doe@example.com",
     location: "Seattle, WA",
     workExperience: [],
-    skills: []
-    
+    skills: [],
+    educationModalOpen: true,
+    education: []
+
     // workExperience: [
     //     {
     //         company: "Oracle",
@@ -31,3 +35,7 @@ export const data: {
     //     "ffffffafffffff", "asdfasdfaaa", "asdffffffffffaaa",
     //     "fffffffffffffaaaaa", "asdfasdf"]
 });
+
+
+
+export let formModal = $state(false);
