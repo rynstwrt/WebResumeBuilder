@@ -75,9 +75,7 @@
     }
 
     function addEducation(e: any) {
-        data.education.push({
-
-        });
+        data.education.push({});
     }
 </script>
 
@@ -185,7 +183,7 @@
             <!--{#each data.education as educationEntry}-->
             <!--    <EducationForm />-->
             <!--{/each}-->
-<!--            <EducationForm/>-->
+            <!--            <EducationForm/>-->
 
             <Modal form bind:open={educationModalOpen} size="xs" {onaction}>
                 <div class="flex flex-col space-y-3">
@@ -230,7 +228,13 @@
                 </div>
             </Modal>
 
-<!--            <Button onclick={addEducation}>Add Education</Button>-->
+            <EducationForm
+                    institution="The University of Texas at Dallas"
+                    degree="B.A. Arts, Technology, and Emerging Communication"
+                    start="2019"
+                    end="2025"
+            />
+            <!--            <Button onclick={addEducation}>Add Education</Button>-->
             <Button onclick={() => (educationModalOpen=true)}>Add Education</Button>
         </AccordionItem>
 
