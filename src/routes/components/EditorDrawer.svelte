@@ -1,9 +1,10 @@
 <script lang="ts">
     import { data } from "../data.svelte.ts";
 
-    import EducationForm from "./EducationForm.svelte";
+    import EducationCard from "./EducationCard.svelte";
 
     import {
+        Card,
         Drawer,
         DrawerHandle,
         Label,
@@ -16,7 +17,9 @@
         List,
         Tooltip,
         Modal,
-        Checkbox
+        Checkbox,
+        P,
+        Span
     } from "flowbite-svelte";
 
     import {
@@ -55,8 +58,8 @@
         const entry = {
             company: company,
             position: position,
-            start: start,
-            end: end
+            startDate: start,
+            endDate: end
         }
 
         data.workExperience.push(entry);
@@ -125,7 +128,7 @@
         </AccordionItem>
 
         <!-- EXPERIENCE SECTION -->
-        <AccordionItem id="experience" open={false}>
+        <AccordionItem id="experience" open={true}>
             {#snippet header()}
                 <div class="flex items-center gap-2">
                     <BuildingSolid/>
@@ -134,13 +137,17 @@
             {/snippet}
             <div class="grid gap-1 grid-auto-rows grid-cols-1 sm:grid-cols-2 md:grid-cols-4 lg:grid-cols-6">
                 {#each data.workExperience as job}
-                    <List tag="dl">
-                        <div class="py-2 border-1 border-gray-300 p-2">
-                            <DescriptionList tag="dt" class="mb-1">{job.company}</DescriptionList>
-                            <DescriptionList tag="dd" class="text-sm font-light">{job.position}<br>{job.start}
-                                - {job.end || "Present"}</DescriptionList>
-                        </div>
-                    </List>
+                    <Card class="p-2">
+                        <h3>{job.position}</h3>
+                        <h4 class="text-sm">{job.company}</h4>
+                        <P class="text-sm font-thin">{job.startDate} - {job.endDate}</P>
+                    </Card>
+<!--                    <List tag="dl">-->
+<!--                        <div class="py-2 border-1 border-gray-300 p-2">-->
+<!--                            <DescriptionList tag="dt" class="mb-1">{job.company}</DescriptionList>-->
+<!--                            <DescriptionList tag="dd" class="text-sm font-light">{job.position}<br>{job.startDate}{job.endDate || "Present"}</DescriptionList>-->
+<!--                        </div>-->
+<!--                    </List>-->
                 {/each}
             </div>
 
@@ -172,7 +179,7 @@
         </AccordionItem>
 
         <!-- EDUCATION SECTION -->
-        <AccordionItem open={true}>
+        <AccordionItem open={false}>
             {#snippet header()}
                 <div class="flex items-center gap-2">
                     <GraduationCapSolid/>
@@ -181,61 +188,96 @@
             {/snippet}
 
             <!--{#each data.education as educationEntry}-->
-            <!--    <EducationForm />-->
+            <!--    <EducationCard />-->
             <!--{/each}-->
-            <!--            <EducationForm/>-->
+            <!--            <EducationCard/>-->
 
-            <Modal form bind:open={educationModalOpen} size="xs" {onaction}>
-                <div class="flex flex-col space-y-3">
-                    <h3 class="mb-4 text-xl font-medium text-gray-900 dark:text-white">Add Education</h3>
-                    {#if error}
-                        <Label color="red">{error}</Label>
-                    {/if}
+
+<!--            <Modal form bind:open={educationModalOpen} size="xs" {onaction}>-->
+<!--                <div class="flex flex-col space-y-3">-->
+<!--                    <h3 class="mb-4 text-xl font-medium text-gray-900 dark:text-white">Add Education</h3>-->
+<!--                    {#if error}-->
+<!--                        <Label color="red">{error}</Label>-->
+<!--                    {/if}-->
+<!--                    <Label>-->
+<!--                        <span>Institution</span>-->
+<!--                        <Input name="institution" placeholder="University of Fictionville" required/>-->
+<!--                    </Label>-->
+
+<!--                    <Label>-->
+<!--                        <span>Degree</span>-->
+<!--                        <Input name="degree" placeholder="B.A. Graphic Design" required/>-->
+<!--                    </Label>-->
+
+<!--                    <div class="grid grid-cols-2 gap-1">-->
+<!--                        <Label>-->
+<!--                            <span>Start Date</span>-->
+<!--                            &lt;!&ndash;                <Select>&ndash;&gt;-->
+<!--                            &lt;!&ndash;                    <option>January</option>&ndash;&gt;-->
+<!--                            &lt;!&ndash;                    <option>Febuary</option>&ndash;&gt;-->
+<!--                            &lt;!&ndash;                    <option>January</option>&ndash;&gt;-->
+<!--                            &lt;!&ndash;                    <option>January</option>&ndash;&gt;-->
+<!--                            &lt;!&ndash;                    <option>January</option>&ndash;&gt;-->
+<!--                            &lt;!&ndash;                </Select>&ndash;&gt;-->
+<!--                            <Datepicker required/>-->
+<!--                        </Label>-->
+
+<!--                        <div class="gap-2 grid">-->
+<!--                            <Label>-->
+<!--                                <span>End Date</span>-->
+<!--                                <Datepicker disabled={ongoing}/>-->
+<!--                            </Label>-->
+
+<!--                            <Checkbox name="ongoing" class="row-3 col-2" bind:checked={ongoing}>Ongoing</Checkbox>-->
+<!--                        </div>-->
+<!--                    </div>-->
+
+<!--                    <Button type="submit" value="add-education" class="mt-3">Add Education</Button>-->
+<!--                </div>-->
+<!--            </Modal>-->
+
+            <div class="flex gap-2">
+                <EducationCard
+                        institution="The University of Texas at Dallas"
+                        degree="B.A. Arts, Technology, and Emerging Communication"
+                        start="2019"
+                />
+            </div>
+
+
+            <div class="flex flex-col space-y-3">
+                <h3 class="mb-4 text-xl font-medium text-gray-900 dark:text-white">Add Education</h3>
+                <Label>
+                    <span>Institution</span>
+                    <Input name="institution" placeholder="University of Fictionville" required/>
+                </Label>
+
+                <Label>
+                    <span>Degree</span>
+                    <Input name="degree" placeholder="B.A. Graphic Design" required/>
+                </Label>
+
+                <div class="grid grid-cols-2 gap-1">
                     <Label>
-                        <span>Institution</span>
-                        <Input name="institution" placeholder="University of Fictionville" required/>
+                        <span>Start Date</span>
+                        <Datepicker required/>
                     </Label>
 
-                    <Label>
-                        <span>Degree</span>
-                        <Input name="degree" placeholder="B.A. Graphic Design" required/>
-                    </Label>
-
-                    <div class="grid grid-cols-2 gap-1">
+                    <div class="gap-2 grid">
                         <Label>
-                            <span>Start Date</span>
-                            <!--                <Select>-->
-                            <!--                    <option>January</option>-->
-                            <!--                    <option>Febuary</option>-->
-                            <!--                    <option>January</option>-->
-                            <!--                    <option>January</option>-->
-                            <!--                    <option>January</option>-->
-                            <!--                </Select>-->
-                            <Datepicker required/>
+                            <span>End Date</span>
+                            <Datepicker disabled={ongoing}/>
                         </Label>
 
-                        <div class="gap-2 grid">
-                            <Label>
-                                <span>End Date</span>
-                                <Datepicker disabled={ongoing}/>
-                            </Label>
-
-                            <Checkbox name="ongoing" class="row-3 col-2" bind:checked={ongoing}>Ongoing</Checkbox>
-                        </div>
+                        <Checkbox name="ongoing" class="row-3 col-2" bind:checked={ongoing}>Ongoing</Checkbox>
                     </div>
-
-                    <Button type="submit" value="add-education" class="mt-3">Add Education</Button>
                 </div>
-            </Modal>
 
-            <EducationForm
-                    institution="The University of Texas at Dallas"
-                    degree="B.A. Arts, Technology, and Emerging Communication"
-                    start="2019"
-                    end="2025"
-            />
+                <Button type="submit" value="add-education" class="mt-3">Add Education</Button>
+            </div>
+
             <!--            <Button onclick={addEducation}>Add Education</Button>-->
-            <Button onclick={() => (educationModalOpen=true)}>Add Education</Button>
+<!--            <Button onclick={() => (educationModalOpen=true)}>Add Education</Button>-->
         </AccordionItem>
 
         <!-- PROJECTS SECTION -->
