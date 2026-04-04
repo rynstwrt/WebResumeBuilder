@@ -38,9 +38,9 @@
     }, 10);
 
     // let {name = $bindable()} = $props();
-    import { resumeInfoState as info } from "../data.svelte";
+    // import { resumeInfoState as info } from "../data.svelte";
 
-    // let {info = $bindable()} = $props();
+    let {info = $bindable()} = $props();
 
     // const input = this.querySelectorAll("input");
     // console.log(input);
