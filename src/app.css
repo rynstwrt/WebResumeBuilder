@@ -29,3 +29,7 @@
 
 @source "../node_modules/flowbite-svelte/dist";
 @source "../node_modules/flowbite-svelte-icons/dist";
+
+#app {
+    @apply bg-gray-900/90 p-3;
+}
