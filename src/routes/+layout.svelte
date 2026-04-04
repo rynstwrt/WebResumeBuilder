@@ -4,6 +4,9 @@
     let {children} = $props();
     import "@fontsource/open-sans";
 
+    export const ssr = false;
+
+
 </script>
 
 <svelte:head>
