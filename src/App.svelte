@@ -15,14 +15,7 @@
         education: []
     });
 
-    // import favicon from './assets/favicon.svg';
-
-
 </script>
-
-<section id="center">
-    <Counter/>
-</section>
 
 
 <EditorDrawer bind:info={info}/>
