@@ -15,7 +15,9 @@
         Modal,
         Checkbox,
         P,
-        Span
+        Span,
+        Alert,
+        Textarea
     } from "flowbite-svelte";
 
     import {
@@ -29,33 +31,47 @@
         StarOutline,
         LinkOutline,
         CloseOutline,
-        DownloadOutline
+        DownloadOutline,
+        MapPinOutline
     } from "flowbite-svelte-icons";
 
+    let {openOnLoad = false, info, addToast} = $props();
     let open = $state(false);
-    setTimeout(() => {
-        // open = !open
-    }, 10);
 
-    // let {name = $bindable()} = $props();
-    // import { resumeInfoState as info } from "../data.svelte";
 
-    // let {info = $bindable()} = $props();
-    let {info} = $props();
+    import { on } from "svelte/events";
 
-    // const input = this.querySelectorAll("input");
-    // console.log(input);
+    on(document, "keydown", e => {
+        // if ([" ", "Enter"].includes(e.key)) {
+        // if (e.key === " ") {
+        //     e.preventDefault();
+            // open = !open;
+            // addToast("green", "Successfully added new experience!")
+        // }
+    });
+
+    on(window, "load", () => {
+        if (openOnLoad)
+            open = true;
+    });
+
+
+    function addExperience() {
+        open = false;
+        addToast("green", "Successfully added work experience!");
+    }
 </script>
 
 
-<Drawer bind:open offset="52px" placement="bottom" outsideclose={false} class="rounded-t-lg dark:text-gray-300!"
+<Drawer bind:open offset="52px" placement="bottom" outsideclose={false}
+        class="rounded-t-lg dark:text-gray-300"
         aria-labelledby="drawer-swipe-label">
     <DrawerHandle
             onclick={() => (open = !open)}
-            class="h-14 hover:bg-gray-50 dark:hover:bg-gray-900">
+            class="h-14 hover:bg-gray-50 dark:bg-gray-800 dark:hover:bg-gray-900">
 
         <h5 id="drawer-swipe-label"
-            class="inline-flex items-center gap-2 text-base font-medium text-gray-500 dark:text-gray-300">
+            class="inline-flex items-center gap-2 text-base font-medium text-gray-500 dark:text-gray-300!">
             <DrawSquareOutline/>
             Editor
         </h5>
@@ -63,14 +79,14 @@
 
     </DrawerHandle>
 
-    <Button color="cyan" size="sm" class="w-fit mt-13">
-        <DownloadOutline/>
-        Download
-    </Button>
+<!--    <Button color="cyan" size="sm" class="w-fit mt-13">-->
+<!--        <DownloadOutline/>-->
+<!--        Download-->
+<!--    </Button>-->
 
-    <Accordion class="mt-5">
+    <Accordion class="mt-13">
         <!-- ABOUT SECTION -->
-        <AccordionItem id="about" open={true}>
+        <AccordionItem id="about">
             {#snippet header()}
                 <div class="flex items-center gap-2">
                     <UsersSolid/>
@@ -85,7 +101,8 @@
 
                 <Label for="phone">
                     Phone Number
-                    <Input name="phone" type="tel" pattern="[0-9]{3}-[0-9]{3}-[0-9]{4}" placeholder="000-000-000" bind:value={info.phone}/>
+                    <Input name="phone" type="tel" pattern="[0-9]{3}-[0-9]{3}-[0-9]{4}" placeholder="000-000-000"
+                           bind:value={info.phone}/>
                 </Label>
 
                 <Label for="email">
@@ -101,7 +118,7 @@
         </AccordionItem>
 
         <!-- EXPERIENCE SECTION -->
-        <AccordionItem id="experience">
+        <AccordionItem id="experience" open={true}>
             {#snippet header()}
                 <div class="flex items-center gap-2">
                     <BuildingSolid/>
@@ -109,9 +126,9 @@
                 </div>
             {/snippet}
             <div>
-                <div class="mt-4 grid gap-x-2 gap-y-1 align-items-end grid-auto-rows grid-cols-2 md:grid-cols-4 lg:grid-cols-6">
+                <div class="mt-4 grid gap-x-3 gap-y-2 align-items-end grid-auto-rows grid-cols-2 md:grid-cols-4 lg:grid-cols-6">
                     <Label for="company" class="md:col-span-2">
-                        Company Name
+                        Company
                         <Input name="company" placeholder="Company Name"/>
                     </Label>
 
@@ -122,16 +139,25 @@
 
                     <Label for="job-start" class="md:col-span-2 lg:col-span-1">
                         Start Date
-                        <Datepicker id="job-start"/>
+                        <Input name="job-start" placeholder="Jan. 2026"/>
+<!--                        <Datepicker id="job-start"/>-->
                     </Label>
 
                     <Label for="job-end" class="md:col-span-2 lg:col-span-1">
                         End Date
-                        <Datepicker id="job-end"/>
+                        <Input name="job-end" placeholder="Present"/>
+<!--                        <Datepicker id="job-end"/>-->
+                    </Label>
+
+                    <Label for="job-desc" class="col-span-full">
+                        Description
+                        <Textarea name="job-desc" placeholder="Bulletpoints here."
+                        class="w-full min-h-40"/>
+<!--                        <Input name="position" placeholder="Job Position"/>-->
                     </Label>
                 </div>
 
-                <Button class="w-fit mt-3 justify-center" onclick={() => {}}>Add Experience</Button>
+                <Button class="w-fit mt-3 justify-center" onclick={addExperience}>Add Experience</Button>
             </div>
         </AccordionItem>
 
