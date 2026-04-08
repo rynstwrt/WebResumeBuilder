@@ -1,219 +1,25 @@
 <script lang="ts">
-    // import './app.css';
     import "@fontsource/open-sans";
 
     // Supports weights 100-900
     import '@fontsource-variable/inter/standard.css';
 
-    import ResumeData from "./lib/ResumeInfo.svelte.ts";
-
-    import {
-        Button,
-        Tabs,
-        TabItem,
-        Toast,
-        ToastContainer,
-        Modal,
-        Label,
-        Input,
-        Checkbox
-    } from "flowbite-svelte";
-
     import {
         EnvelopeOutline,
         GlobeOutline,
-        CheckCircleSolid,
-        InfoCircleOutline,
         MapPinAltOutline,
         PhoneOutline,
-        PhoneSolid,
-        MapPinAltSolid,
-        UserSolid,
-        EnvelopeSolid
     } from "flowbite-svelte-icons";
 
-    import { onDestroy } from "svelte";
-
+    import ResumeData from "./lib/ResumeInfo.svelte.ts";
     const info = new ResumeData(true);
 
-    type ToastColor = "green" | "red" | "gray";
-
-    interface ToastItem {
-        id: number;
-        message: string;
-        color: ToastColor;
-        timeoutId?: ReturnType<typeof setTimeout>;
-        visible: boolean
-    }
-
-    let toasts = $state<ToastItem[]>([]);
-    let nextId = $state(1);
-
-    function addToast(color: ToastColor = "gray", message: string = "") {
-        const newToast: ToastItem = {id: nextId, message, color, visible: true};
-
-        newToast.timeoutId = setTimeout(
-            () => {
-                dismissToast(newToast.id);
-            },
-            2500
-        );
-
-        toasts = [...toasts, newToast];
-        ++nextId;
-    }
-
-    function dismissToast(id: number) {
-        const toast = toasts.find((toast) => toast.id === id);
-
-        if (toast?.timeoutId) clearTimeout(toast.timeoutId);
-
-        toasts = toasts.map((toast) => toast.id === id ? {...toast, visible: false} : toast);
-
-        setTimeout(
-            () => {
-                toasts = toasts.filter((toast) => toast.id !== id);
-            },
-            300
-        );
-    }
-
-    function handleClose(id: number) {
-        return () => dismissToast(id);
-    }
-
-    onDestroy(() => {
-        toasts.forEach((toast) => {
-            if (toast.timeoutId) clearTimeout(toast.timeoutId);
-        });
-    });
-
-    let editorOpen = $state(true);
-
-    import {
-        CubesStackedOutline,
-        PaperPlaneSolid,
-        PenSolid,
-        PaperClipOutline,
-        FileSolid,
-        AdjustmentsVerticalSolid,
-        GraduationCapSolid,
-        BuildingSolid,
-        UserCircleSolid,
-        CirclePlusOutline,
-
-        CirclePlusSolid
-
-    } from "flowbite-svelte-icons";
-    import { onMount } from "svelte";
+    import Editor from "./lib/components/Editor.svelte";
 </script>
 
 
-<Modal bind:open={editorOpen}
-       outsideclose={false}
-       form
-       size="sm">
-    <div id="editor-modal">
-
-        <div class="editor-section mt-5">
-            <h3>Profile</h3>
-            <div class="grid grid-cols-2 gap-3">
-                <div>
-                    <Label for="name" class="mb-0.5 text-sm">Name</Label>
-                    <Input name="name"
-                           size="md"
-                           placeholder="John Doe"
-                           required
-                           bind:value={info.name}/>
-                </div>
-                <div>
-                    <Label for="phone" class="mb-0.5 text-sm">Phone Number</Label>
-                    <Input name="phone"
-                           type="tel"
-                           placeholder="123-456-7890"
-                           required
-                           bind:value={info.phone}/>
-                </div>
-                <div>
-                    <Label for="email" class="mb-0.5 text-sm">Email</Label>
-                    <Input name="email"
-                           placeholder="john.doe@gmail.com"
-                           required
-                           bind:value={info.email}/>
-                </div>
-                <div>
-                    <Label for="location" class="mb-0.5 text-sm">Location</Label>
-                    <Input name="location"
-                           placeholder="Seattle, WA"
-                           required
-                           bind:value={info.location}/>
-                </div>
-            </div>
-        </div>
-
-
-        <div class="editor-section">
-            <h3>Work</h3>
-            <Button size="sm" class="w-fit font-normal">
-                <CirclePlusOutline size="sm" class="mr-1"/>
-                Experience
-            </Button>
-        </div>
-
-
-        <div class="editor-section">
-            <h3>Skills</h3>
-
-            <div class="flex flex-wrap items-center text-nowrap gap-2">
-                {#each info.skills as skill}
-                    <Button size="xs" class="w-min">{skill}</Button>
-                {/each}
-            </div>
-
-            <Button size="sm" class="w-fit font-normal">
-                <CirclePlusOutline size="sm" class="mr-1"/>
-                Skill
-            </Button>
-        </div>
-
-        <div class="editor-section">
-            <h3>School</h3>
-            <Button size="sm" class="w-fit font-normal">
-                <CirclePlusOutline size="sm" class="mr-1"/>
-                School
-            </Button>
-        </div>
-
-
-        <div class="editor-section">
-            <h3>Projects</h3>
-            <Button size="sm" class="w-fit font-normal">
-                <CirclePlusOutline size="sm" class="mr-1"/>
-                Project
-            </Button>
-        </div>
-
-
-        <div class="editor-section">
-            <h3>Certifications</h3>
-            <Button size="sm" class="w-fit font-normal">
-                <CirclePlusOutline size="sm" class="mr-1"/>
-                Certification
-            </Button>
-        </div>
-
-
-    </div>
-</Modal>
-
-
-<Button pill onclick={() => (editorOpen = true)} class="w-10 h-10">
-    <AdjustmentsVerticalSolid/>
-</Button>
-
-
 <!--<EditorDrawer addToast={addToast} openOnLoad={false} info={info}/>-->
-<!--<EditorModal openOnLoad={true} info={info} />-->
+<Editor openOnLoad={true} info={info}/>
 
 <main
         class="w-204 h-264 border border-gray-400 bg-white mx-auto p-12 mt-4 mb-12"
@@ -366,7 +172,7 @@
 
     <section id="skills">
         <h2 class="header">Skills</h2>
-        <p class="text-xs font-light">{info.skills.join(", ")}</p>
+        <p class="text-xs font-light">{info.skills}</p>
     </section>
 </main>
 
@@ -402,26 +208,4 @@
     .dates {
         @apply text-xs font-light italic text-gray-600 tracking-tight;
     }
-
-    #editor-modal {
-        /*overflow-y: visible !important;*/
-        /*overscroll-behavior: contain !important;*/
-        overflow: unset;
-
-        .editor-section {
-            @apply mb-5;
-            /*overflow-y: scroll !important;*/
-
-
-            h3 {
-                @apply text-xl mb-1.5 font-light text-gray-300;
-            }
-        }
-    }
-
-    /*:global(.editor-section) {*/
-    /*	:global(h3) {*/
-    /*@apply text-xl mb-1.5 font-light;*/
-    /*}*/
-    /*}*/
 </style>

@@ -35,7 +35,8 @@ class ResumeData {
         end?: string
     }[] = $state([]);
 
-    skills: string[] = $state([]);
+    // skills: string[] = $state([]);
+    skills: string = $state("");
 
 
     constructor(useTestData: boolean = false) {
@@ -97,7 +98,8 @@ class ResumeData {
             end: "Aug. 2030"
         });
 
-        this.skills.push("Node.js", "Python", "NumPY", "SciPy", "TensorFlow", "Computer Vision", "Java", "C++", "AWS", "Vercel", "SQL", "Vue", "NextJS", "React", "Pug", "HTML5", "JavaScript", "CSS3", "SASS/SCSS", "Unix/Linux", "Frontend Development", "Full-stack Development", "Vite", "Webpack", "Progressive Web App (PWA) Development", "Audio Engineering", "Music Production", "Audio Mixing and Mastering", "Ableton", "Avid ProTools", "3D Modeling", "Autodesk Maya", "Autodesk Fusion", "Blender", "OpenSCAD", "Web Design", "Web Development", "UI/UXDesign", "Graphic Design", "Adobe Photoshop", "Adobe Illustrator", "Figma", "Trello", "Jira", "JetBrains IDEs", "Server Building and Maintenance", "Docker", "Proxmox", "Kubernetes", "Electrical Engineering", "Microcontrollers", "ESP8266", "ESP32", "Arduino", "Single Board Computers", "Browser Extension Development", "Responsive Design", "Web Scraping", "Puppeteer", "Video Game Production", "Unity", "Cybersecurity", "Pentesting", "Security Auditing", "Print Media");
+        // this.skills.push("Node.js", "Python", "NumPY", "SciPy", "TensorFlow", "Computer Vision", "Java", "C++", "AWS", "Vercel", "SQL", "Vue", "NextJS", "React", "Pug", "HTML5", "JavaScript", "CSS3", "SASS/SCSS", "Unix/Linux", "Frontend Development", "Full-stack Development", "Vite", "Webpack", "Progressive Web App (PWA) Development", "Audio Engineering", "Music Production", "Audio Mixing and Mastering", "Ableton", "Avid ProTools", "3D Modeling", "Autodesk Maya", "Autodesk Fusion", "Blender", "OpenSCAD", "Web Design", "Web Development", "UI/UXDesign", "Graphic Design", "Adobe Photoshop", "Adobe Illustrator", "Figma", "Trello", "Jira", "JetBrains IDEs", "Server Building and Maintenance", "Docker", "Proxmox", "Kubernetes", "Electrical Engineering", "Microcontrollers", "ESP8266", "ESP32", "Arduino", "Single Board Computers", "Browser Extension Development", "Responsive Design", "Web Scraping", "Puppeteer", "Video Game Production", "Unity", "Cybersecurity", "Pentesting", "Security Auditing", "Print Media");
+        this.skills = ["Node.js", "Python", "NumPY", "SciPy", "TensorFlow", "Computer Vision", "Java", "C++", "AWS", "Vercel", "SQL", "Vue", "NextJS", "React", "Pug", "HTML5", "JavaScript", "CSS3", "SASS/SCSS", "Unix/Linux", "Frontend Development", "Full-stack Development", "Vite", "Webpack", "Progressive Web App (PWA) Development", "Audio Engineering", "Music Production", "Audio Mixing and Mastering", "Ableton", "Avid ProTools", "3D Modeling", "Autodesk Maya", "Autodesk Fusion", "Blender", "OpenSCAD", "Web Design", "Web Development", "UI/UXDesign", "Graphic Design", "Adobe Photoshop", "Adobe Illustrator", "Figma", "Trello", "Jira", "JetBrains IDEs", "Server Building and Maintenance", "Docker", "Proxmox", "Kubernetes", "Electrical Engineering", "Microcontrollers", "ESP8266", "ESP32", "Arduino", "Single Board Computers", "Browser Extension Development", "Responsive Design", "Web Scraping", "Puppeteer", "Video Game Production", "Unity", "Cybersecurity", "Pentesting", "Security Auditing", "Print Media"].join(", ")
     }
 }
 
