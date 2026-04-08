@@ -31,43 +31,43 @@
        outsideclose={false}
        form
        {onaction}
-       size="sm"
-       id="editor-modal">
+       size="sm">
+    <div id="editor-modal">
 
-    <ProfileSection info={info}/>
+        <ProfileSection info={info}/>
 
-    <WorkSection info={info}/>
+        <WorkSection info={info}/>
 
-    <SkillsSection info={info}/>
+        <SkillsSection info={info}/>
 
-    <div class="editor-section flex flex-col space-y-6 text-gray-300 pt-5">
-        <h3>School</h3>
-        <Button size="sm" class="w-fit font-normal">
-            <CirclePlusOutline size="sm" class="mr-1"/>
-            School
-        </Button>
+        <div class="editor-section flex flex-col space-y-6 text-gray-300 pt-5">
+            <h3>School</h3>
+            <Button size="sm" class="w-fit font-normal">
+                <CirclePlusOutline size="sm" class="mr-1"/>
+                School
+            </Button>
+        </div>
+
+
+        <!--    <div class="editor-section flex flex-col space-y-6 text-gray-300 pt-5">-->
+        <!--        <h3>Projects</h3>-->
+        <!--        <Button size="sm" class="w-fit font-normal">-->
+        <!--            <CirclePlusOutline size="sm" class="mr-1"/>-->
+        <!--            Project-->
+        <!--        </Button>-->
+        <!--    </div>-->
+
+
+        <!--    <div class="editor-section flex flex-col space-y-6 text-gray-300 pt-5">-->
+        <!--        <h3>Certifications</h3>-->
+        <!--        <Button size="sm" class="w-fit font-normal">-->
+        <!--            <CirclePlusOutline size="sm" class="mr-1"/>-->
+        <!--            Certification-->
+        <!--        </Button>-->
+        <!--    </div>-->
+
+
     </div>
-
-
-<!--    <div class="editor-section flex flex-col space-y-6 text-gray-300 pt-5">-->
-<!--        <h3>Projects</h3>-->
-<!--        <Button size="sm" class="w-fit font-normal">-->
-<!--            <CirclePlusOutline size="sm" class="mr-1"/>-->
-<!--            Project-->
-<!--        </Button>-->
-<!--    </div>-->
-
-
-<!--    <div class="editor-section flex flex-col space-y-6 text-gray-300 pt-5">-->
-<!--        <h3>Certifications</h3>-->
-<!--        <Button size="sm" class="w-fit font-normal">-->
-<!--            <CirclePlusOutline size="sm" class="mr-1"/>-->
-<!--            Certification-->
-<!--        </Button>-->
-<!--    </div>-->
-
-
-
 </Modal>
 
 <Button pill onclick={() => (open = true)} class="w-10 h-10">
@@ -76,11 +76,8 @@
 
 
 <style>
-    @import "tailwindcss";
-
-
     #editor-modal {
-        background-color: red !important;
+        overflow-y: visible !important;
+        overscroll-behavior: contain !important;
     }
-
 </style>

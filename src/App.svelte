@@ -270,10 +270,20 @@
     /*    background-color: red !important;*/
     /*}*/
 
+    :global(*) {
+        /*overflow-y: scroll;*/
+        /*overscroll-behavior: contain;*/
+    }
+
+    /*:global(#editor-modal) {*/
+    /*    overflow-y: scroll;*/
+    /*}*/
+
     :global(.editor-section) {
-        @apply flex flex-col space-y-6 text-gray-300 pt-5 pb-1;
-        overscroll-behavior: none !important;
-        overscroll-behavior-y: contain !important;
+        /*@apply flex flex-col space-y-6 text-gray-300 pt-5 pb-1;*/
+        /*overscroll-behavior: none !important;*/
+        /*overscroll-behavior-y: contain !important;*/
+        /*overflow: visible !important;*/
 
         :global(h3) {
             /*@apply mb-1.5 tracking-wide text-xl;*/
