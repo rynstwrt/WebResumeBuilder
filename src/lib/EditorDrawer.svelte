@@ -12,12 +12,14 @@
         DescriptionList,
         List,
         Tooltip,
+        ButtonGroup,
         Modal,
         Checkbox,
         P,
         Span,
         Alert,
-        Textarea
+        Textarea, Tabs, TabItem,
+        Sidebar, SidebarGroup, SidebarItem, SidebarButton, uiHelpers
     } from "flowbite-svelte";
 
     import {
@@ -31,6 +33,7 @@
         StarOutline,
         LinkOutline,
         CloseOutline,
+        UserCircleSolid,
         DownloadOutline,
         MapPinOutline
     } from "flowbite-svelte-icons";
@@ -60,11 +63,15 @@
         open = false;
         addToast("green", "Successfully added work experience!");
     }
+
+    const demoSidebarUi = uiHelpers();
+    let sidebarOpen = $state(false);
 </script>
 
 
-<Drawer bind:open offset="52px" placement="bottom" outsideclose={false}
-        class="rounded-t-lg dark:text-gray-300"
+
+<Drawer bind:open offset="52px" placement="top" outsideclose={false}
+        class="rounded-t-lg dark:text-gray-300 pt-5 pb-14"
         aria-labelledby="drawer-swipe-label">
     <DrawerHandle
             onclick={() => (open = !open)}
@@ -75,8 +82,6 @@
             <DrawSquareOutline/>
             Editor
         </h5>
-
-
     </DrawerHandle>
 
 <!--    <Button color="cyan" size="sm" class="w-fit mt-13">-->
@@ -84,13 +89,13 @@
 <!--        Download-->
 <!--    </Button>-->
 
-    <Accordion class="mt-13">
-        <!-- ABOUT SECTION -->
-        <AccordionItem id="about">
-            {#snippet header()}
+
+    <Tabs>
+        <TabItem title="About" >
+            {#snippet titleSlot()}
                 <div class="flex items-center gap-2">
-                    <UsersSolid/>
-                    <span>About</span>
+                    <UserCircleSolid size="md" />
+                    Profile
                 </div>
             {/snippet}
             <div class="grid gap-2 align-items-end grid-auto-rows grid-cols-1 md:grid-cols-4">
@@ -115,14 +120,14 @@
                     <Input name="location" placeholder="Seattle, WA" bind:value={info.location}/>
                 </Label>
             </div>
-        </AccordionItem>
+        </TabItem>
 
-        <!-- EXPERIENCE SECTION -->
-        <AccordionItem id="experience" open={true}>
-            {#snippet header()}
+
+        <TabItem title="Work">
+            {#snippet titleSlot()}
                 <div class="flex items-center gap-2">
-                    <BuildingSolid/>
-                    <span>Experience</span>
+                    <BuildingSolid size="md" />
+                    Experience
                 </div>
             {/snippet}
             <div>
@@ -140,36 +145,35 @@
                     <Label for="job-start" class="md:col-span-2 lg:col-span-1">
                         Start Date
                         <Input name="job-start" placeholder="Jan. 2026"/>
-<!--                        <Datepicker id="job-start"/>-->
+                        <!--                        <Datepicker id="job-start"/>-->
                     </Label>
 
                     <Label for="job-end" class="md:col-span-2 lg:col-span-1">
                         End Date
                         <Input name="job-end" placeholder="Present"/>
-<!--                        <Datepicker id="job-end"/>-->
+                        <!--                        <Datepicker id="job-end"/>-->
                     </Label>
 
                     <Label for="job-desc" class="col-span-full">
                         Description
                         <Textarea name="job-desc" placeholder="Bulletpoints here."
-                        class="w-full min-h-40"/>
-<!--                        <Input name="position" placeholder="Job Position"/>-->
+                                  class="w-full min-h-40"/>
+                        <!--                        <Input name="position" placeholder="Job Position"/>-->
                     </Label>
                 </div>
 
                 <Button class="w-fit mt-3 justify-center" onclick={addExperience}>Add Experience</Button>
             </div>
-        </AccordionItem>
+        </TabItem>
 
-        <!-- EDUCATION SECTION -->
-        <AccordionItem open={false}>
-            {#snippet header()}
+
+        <TabItem title="Education">
+            {#snippet titleSlot()}
                 <div class="flex items-center gap-2">
-                    <GraduationCapSolid/>
-                    <span>Education</span>
+                    <GraduationCapSolid size="md" />
+                    Education
                 </div>
             {/snippet}
-
             <div class="flex flex-col space-y-3">
                 <h3 class="mb-4 text-xl font-medium text-gray-900 dark:text-white">Add Education</h3>
                 <Label>
@@ -200,62 +204,38 @@
 
                 <Button type="submit" value="add-education" class="mt-3">Add Education</Button>
             </div>
+        </TabItem>
 
-            <!--            <Button onclick={addEducation}>Add Education</Button>-->
-            <!--            <Button onclick={() => (educationModalOpen=true)}>Add Education</Button>-->
-        </AccordionItem>
 
-        <!-- PROJECTS SECTION -->
-        <AccordionItem>
-            {#snippet header()}
+        <TabItem title="Projects">
+            {#snippet titleSlot()}
                 <div class="flex items-center gap-2">
-                    <PaperPlaneSolid/>
-                    <span>Projects</span>
+                    <PaperPlaneSolid size="md" />
+                    Projects
                 </div>
             {/snippet}
+        </TabItem>
 
-            <p>Projects content</p>
-        </AccordionItem>
 
-        <!-- CERTIFICATIONS SECTION -->
-        <AccordionItem>
-            {#snippet header()}
+        <TabItem title="Certifications">
+            {#snippet titleSlot()}
                 <div class="flex items-center gap-2">
-                    <PenSolid/>
-                    <span>Certifications</span>
+                    <StarOutline size="md" />
+                    Certifications
                 </div>
             {/snippet}
+        </TabItem>
 
-            <p>Cert content</p>
-        </AccordionItem>
 
-        <!-- SKILLS SECTION -->
-        <AccordionItem open={false}>
-            {#snippet header()}
+        <TabItem title="Skills">
+            {#snippet titleSlot()}
                 <div class="flex items-center gap-2">
-                    <StarOutline/>
-                    <span>Skills</span>
+                    <PenSolid size="md" />
+                    Skills
                 </div>
             {/snippet}
-            <p>Skills content</p>
-            <!--&lt;!&ndash;            <div id="skill-list" class="grid gap-1 grid-flow-row bg-red-500 grid-cols-[repeat(auto-fit, minmax(100px, 1fr))] auto-rows-auto">&ndash;&gt;-->
-            <!--<div class="flex flex-wrap gap-1">-->
-            <!--    {#each data.skills as skill}-->
-            <!--        <Button onclick={onSkillItemClick}-->
-            <!--                color="alternative"-->
-            <!--                class="px-2 py-1">{skill}</Button>-->
-            <!--        <Tooltip>Click to remove</Tooltip>-->
-            <!--    {/each}-->
-            <!--</div>-->
-
-            <!--<div class="flex items-center mt-3">-->
-            <!--    <Input name="skill" placeholder="Enter a skill here"/>-->
-            <!--    <Button class="ml-1 h-full p-2" onclick={addSkillEntry}>-->
-            <!--        <PlusOutline/>-->
-            <!--    </Button>-->
-            <!--</div>-->
-        </AccordionItem>
-    </Accordion>
+        </TabItem>
+    </Tabs>
 </Drawer>
 
 

@@ -7,9 +7,14 @@
 
     import ResumeData from "./lib/ResumeInfo.svelte.ts";
 
-    import { Toast, ToastContainer } from "flowbite-svelte";
+    import {
+        Button, Tabs, TabItem, Toast, ToastContainer, Modal, Label, Input, Checkbox
+    } from "flowbite-svelte";
 
-    import { EnvelopeOutline, GlobeOutline, CheckCircleSolid, InfoCircleOutline, MapPinAltOutline, PhoneOutline } from "flowbite-svelte-icons";
+    import {
+        PenSolid, EnvelopeOutline, GlobeOutline, CheckCircleSolid,
+        InfoCircleOutline, MapPinAltOutline, PhoneOutline, PhoneSolid, MapPinAltSolid, UserSolid, EnvelopeSolid
+    } from "flowbite-svelte-icons";
     import { onDestroy } from "svelte";
 
     const info = new ResumeData(true);
@@ -67,11 +72,60 @@
         });
     });
 
+    let editorOpen = $state(true);
+
 </script>
 
 
-<EditorDrawer addToast={addToast} openOnLoad={true} info={info}/>
+<EditorDrawer addToast={addToast} openOnLoad={false} info={info}/>
 
+
+<!--<Button class="p-2! fixed bottom-5 right-5" onclick={() => (editorOpen = true)}>-->
+<!--    <PenSolid class="h-8 w-8 p-0.5"/>-->
+<!--</Button>-->
+
+<!--<Modal form bind:open={editorOpen} size="md">-->
+<!--    <section>-->
+<!--        <h2 class="text-primary-500 text-2xl tracking-wide">Profile</h2>-->
+<!--        <div class="grid grid-cols-2 auto-rows-auto gap-x-3 gap-y-1">-->
+<!--            <Label for="name" class="mb-2 block">-->
+<!--                Your Name-->
+<!--                <Input name="name" placeholder="John Doe" class="pl-8">-->
+<!--                    {#snippet left()}-->
+<!--                        <UserSolid class="h-5 w-5 text-gray-500 dark:text-gray-400" />-->
+<!--                    {/snippet}-->
+<!--                </Input>-->
+<!--            </Label>-->
+
+<!--            <Label for="email" class="mb-2 block">-->
+<!--                Your Email-->
+<!--                <Input name="email" type="email" placeholder="john.doe@gmail.com" class="pl-8">-->
+<!--                    {#snippet left()}-->
+<!--                        <EnvelopeSolid class="h-5 w-5 text-gray-500 dark:text-gray-400" />-->
+<!--                    {/snippet}-->
+<!--                </Input>-->
+<!--            </Label>-->
+
+<!--            <Label for="telephone" class="mb-2 block">-->
+<!--                Phone Number-->
+<!--                <Input name="telephone" type="tel" placeholder="000-000-000" class="pl-8">-->
+<!--                    {#snippet left()}-->
+<!--                        <PhoneSolid class="h-5 w-5 text-gray-500 dark:text-gray-400" />-->
+<!--                    {/snippet}-->
+<!--                </Input>-->
+<!--            </Label>-->
+
+<!--            <Label for="location" class="mb-2 block">-->
+<!--                Your Location-->
+<!--                <Input name="location" placeholder="Seattle, WA" class="pl-8">-->
+<!--                    {#snippet left()}-->
+<!--                        <MapPinAltSolid class="h-5 w-5 text-gray-500 dark:text-gray-400" />-->
+<!--                    {/snippet}-->
+<!--                </Input>-->
+<!--            </Label>-->
+<!--        </div>-->
+<!--    </section>-->
+<!--</Modal>-->
 
 <!--<Alert border>-->
 <!--    {#snippet icon()}-->
@@ -278,4 +332,5 @@
         /*@apply text-xs font-light italic;*/
         @apply text-xs font-light italic text-gray-600 tracking-tight;
     }
+
 </style>
