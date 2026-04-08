@@ -80,7 +80,7 @@
 
 <!--<EditorDrawer addToast={addToast} openOnLoad={false} info={info}/>-->
 
-<EditorModal />
+<EditorModal openOnLoad={true} info={info}/>
 
 
 
@@ -261,4 +261,11 @@
         @apply text-xs font-light italic text-gray-600 tracking-tight;
     }
 
+    :global(.editor-section) {
+        :global(h3) {
+            /*color: red;*/
+            /*@apply mb-1.5 tracking-wide text-xl;*/
+            @apply text-xl mb-1.5 font-light text-gray-300;
+        }
+    }
 </style>
