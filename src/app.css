@@ -1,16 +1,14 @@
-@import "tailwindcss";
+@import 'tailwindcss';
+@plugin '@tailwindcss/forms';
+@plugin '@tailwindcss/typography';
+@plugin 'flowbite/plugin';
 
 @custom-variant dark (&:where(.dark, .dark *));
 
 @source '../**/*.{html,js,svelte,ts,md}';
-@source '../../node_modules/flowbite-svelte/**/*.{html,js,svelte,ts}';
-@source '../../node_modules/flowbite-svelte-icons/**/*.{html,js,svelte,ts}';
-@source '../../node_modules/flowbite-svelte-blocks/**/*.{html,js,svelte,ts}';
-
-@plugin 'flowbite/plugin';
-
-/*@custom-variant dark (&:where([data-theme=dark], [data-theme=dark] *));*/
-
+@source '../node_modules/flowbite-svelte/**/*.{html,js,svelte,ts}';
+@source '../node_modules/flowbite-svelte-icons/**/*.{html,js,svelte,ts}';
+@source '../node_modules/flowbite-svelte-blocks/**/*.{html,js,svelte,ts}';
 
 @theme {
     --color-primary-50: #fff5f2;
@@ -49,6 +47,6 @@
     @apply bg-gray-900/90 p-3;
 
     input {
-        color: inherit;
+
     }
 }

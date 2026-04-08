@@ -1,33 +1,48 @@
 <script lang="ts">
+    // import './app.css';
     import "@fontsource/open-sans";
+
     // Supports weights 100-900
     import '@fontsource-variable/inter/standard.css';
-
-    import EditorDrawer from "./lib/EditorDrawer.svelte";
 
     import ResumeData from "./lib/ResumeInfo.svelte.ts";
 
     import {
-        Button, Tabs, TabItem, Toast, ToastContainer, Modal, Label, Input, Checkbox
+        Button,
+        Tabs,
+        TabItem,
+        Toast,
+        ToastContainer,
+        Modal,
+        Label,
+        Input,
+        Checkbox
     } from "flowbite-svelte";
 
     import {
-        PenSolid, EnvelopeOutline, GlobeOutline, CheckCircleSolid,
-        InfoCircleOutline, MapPinAltOutline, PhoneOutline, PhoneSolid, MapPinAltSolid, UserSolid, EnvelopeSolid
+        EnvelopeOutline,
+        GlobeOutline,
+        CheckCircleSolid,
+        InfoCircleOutline,
+        MapPinAltOutline,
+        PhoneOutline,
+        PhoneSolid,
+        MapPinAltSolid,
+        UserSolid,
+        EnvelopeSolid
     } from "flowbite-svelte-icons";
+
     import { onDestroy } from "svelte";
-    import EditorModal from "./lib/EditorModal.svelte";
 
     const info = new ResumeData(true);
-
 
     type ToastColor = "green" | "red" | "gray";
 
     interface ToastItem {
-        id: number,
-        message: string,
-        color: ToastColor,
-        timeoutId?: ReturnType<typeof setTimeout>,
+        id: number;
+        message: string;
+        color: ToastColor;
+        timeoutId?: ReturnType<typeof setTimeout>;
         visible: boolean
     }
 
@@ -35,31 +50,32 @@
     let nextId = $state(1);
 
     function addToast(color: ToastColor = "gray", message: string = "") {
-        const newToast: ToastItem = {
-            id: nextId,
-            message: message,
-            color: color,
-            visible: true
-        };
+        const newToast: ToastItem = {id: nextId, message, color, visible: true};
 
-        newToast.timeoutId = setTimeout(() => {
-            dismissToast(newToast.id);
-        }, 2500);
+        newToast.timeoutId = setTimeout(
+            () => {
+                dismissToast(newToast.id);
+            },
+            2500
+        );
 
         toasts = [...toasts, newToast];
         ++nextId;
     }
 
     function dismissToast(id: number) {
-        const toast = toasts.find(toast => toast.id === id);
-        if (toast?.timeoutId)
-            clearTimeout(toast.timeoutId);
+        const toast = toasts.find((toast) => toast.id === id);
 
-        toasts = toasts.map(toast => (toast.id === id ? {...toast, visible: false} : toast));
+        if (toast?.timeoutId) clearTimeout(toast.timeoutId);
 
-        setTimeout(() => {
-            toasts = toasts.filter(toast => toast.id !== id);
-        }, 300);
+        toasts = toasts.map((toast) => toast.id === id ? {...toast, visible: false} : toast);
+
+        setTimeout(
+            () => {
+                toasts = toasts.filter((toast) => toast.id !== id);
+            },
+            300
+        );
     }
 
     function handleClose(id: number) {
@@ -67,56 +83,181 @@
     }
 
     onDestroy(() => {
-        toasts.forEach(toast => {
-            if (toast.timeoutId)
-                clearTimeout(toast.timeoutId);
+        toasts.forEach((toast) => {
+            if (toast.timeoutId) clearTimeout(toast.timeoutId);
         });
     });
 
     let editorOpen = $state(true);
 
+    import {
+        CubesStackedOutline,
+        PaperPlaneSolid,
+        PenSolid,
+        PaperClipOutline,
+        FileSolid,
+        AdjustmentsVerticalSolid,
+        GraduationCapSolid,
+        BuildingSolid,
+        UserCircleSolid,
+        CirclePlusOutline,
+
+        CirclePlusSolid
+
+    } from "flowbite-svelte-icons";
+    import { onMount } from "svelte";
 </script>
 
 
+<Modal bind:open={editorOpen}
+       outsideclose={false}
+       form
+       size="sm">
+    <div id="editor-modal">
+
+        <div class="editor-section mt-5">
+            <h3>Profile</h3>
+            <div class="grid grid-cols-2 gap-3">
+                <div>
+                    <Label for="name" class="mb-0.5 text-sm">Name</Label>
+                    <Input name="name"
+                           size="md"
+                           placeholder="John Doe"
+                           required
+                           bind:value={info.name}/>
+                </div>
+                <div>
+                    <Label for="phone" class="mb-0.5 text-sm">Phone Number</Label>
+                    <Input name="phone"
+                           type="tel"
+                           placeholder="123-456-7890"
+                           required
+                           bind:value={info.phone}/>
+                </div>
+                <div>
+                    <Label for="email" class="mb-0.5 text-sm">Email</Label>
+                    <Input name="email"
+                           placeholder="john.doe@gmail.com"
+                           required
+                           bind:value={info.email}/>
+                </div>
+                <div>
+                    <Label for="location" class="mb-0.5 text-sm">Location</Label>
+                    <Input name="location"
+                           placeholder="Seattle, WA"
+                           required
+                           bind:value={info.location}/>
+                </div>
+            </div>
+        </div>
+
+
+        <div class="editor-section">
+            <h3>Work</h3>
+            <Button size="sm" class="w-fit font-normal">
+                <CirclePlusOutline size="sm" class="mr-1"/>
+                Experience
+            </Button>
+        </div>
+
+
+        <div class="editor-section">
+            <h3>Skills</h3>
+
+            <div class="flex flex-wrap items-center text-nowrap gap-2">
+                {#each info.skills as skill}
+                    <Button size="xs" class="w-min">{skill}</Button>
+                {/each}
+            </div>
+
+            <Button size="sm" class="w-fit font-normal">
+                <CirclePlusOutline size="sm" class="mr-1"/>
+                Skill
+            </Button>
+        </div>
+
+        <div class="editor-section">
+            <h3>School</h3>
+            <Button size="sm" class="w-fit font-normal">
+                <CirclePlusOutline size="sm" class="mr-1"/>
+                School
+            </Button>
+        </div>
+
+
+        <div class="editor-section">
+            <h3>Projects</h3>
+            <Button size="sm" class="w-fit font-normal">
+                <CirclePlusOutline size="sm" class="mr-1"/>
+                Project
+            </Button>
+        </div>
+
+
+        <div class="editor-section">
+            <h3>Certifications</h3>
+            <Button size="sm" class="w-fit font-normal">
+                <CirclePlusOutline size="sm" class="mr-1"/>
+                Certification
+            </Button>
+        </div>
+
+
+    </div>
+</Modal>
+
+
+<Button pill onclick={() => (editorOpen = true)} class="w-10 h-10">
+    <AdjustmentsVerticalSolid/>
+</Button>
+
+
 <!--<EditorDrawer addToast={addToast} openOnLoad={false} info={info}/>-->
+<!--<EditorModal openOnLoad={true} info={info} />-->
 
-<EditorModal openOnLoad={true} info={info}/>
-
-
-
-
-<main class="w-204 h-264 border border-gray-400 bg-white mx-auto p-12 mt-4 mb-12">
-
+<main
+        class="w-204 h-264 border border-gray-400 bg-white mx-auto p-12 mt-4 mb-12"
+>
     <!-- ABOUT SECTION  -->
-    <section id="about" class="text-center flex flex-col items-center">
+
+    <section
+            id="about"
+            class="text-center flex flex-col items-center">
         <h1 class="text-3xl font-semibold mb-1">{info.name}</h1>
         <!--        <p class="text-sm font-light flex gap-1 items-center">-->
         <!--            <span><EnvelopeOutline size="sm" class="inline align-middle mr-1"/>{info.email}</span> |-->
         <!--            <span><PhoneOutline size="sm" class="inline align-middle mr-1" />{info.phone}</span> |-->
         <!--            <span><MapPinAltOutline size="sm" class="inline align-middle mr-1" />{info.location}</span>-->
         <!--        </p>-->
+
         <div class="text-xs font-light flex gap-2">
-            <span>
-                <EnvelopeOutline size="sm" class="inline"/>
+			<span>
+				<EnvelopeOutline size="sm" class="inline"/>
                 {info.email}
-            </span>
+			</span>
+
             |
+
             <span>
-                <PhoneOutline size="sm" class="inline"/>
+				<PhoneOutline size="sm" class="inline"/>
                 {info.phone}
-            </span>
+			</span>
+
             |
+
             <span>
-                <MapPinAltOutline size="sm" class="inline"/>
+				<MapPinAltOutline size="sm" class="inline"/>
                 {info.location}
-            </span>
+			</span>
         </div>
+
         <div class="flex gap-2 text-xs font-light">
             {#each info.links as link, i}
-                <span>
-                    <GlobeOutline size="sm" class="inline"/>
-                    <a href={link}>{link}</a>
-                </span>
+				<span>
+					<GlobeOutline size="sm" class="inline"/>
+					<a href={link}>{link}</a>
+				</span>
+
                 {#if i !== info.links.length - 1}
                     |
                 {/if}
@@ -124,10 +265,11 @@
         </div>
     </section>
 
-
     <!-- EXPERIENCE SECTION -->
+
     <section id="experience">
         <h2 class="header">Experience</h2>
+
         {#each info.workExperience as entry}
             <div class="tile">
                 <div class="flex justify-between">
@@ -141,13 +283,14 @@
                         <p>Dallas, TX</p>
                     </div>
                 </div>
+
                 <!--                <div class="flex items-center">-->
                 <!--                    <h3 class="subheader">{entry.title}</h3>-->
                 <!--                    <p class="dates ml-2">{entry.start} - {entry.end || "Present"}</p>-->
                 <!--                </div>-->
                 <!--                <h4 class="subheader-2">{entry.employer}</h4>-->
-
                 <!--                <p class="description">{entry.description}</p>-->
+
                 {#if entry.bulletpoints}
                     <ul class="list-disc pl-[1.5ch] mt-0.5">
                         {#each entry.bulletpoints as bulletpoint}
@@ -160,10 +303,11 @@
         {/each}
     </section>
 
-
     <!-- EDUCATION SECTION -->
+
     <section id="education">
         <h2 class="header">Education</h2>
+
         {#each info.education as entry}
             <div class="tile leading-5.5 flex justify-between">
                 <div>
@@ -172,8 +316,8 @@
                     <p class="dates">{entry.start} - {entry.end || "Present"}</p>
                     <!--                <p class="dates">{entry.start} - {entry.end || "Present"}, Richardson, TX</p>-->
                 </div>
-                <div>
-                </div>
+
+                <div></div>
                 <!--                <div>-->
                 <!--                    <h3 class="subheader">{entry.school}</h3>-->
                 <!--                    <h4 class="subheader-2">{entry.diploma}</h4>-->
@@ -187,14 +331,16 @@
         {/each}
     </section>
 
-
     <!-- PROJECTS SECTION -->
+
     <section id="projects">
         <h2 class="header">Projects</h2>
+
         {#each info.projects as entry}
             <div class="tile">
                 <h3 class="subheader">{entry.title}</h3>
                 <p class="font-light text-sm">{entry.description}</p>
+
                 {#each entry.links as link}
                     <a class="block text-sm font-thin" href={link}>{link}</a>
                 {/each}
@@ -203,8 +349,10 @@
     </section>
 
     <!-- CERTIFICATIONS SECTION -->
+
     <section id="certifications">
         <h2 class="header">Certifications</h2>
+
         {#each info.certifications as entry}
             <div class="tile">
                 <h3 class="subheader">{entry.title}</h3>
@@ -215,20 +363,18 @@
     </section>
 
     <!-- SKILLS SECTION -->
+
     <section id="skills">
         <h2 class="header">Skills</h2>
         <p class="text-xs font-light">{info.skills.join(", ")}</p>
     </section>
 </main>
 
-
 <style>
     @import "tailwindcss";
 
     main {
         font-family: "Inter Variable", sans-serif;
-        /*font-family: "Arial", sans-serif;*/
-        /*font-style: normal;*/
     }
 
     section {
@@ -237,9 +383,7 @@
         }
 
         .tile {
-            /*@apply my-4 px-3 border-l border-gray-400;*/
             @apply py-2.5;
-
         }
     }
 
@@ -248,7 +392,6 @@
     }
 
     .subheader {
-        /*@apply font-normal;*/
         @apply font-bold text-sm -tracking-[0.01rem];
     }
 
@@ -257,38 +400,28 @@
     }
 
     .dates {
-        /*@apply text-xs font-light italic;*/
         @apply text-xs font-light italic text-gray-600 tracking-tight;
     }
 
-    /*#editor-modal  form > div {*/
-    /*    display: none !important;*/
-        /*background-color: red;*/
-    /*}*/
+    #editor-modal {
+        /*overflow-y: visible !important;*/
+        /*overscroll-behavior: contain !important;*/
+        overflow: unset;
 
-    /*#editor-modal {*/
-    /*    background-color: red !important;*/
-    /*}*/
+        .editor-section {
+            @apply mb-5;
+            /*overflow-y: scroll !important;*/
 
-    :global(*) {
-        /*overflow-y: scroll;*/
-        /*overscroll-behavior: contain;*/
-    }
 
-    /*:global(#editor-modal) {*/
-    /*    overflow-y: scroll;*/
-    /*}*/
-
-    :global(.editor-section) {
-        /*@apply flex flex-col space-y-6 text-gray-300 pt-5 pb-1;*/
-        /*overscroll-behavior: none !important;*/
-        /*overscroll-behavior-y: contain !important;*/
-        /*overflow: visible !important;*/
-
-        :global(h3) {
-            /*@apply mb-1.5 tracking-wide text-xl;*/
-            /*@apply text-xl mb-1.5 font-light text-gray-300;*/
-            @apply text-xl mb-1.5 font-light ;
+            h3 {
+                @apply text-xl mb-1.5 font-light text-gray-300;
+            }
         }
     }
+
+    /*:global(.editor-section) {*/
+    /*	:global(h3) {*/
+    /*@apply text-xl mb-1.5 font-light;*/
+    /*}*/
+    /*}*/
 </style>
