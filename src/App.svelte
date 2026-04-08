@@ -261,11 +261,24 @@
         @apply text-xs font-light italic text-gray-600 tracking-tight;
     }
 
+    /*#editor-modal  form > div {*/
+    /*    display: none !important;*/
+        /*background-color: red;*/
+    /*}*/
+
+    /*#editor-modal {*/
+    /*    background-color: red !important;*/
+    /*}*/
+
     :global(.editor-section) {
+        @apply flex flex-col space-y-6 text-gray-300 pt-5 pb-1;
+        overscroll-behavior: none !important;
+        overscroll-behavior-y: contain !important;
+
         :global(h3) {
-            /*color: red;*/
             /*@apply mb-1.5 tracking-wide text-xl;*/
-            @apply text-xl mb-1.5 font-light text-gray-300;
+            /*@apply text-xl mb-1.5 font-light text-gray-300;*/
+            @apply text-xl mb-1.5 font-light ;
         }
     }
 </style>
