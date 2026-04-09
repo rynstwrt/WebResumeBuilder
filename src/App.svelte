@@ -15,15 +15,20 @@
     const info = new ResumeData(true);
 
     import Editor from "./lib/components/Editor.svelte";
+
+
+    function downloadPDF() {
+        alert("download pdf")
+    }
 </script>
 
 
 <!--<EditorDrawer addToast={addToast} openOnLoad={false} info={info}/>-->
-<Editor openOnLoad={true} info={info}/>
+<Editor openOnLoad={true} info={info} {downloadPDF}/>
 
 <main
-        class="w-204 h-264 border border-gray-400 bg-white mx-auto p-12 mt-4 mb-12"
->
+        class="w-204 min-h-264 border border-gray-400 bg-white mx-auto p-12 mt-4 mb-12">
+<!--    class="w-204 h-264 border border-gray-400 bg-white mx-auto p-12 mt-4 mb-12">-->
     <!-- ABOUT SECTION  -->
 
     <section

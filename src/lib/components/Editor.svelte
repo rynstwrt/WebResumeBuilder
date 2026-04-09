@@ -7,7 +7,7 @@
         Textarea,
         Tabs,
         TabItem,
-
+        Tooltip,
         ButtonGroup
 
     } from "flowbite-svelte";
@@ -29,8 +29,12 @@
     } from "flowbite-svelte-icons";
     import {onMount} from "svelte";
 
-    let editorOpen = $state(true);
-    let {info, openOnLoad = false} = $props();
+    let editorOpen = $state(false);
+    let {info, openOnLoad = false, downloadPDF} = $props();
+
+    onMount(() => {
+        editorOpen = openOnLoad;
+    });
 </script>
 
 <Modal bind:open={editorOpen}
@@ -137,7 +141,7 @@
             </TabItem>
 
 
-            <TabItem title="Certifications" open>
+            <TabItem title="Certifications">
                 {#snippet titleSlot()}
                     <div class="text-center flex flex-col items-center gap-y-0.5">
                         <FileSolid size="sm"/>
@@ -172,7 +176,7 @@
             </TabItem>
 
 
-            <TabItem title="Skills">
+            <TabItem title="Skills" open>
                 {#snippet titleSlot()}
                     <div class="text-center flex flex-col items-center gap-y-0.5">
                         <PenSolid size="sm"/>
@@ -187,6 +191,14 @@
                               placeholder="Type skills separated by commas..."
                               bind:value={info.skills}/>
 
+                    {#if info.skills}
+                        <div class="flex flex-wrap items-center gap-x-2 gap-y-1 mt-6">
+                            <Label class="text-sm font-bold">Skills:</Label>
+                            {#each Array.from(info.skills.split(",").map(s => s.trim())) as skill}
+                                <p class="text-sm font-light text-white py-0.5 px-1 rounded-sm border-gray-600 border">{skill}</p>
+                            {/each}
+                        </div>
+                    {/if}
 
                     <!--            <div class="flex flex-wrap items-center text-nowrap gap-2">-->
                     <!--                {#each info.skills as skill}-->
@@ -198,6 +210,8 @@
                     <!--                <CirclePlusOutline size="sm" class="mr-1"/>-->
                     <!--                Skill-->
                     <!--            </Button>-->
+
+
                 </div>
             </TabItem>
         </Tabs>
@@ -207,16 +221,25 @@
     {#snippet footer()}
 
         <ButtonGroup>
-            <Button>
-                <UploadSolid size="md"/>
-            </Button>
-            <Button>
+            <Button id="download-config-btn">
                 <DownloadSolid size="md"/>
             </Button>
+
+            <Button id="upload-config-btn">
+                <UploadSolid size="md"/>
+            </Button>
+
+            <Button id="download-pdf-btn" class="text-nowrap" onclick={() => downloadPDF()}>
+                <DownloadSolid size="sm" class="mr-1"/>
+                PDF
+            </Button>
         </ButtonGroup>
+        <Tooltip triggeredBy="#download-config-btn">Download Config</Tooltip>
+        <Tooltip triggeredBy="#upload-config-btn">Upload Config</Tooltip>
+        <Tooltip triggeredBy="#download-pdf-btn">Download Resume PDF</Tooltip>
 
         <Button type="submit" color="primary" class="w-full">
-<!--            <CheckCircleSolid size="sm" class="mr-1"/>-->
+            <!--            <CheckCircleSolid size="sm" class="mr-1"/>-->
             Confirm
         </Button>
     {/snippet}
