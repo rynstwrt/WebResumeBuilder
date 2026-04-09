@@ -33,13 +33,17 @@
 <Modal bind:open={editorOpen}
        outsideclose={false}
        form
-       size="sm">
+       size="md"
+       class="w-fit">
     <div id="editor-modal">
 
-        <Tabs tabStyle="underline" class="mt-5">
+        <Tabs tabStyle="underline" class="mt-7">
             <TabItem title="Profile">
                 {#snippet titleSlot()}
-                    <UserCircleSolid size="md"/>
+                    <div class="text-center flex flex-col items-center gap-y-0.5">
+                        <UserCircleSolid size="sm"/>
+                        Profile
+                    </div>
                 {/snippet}
                 <div class="editor-section">
                     <h3>Profile</h3>
@@ -81,7 +85,10 @@
 
             <TabItem title="Work">
                 {#snippet titleSlot()}
-                    <BuildingSolid/>
+                    <div class="text-center flex flex-col items-center gap-y-0.5">
+                        <BuildingSolid size="sm"/>
+                        Work
+                    </div>
                 {/snippet}
                 <div class="editor-section">
                     <h3>Work</h3>
@@ -95,7 +102,10 @@
 
             <TabItem title="Education">
                 {#snippet titleSlot()}
-                    <GraduationCapSolid/>
+                    <div class="text-center flex flex-col items-center gap-y-0.5">
+                        <GraduationCapSolid size="sm"/>
+                        School
+                    </div>
                 {/snippet}
                 <div class="editor-section">
                     <h3>Education</h3>
@@ -109,7 +119,10 @@
 
             <TabItem title="Projects">
                 {#snippet titleSlot()}
-                    <PaperPlaneSolid/>
+                    <div class="text-center flex flex-col items-center gap-y-0.5">
+                        <PaperPlaneSolid size="sm"/>
+                        Projects
+                    </div>
                 {/snippet}
                 <div class="editor-section">
                     <h3>Projects</h3>
@@ -123,7 +136,10 @@
 
             <TabItem title="Certifications" open>
                 {#snippet titleSlot()}
-                    <FileSolid />
+                    <div class="text-center flex flex-col items-center gap-y-0.5">
+                        <FileSolid size="sm"/>
+                        Certs
+                    </div>
                 {/snippet}
                 <div class="editor-section">
                     <h3>Certifications</h3>
@@ -155,7 +171,10 @@
 
             <TabItem title="Skills">
                 {#snippet titleSlot()}
-                    <PenSolid/>
+                    <div class="text-center flex flex-col items-center gap-y-0.5">
+                        <PenSolid size="sm"/>
+                        Skills
+                    </div>
                 {/snippet}
                 <div class="editor-section">
                     <h3>Skills</h3>
@@ -206,6 +225,15 @@
 
 <style>
     @import "tailwindcss";
+
+    #editor-modal :global(ul) {
+        /*@apply bg-red-500;*/
+
+        :global(button) {
+            @apply px-5 py-1;
+
+        }
+    }
 
     .editor-section h3 {
         @apply text-2xl mb-4 text-white font-light;
