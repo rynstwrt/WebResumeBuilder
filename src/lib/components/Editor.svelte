@@ -6,7 +6,10 @@
         Button,
         Textarea,
         Tabs,
-        TabItem
+        TabItem,
+
+        ButtonGroup
+
     } from "flowbite-svelte";
 
     import {
@@ -46,7 +49,7 @@
                     </div>
                 {/snippet}
                 <div class="editor-section">
-                    <h3>Profile</h3>
+                    <!--                    <h3>Profile</h3>-->
                     <div class="grid grid-cols-2 gap-2">
                         <div>
                             <Label for="name" class="mb-0.5 text-sm">Name</Label>
@@ -91,7 +94,7 @@
                     </div>
                 {/snippet}
                 <div class="editor-section">
-                    <h3>Work</h3>
+                    <!--                    <h3>Work</h3>-->
                     <Button size="sm" class="w-fit font-normal">
                         <CirclePlusOutline size="sm" class="mr-1"/>
                         Experience
@@ -108,7 +111,7 @@
                     </div>
                 {/snippet}
                 <div class="editor-section">
-                    <h3>Education</h3>
+                    <!--                    <h3>Education</h3>-->
                     <Button size="sm" class="w-fit font-normal">
                         <CirclePlusOutline size="sm" class="mr-1"/>
                         Education
@@ -125,7 +128,7 @@
                     </div>
                 {/snippet}
                 <div class="editor-section">
-                    <h3>Projects</h3>
+                    <!--                    <h3>Projects</h3>-->
                     <Button size="sm" class="w-fit font-normal">
                         <CirclePlusOutline size="sm" class="mr-1"/>
                         Project
@@ -142,7 +145,7 @@
                     </div>
                 {/snippet}
                 <div class="editor-section">
-                    <h3>Certifications</h3>
+                    <!--                    <h3>Certifications</h3>-->
 
                     <div class="grid grid-cols-2 gap-2">
                         <div>
@@ -177,7 +180,7 @@
                     </div>
                 {/snippet}
                 <div class="editor-section">
-                    <h3>Skills</h3>
+                    <!--                    <h3>Skills</h3>-->
 
                     <Textarea rows={6}
                               class="w-full"
@@ -202,17 +205,19 @@
     </div>
 
     {#snippet footer()}
-        <Button type="submit" color="green" class="w-full">
-            <CheckCircleSolid size="md" class="mr-1"/>
+
+        <ButtonGroup>
+            <Button>
+                <UploadSolid size="md"/>
+            </Button>
+            <Button>
+                <DownloadSolid size="md"/>
+            </Button>
+        </ButtonGroup>
+
+        <Button type="submit" color="primary" class="w-full">
+<!--            <CheckCircleSolid size="sm" class="mr-1"/>-->
             Confirm
-        </Button>
-        <Button color="secondary">
-            <UploadSolid size="md" class="mr-1"/>
-            Import
-        </Button>
-        <Button color="secondary">
-            <DownloadSolid size="md" class="mr-1"/>
-            Export
         </Button>
     {/snippet}
 </Modal>
