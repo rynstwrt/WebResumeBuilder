@@ -118,7 +118,7 @@
                                 {#if work.bulletpoints.length}
                                     <ul class="list-disc pl-[1.5ch] mt-0.5">
                                         {#each work.bulletpoints as bulletpoint}
-                                            <li class="text-sm font-normal">{bulletpoint}</li>
+                                            <li class="text-xs font-light">{bulletpoint}</li>
                                         {/each}
                                     </ul>
                                 {/if}
@@ -155,7 +155,7 @@
             </TabItem>
 
 
-            <TabItem title="Education" open>
+            <TabItem title="Education">
                 {#snippet titleSlot()}
                     <div class="text-center flex flex-col items-center gap-y-0.5">
                         <GraduationCapSolid size="sm"/>
@@ -173,7 +173,7 @@
                                              class="self-end absolute top-0 right-0"
                                              onclick={() => info.education.splice(i, 1)}/>
                                 <h4 class="text-md font-normal">{school.school}</h4>
-                                <h4 class="text-md font-light">{school.diploma}</h4>
+                                <h4 class="text-sm font-light">{school.diploma}</h4>
                                 <p class="text-sm font-thin">{school.dates}</p>
                                 {#if school.bulletpoints}
                                     <ul class="list-disc pl-[1.5ch] mt-0.5">
@@ -215,7 +215,7 @@
             </TabItem>
 
 
-            <TabItem title="Projects">
+            <TabItem title="Projects" open>
                 {#snippet titleSlot()}
                     <div class="text-center flex flex-col items-center gap-y-0.5">
                         <PaperPlaneSolid size="sm"/>
@@ -224,6 +224,27 @@
                 {/snippet}
                 <div class="editor-section">
                     <!--                    <h3>Projects</h3>-->
+
+                    <h4 class="text-md text-gray-300 font-normal mb-1">Education:</h4>
+                    <div class="mb-6 flex flex-col gap-y-1.5">
+                        {#each info.projects as project, i}
+                            <Card class="py-2 px-3 flex flex-col relative" size="md">
+                                <CloseButton size="md"
+                                             class="self-end absolute top-0 right-0"
+                                             onclick={() => info.projects.splice(i, 1)}/>
+                                <h4 class="text-md font-normal">{project.title}</h4>
+                                <p class="text-sm font-thin">{project.dates}</p>
+                                {#if project.bulletpoints}
+                                    <ul class="list-disc pl-[1.5ch] mt-0.5">
+                                        {#each project.bulletpoints as bulletpoint}
+                                            <li class="text-xs font-thin">{bulletpoint}</li>
+                                        {/each}
+                                    </ul>
+                                {/if}
+                            </Card>
+                        {/each}
+                    </div>
+
                     <div class="grid grid-cols-2 gap-2">
                         <div>
                             <Label for="project-name-input" class="mb-0.5 text-sm">Name</Label>
@@ -278,7 +299,7 @@
                                 {#if cert.bulletpoints.length}
                                     <ul class="list-disc pl-[1.5ch] mt-0.5">
                                         {#each cert.bulletpoints as bulletpoint}
-                                            <li class="text-sm font-normal">{bulletpoint}</li>
+                                            <li class="text-xs font-thin">{bulletpoint}</li>
                                         {/each}
                                     </ul>
                                 {/if}

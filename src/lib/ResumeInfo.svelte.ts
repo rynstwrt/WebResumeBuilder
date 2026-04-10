@@ -27,7 +27,8 @@ class ResumeData {
 
     projects: {
         title: string,
-        description?: string,
+        dates?: string,
+        // description?: string,
         bulletpoints?: string[],
         links?: string[]
     }[] = $state([]);
@@ -96,7 +97,8 @@ class ResumeData {
 
         this.projects.push({
             title: "Project 1",
-            description: "Project 1 description",
+            dates: "Aug. 2019 - Dec. 2019",
+            // description: "Project 1 description",
             bulletpoints: ["Project 1 description"],
             links: ["https://github.com", "https://github.com/rynstwrt"]
         });

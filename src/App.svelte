@@ -42,7 +42,7 @@
 
 <main
         class="w-204 min-h-264 bg-white mx-auto p-12 mt-4 mb-12">
-<!--    class="w-204 h-264 border border-gray-400 bg-white mx-auto p-12 mt-4 mb-12">-->
+    <!--    class="w-204 h-264 border border-gray-400 bg-white mx-auto p-12 mt-4 mb-12">-->
     <!-- ABOUT SECTION  -->
 
     <section
@@ -104,7 +104,7 @@
                     </div>
 
                     <div class="dates text-right tracking-tight">
-<!--                        <p>{entry.start} - {entry.end || "Present"}</p>-->
+                        <!--                        <p>{entry.start} - {entry.end || "Present"}</p>-->
                         <p>{entry.dates}</p>
                         <p>Dallas, TX</p>
                     </div>
@@ -139,11 +139,11 @@
                 <div>
                     <h3 class="subheader">{entry.school}</h3>
                     <h4 class="subheader-2">{entry.diploma}</h4>
-                    <p class="dates">{entry.start} - {entry.end || "Present"}</p>
+                    <p class="dates">{entry.dates}</p>
+                    <!--                    <p class="dates">{entry.start} - {entry.end || "Present"}</p>-->
                     <!--                <p class="dates">{entry.start} - {entry.end || "Present"}, Richardson, TX</p>-->
                 </div>
 
-                <div></div>
                 <!--                <div>-->
                 <!--                    <h3 class="subheader">{entry.school}</h3>-->
                 <!--                    <h4 class="subheader-2">{entry.diploma}</h4>-->
@@ -165,10 +165,18 @@
         {#each info.projects as entry}
             <div class="tile">
                 <h3 class="subheader">{entry.title}</h3>
-                <p class="font-light text-sm">{entry.description}</p>
-
+                <!--                <p class="font-light text-sm">{entry.description}</p>-->
+                {#if entry.bulletpoints}
+                    <ul class="list-disc pl-[1.5ch] mt-0.5">
+                        {#each entry.bulletpoints as bulletpoint}
+                            <!--                            <li class="text-sm font-light">• {bulletpoint}</li>-->
+                            <li class="text-sm font-light">{bulletpoint}</li>
+                        {/each}
+                    </ul>
+                {/if}
                 {#each entry.links as link}
-                    <a class="block text-sm font-thin" href={link}>{link}</a>
+                    <!--                            <li class="text-sm font-light">• {bulletpoint}</li>-->
+                    <a href={link} class="block text-sm font-light">{link}</a>
                 {/each}
             </div>
         {/each}
@@ -182,8 +190,17 @@
         {#each info.certifications as entry}
             <div class="tile">
                 <h3 class="subheader">{entry.title}</h3>
-                <p class="font-light text-sm">{entry.description}</p>
-                <p class="dates">{entry.start} - {entry.end || "Present"}</p>
+<!--                <p class="font-light text-sm">{entry.description}</p>-->
+<!--                <p class="dates">{entry.start} - {entry.end || "Present"}</p>-->
+                <p class="dates">{entry.dates}</p>
+                {#if entry.bulletpoints}
+                    <ul class="list-disc pl-[1.5ch] mt-0.5">
+                        {#each entry.bulletpoints as bulletpoint}
+                            <!--                            <li class="text-sm font-light">• {bulletpoint}</li>-->
+                            <li class="text-sm font-light">{bulletpoint}</li>
+                        {/each}
+                    </ul>
+                {/if}
             </div>
         {/each}
     </section>
