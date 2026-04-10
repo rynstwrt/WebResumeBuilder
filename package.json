@@ -30,6 +30,8 @@
     "@fontsource-variable/inter": "^5.2.8",
     "@tailwindcss/vite": "^4.2.2",
     "clsx": "^2.1.1",
+    "html2canvas-pro": "^2.0.2",
+    "html2pdf.js": "^0.14.0",
     "tailwind-merge": "^3.5.0",
     "tailwind-variants": "^3.2.2",
     "tailwindcss": "^4.2.2",

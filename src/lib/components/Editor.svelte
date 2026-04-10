@@ -1,4 +1,4 @@
-<script>
+<script lang="ts">
     import {
         Modal,
         Label,
@@ -194,8 +194,8 @@
                     {#if info.skills}
                         <div class="flex flex-wrap items-center gap-x-2 gap-y-1 mt-6">
                             <Label class="text-sm font-bold">Skills:</Label>
-                            {#each Array.from(info.skills.split(",").map(s => s.trim())) as skill}
-                                <p class="text-sm font-light text-white py-0.5 px-1 rounded-sm border-gray-600 border">{skill}</p>
+                            {#each info.skills.split(",") as skill}
+                                <p class="text-sm font-light text-white py-0.5 px-1 rounded-sm border-gray-600 border">{skill.trim()}</p>
                             {/each}
                         </div>
                     {/if}

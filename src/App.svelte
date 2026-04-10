@@ -16,9 +16,22 @@
 
     import Editor from "./lib/components/Editor.svelte";
 
-
+    import html2pdf from "html2pdf.js";
+    import html2canvas from "html2canvas-pro";
     function downloadPDF() {
-        alert("download pdf")
+        const el: HTMLElement = document.querySelector("main")!;
+        html2canvas(el).then(canvas => {
+            console.log(canvas);
+            // document.body.append(canvas);
+            html2pdf(canvas, {
+                filename: "Resume.pdf"
+            });
+
+        });
+
+
+        // const worker = html2pdf();
+        // worker.from(el).save();
     }
 </script>
 
