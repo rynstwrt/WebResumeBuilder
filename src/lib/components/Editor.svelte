@@ -40,7 +40,27 @@
     const downloadConfig = () => info.downloadConfig();
     const importConfig = () => info.importConfig();
 
+    const workInputFormState = $state({
+        employer: "",
+        role: "",
+        dates: "",
+        bulletpoints: ""
+    });
+    function addWorkExperience() {
+        info.workExperience.push({
+            employer: workInputFormState.employer,
+            role: workInputFormState.role,
+            dates: workInputFormState.dates,
+            bulletpoints: workInputFormState.bulletpoints.split("\n")
+        });
 
+        Object.assign(workInputFormState, {
+            employer: "",
+            role: "",
+            dates: "",
+            bulletpoints: ""
+        });
+    }
 </script>
 
 <Modal bind:open={editorOpen}
@@ -129,24 +149,27 @@
                     <div class="grid grid-cols-2 gap-2">
                         <div>
                             <Label for="work-name-input" class="mb-0.5 text-sm">Employer</Label>
-                            <Input name="work-name-input" placeholder="IBM"/>
+                            <Input name="work-name-input" placeholder="IBM" bind:value={workInputFormState.employer}/>
                         </div>
                         <div>
                             <Label for="work-dates-input" class="mb-0.5 text-sm">Dates</Label>
-                            <Input name="work-dates-input" placeholder="Dec. 2022 - Jul. 2024"/>
+                            <Input name="work-dates-input" placeholder="Dec. 2022 - Jul. 2024"
+                                   bind:value={workInputFormState.dates}/>
                         </div>
                         <div class="col-span-full">
                             <Label for="work-role" class="mb-0.5 text-sm">Role</Label>
-                            <Input name="work-role" placeholder="Data Center Specialist"/>
+                            <Input name="work-role" placeholder="Data Center Specialist"
+                                   bind:value={workInputFormState.role}/>
                         </div>
                         <div class="w-full col-span-full">
                             <Label for="work-bullet-input" class="mb-0.5 text-sm">Bulletpoints</Label>
                             <Textarea rows={6}
                                       name="work-bullet-input"
                                       class="w-full"
-                                      placeholder="Type bulletpoints, one per line..."/>
+                                      placeholder="Type bulletpoints, one per line..."
+                                      bind:value={workInputFormState.bulletpoints}/>
                         </div>
-                        <Button size="sm" class="w-fit font-normal">
+                        <Button size="sm" class="w-fit font-normal" onclick={addWorkExperience}>
                             <CirclePlusOutline size="sm" class="mr-1"/>
                             Add
                         </Button>
