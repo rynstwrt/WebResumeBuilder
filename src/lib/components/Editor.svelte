@@ -8,8 +8,9 @@
         Tabs,
         TabItem,
         Tooltip,
-        ButtonGroup
-
+        ButtonGroup,
+        Card,
+        CloseButton
     } from "flowbite-svelte";
 
     import {
@@ -34,14 +35,12 @@
 
     onMount(() => {
         editorOpen = openOnLoad;
-        // info.exportConfig();
     });
 
-    // function downloadConfig() {
-    //     info.exportConfig();
-    // }
     const downloadConfig = () => info.downloadConfig();
     const importConfig = () => info.importConfig();
+
+
 </script>
 
 <Modal bind:open={editorOpen}
@@ -96,7 +95,7 @@
             </TabItem>
 
 
-            <TabItem title="Work" open>
+            <TabItem title="Work">
                 {#snippet titleSlot()}
                     <div class="text-center flex flex-col items-center gap-y-0.5">
                         <BuildingSolid size="sm"/>
@@ -213,7 +212,7 @@
             </TabItem>
 
 
-            <TabItem title="Certifications">
+            <TabItem title="Certifications" open>
                 {#snippet titleSlot()}
                     <div class="text-center flex flex-col items-center gap-y-0.5">
                         <FileSolid size="sm"/>
@@ -222,6 +221,26 @@
                 {/snippet}
                 <div class="editor-section">
                     <!--                    <h3>Certifications</h3>-->
+
+                    <h4 class="text-md text-gray-300 font-normal mb-1">Certifications:</h4>
+                    <div class="mb-6 flex flex-col gap-y-1.5">
+                        {#each info.certifications as cert, i}
+                            <Card class="py-2 px-3 flex flex-col relative" size="md">
+                                <CloseButton size="md"
+                                             class="self-end absolute top-0 right-0"
+                                             onclick={() => info.certifications.splice(i, 1)}/>
+                                <h4 class="text-md font-normal">{cert.title}</h4>
+                                <p class="text-sm font-light">{cert.dates}</p>
+                                {#if cert.bulletpoints.length}
+                                    <ul class="list-disc pl-[1.5ch] mt-0.5">
+                                        {#each cert.bulletpoints as bulletpoint}
+                                            <li class="text-sm font-normal">{bulletpoint}</li>
+                                        {/each}
+                                    </ul>
+                                {/if}
+                            </Card>
+                        {/each}
+                    </div>
 
                     <div class="grid grid-cols-2 gap-2">
                         <div>

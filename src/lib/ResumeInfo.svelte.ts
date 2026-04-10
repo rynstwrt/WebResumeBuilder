@@ -25,14 +25,17 @@ class ResumeData {
     projects: {
         title: string,
         description?: string,
+        bulletpoints?: string[],
         links?: string[]
     }[] = $state([]);
 
     certifications: {
         title: string,
         description?: string,
+        bulletpoints?: string[],
         start?: string,
-        end?: string
+        end?: string,
+        dates?: string
     }[] = $state([]);
 
     // skills: string[] = $state([]);
@@ -88,14 +91,23 @@ class ResumeData {
         this.projects.push({
             title: "Project 1",
             description: "Project 1 description",
+            bulletpoints: ["Project 1 description"],
             links: ["https://github.com", "https://github.com/rynstwrt"]
         });
 
         this.certifications.push({
             title: "Certification 1",
-            description: "Certification 1 description",
-            start: "Aug. 2023",
-            end: "Aug. 2030"
+            // description: "Certification 1 description",
+            bulletpoints: ["Certification 1 description"],
+            // start: "Aug. 2023",
+            // end: "Aug. 2030",
+            dates: "Aug. 2023 - Present"
+        });
+
+        this.certifications.push({
+            title: "Certification 2",
+            bulletpoints: ["Certification 2 description"],
+            dates: "Aug. 2023 - Present"
         });
 
         // this.skills.push("Node.js", "Python", "NumPY", "SciPy", "TensorFlow", "Computer Vision", "Java", "C++", "AWS", "Vercel", "SQL", "Vue", "NextJS", "React", "Pug", "HTML5", "JavaScript", "CSS3", "SASS/SCSS", "Unix/Linux", "Frontend Development", "Full-stack Development", "Vite", "Webpack", "Progressive Web App (PWA) Development", "Audio Engineering", "Music Production", "Audio Mixing and Mastering", "Ableton", "Avid ProTools", "3D Modeling", "Autodesk Maya", "Autodesk Fusion", "Blender", "OpenSCAD", "Web Design", "Web Development", "UI/UXDesign", "Graphic Design", "Adobe Photoshop", "Adobe Illustrator", "Figma", "Trello", "Jira", "JetBrains IDEs", "Server Building and Maintenance", "Docker", "Proxmox", "Kubernetes", "Electrical Engineering", "Microcontrollers", "ESP8266", "ESP32", "Arduino", "Single Board Computers", "Browser Extension Development", "Responsive Design", "Web Scraping", "Puppeteer", "Video Game Production", "Unity", "Cybersecurity", "Pentesting", "Security Auditing", "Print Media");
