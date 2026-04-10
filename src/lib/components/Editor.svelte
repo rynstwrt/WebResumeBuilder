@@ -34,7 +34,14 @@
 
     onMount(() => {
         editorOpen = openOnLoad;
+        // info.exportConfig();
     });
+
+    // function downloadConfig() {
+    //     info.exportConfig();
+    // }
+    const downloadConfig = () => info.downloadConfig();
+    const importConfig = () => info.importConfig();
 </script>
 
 <Modal bind:open={editorOpen}
@@ -43,7 +50,6 @@
        size="md"
        class="w-fit">
     <div id="editor-modal">
-
         <Tabs tabStyle="underline" class="mt-7">
             <TabItem title="Profile">
                 {#snippet titleSlot()}
@@ -135,7 +141,7 @@
                         School
                     </div>
                 {/snippet}
-                <div class="editor-section" >
+                <div class="editor-section">
                     <!--                    <h3>Education</h3>-->
                     <div class="grid grid-cols-2 gap-2">
                         <div>
@@ -265,19 +271,6 @@
                             {/each}
                         </div>
                     {/if}
-
-                    <!--            <div class="flex flex-wrap items-center text-nowrap gap-2">-->
-                    <!--                {#each info.skills as skill}-->
-                    <!--                    <Button size="xs" class="w-min">{skill}</Button>-->
-                    <!--                {/each}-->
-                    <!--            </div>-->
-
-                    <!--            <Button size="sm" class="w-fit font-normal">-->
-                    <!--                <CirclePlusOutline size="sm" class="mr-1"/>-->
-                    <!--                Skill-->
-                    <!--            </Button>-->
-
-
                 </div>
             </TabItem>
         </Tabs>
@@ -287,11 +280,11 @@
     {#snippet footer()}
 
         <ButtonGroup>
-            <Button id="download-config-btn">
+            <Button id="download-config-btn" onclick={downloadConfig}>
                 <DownloadSolid size="md"/>
             </Button>
 
-            <Button id="upload-config-btn">
+            <Button id="upload-config-btn" onclick={importConfig}>
                 <UploadSolid size="md"/>
             </Button>
 

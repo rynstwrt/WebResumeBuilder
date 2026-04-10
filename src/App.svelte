@@ -18,20 +18,21 @@
 
     import html2pdf from "html2pdf.js";
     import html2canvas from "html2canvas-pro";
+
     function downloadPDF() {
         const el: HTMLElement = document.querySelector("main")!;
         html2canvas(el).then(canvas => {
             console.log(canvas);
-            // document.body.append(canvas);
+            document.body.append(canvas);
             html2pdf(canvas, {
-                filename: "Resume.pdf"
+                filename: "Resume.pdf",
+                jsPDF: {
+                    unit: "in",
+                    format: "letter",
+                    orientation: "portrait"
+                }
             });
-
         });
-
-
-        // const worker = html2pdf();
-        // worker.from(el).save();
     }
 </script>
 
@@ -40,7 +41,7 @@
 <Editor openOnLoad={true} info={info} {downloadPDF}/>
 
 <main
-        class="w-204 min-h-264 border border-gray-400 bg-white mx-auto p-12 mt-4 mb-12">
+        class="w-204 min-h-264 bg-white mx-auto p-12 mt-4 mb-12">
 <!--    class="w-204 h-264 border border-gray-400 bg-white mx-auto p-12 mt-4 mb-12">-->
     <!-- ABOUT SECTION  -->
 

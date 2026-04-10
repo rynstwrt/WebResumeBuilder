@@ -101,6 +101,38 @@ class ResumeData {
         // this.skills.push("Node.js", "Python", "NumPY", "SciPy", "TensorFlow", "Computer Vision", "Java", "C++", "AWS", "Vercel", "SQL", "Vue", "NextJS", "React", "Pug", "HTML5", "JavaScript", "CSS3", "SASS/SCSS", "Unix/Linux", "Frontend Development", "Full-stack Development", "Vite", "Webpack", "Progressive Web App (PWA) Development", "Audio Engineering", "Music Production", "Audio Mixing and Mastering", "Ableton", "Avid ProTools", "3D Modeling", "Autodesk Maya", "Autodesk Fusion", "Blender", "OpenSCAD", "Web Design", "Web Development", "UI/UXDesign", "Graphic Design", "Adobe Photoshop", "Adobe Illustrator", "Figma", "Trello", "Jira", "JetBrains IDEs", "Server Building and Maintenance", "Docker", "Proxmox", "Kubernetes", "Electrical Engineering", "Microcontrollers", "ESP8266", "ESP32", "Arduino", "Single Board Computers", "Browser Extension Development", "Responsive Design", "Web Scraping", "Puppeteer", "Video Game Production", "Unity", "Cybersecurity", "Pentesting", "Security Auditing", "Print Media");
         this.skills = ["Node.js", "Python", "NumPY", "SciPy", "TensorFlow", "Computer Vision", "Java", "C++", "AWS", "Vercel", "SQL", "Vue", "NextJS", "React", "Pug", "HTML5", "JavaScript", "CSS3", "SASS/SCSS", "Unix/Linux", "Frontend Development", "Full-stack Development", "Vite", "Webpack", "Progressive Web App (PWA) Development", "Audio Engineering", "Music Production", "Audio Mixing and Mastering", "Ableton", "Avid ProTools", "3D Modeling", "Autodesk Maya", "Autodesk Fusion", "Blender", "OpenSCAD", "Web Design", "Web Development", "UI/UXDesign", "Graphic Design", "Adobe Photoshop", "Adobe Illustrator", "Figma", "Trello", "Jira", "JetBrains IDEs", "Server Building and Maintenance", "Docker", "Proxmox", "Kubernetes", "Electrical Engineering", "Microcontrollers", "ESP8266", "ESP32", "Arduino", "Single Board Computers", "Browser Extension Development", "Responsive Design", "Web Scraping", "Puppeteer", "Video Game Production", "Unity", "Cybersecurity", "Pentesting", "Security Auditing", "Print Media"].join(", ")
     }
+
+
+    toJSON() {
+        return {
+            name: this.name,
+            email: this.email,
+            phone: this.phone,
+            location: this.location
+        };
+    }
+
+
+    downloadConfig() {
+        const jsonConfig = JSON.stringify(this, null, 4);
+
+        const downloadURL = `data:text/json;charset=utf8,${encodeURIComponent(jsonConfig)}`;
+
+        const link = document.createElement("a");
+        link.href = downloadURL;
+        link.download = "ResumeConfig.json";
+
+        document.body.append(link);
+        link.click();
+
+        document.body.removeChild(link);
+        URL.revokeObjectURL(downloadURL);
+    }
+
+
+    importConfig() {
+        console.log(this);
+    }
 }
 
 export default ResumeData;
