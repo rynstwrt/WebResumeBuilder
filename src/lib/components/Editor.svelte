@@ -104,6 +104,28 @@
                 {/snippet}
                 <div class="editor-section">
                     <!--                    <h3>Work</h3>-->
+
+                    <h4 class="text-md text-gray-300 font-normal mb-1">Work Experience:</h4>
+                    <div class="mb-6 flex flex-col gap-y-1.5">
+                        {#each info.workExperience as work, i}
+                            <Card class="py-2 px-3 flex flex-col relative" size="md">
+                                <CloseButton size="md"
+                                             class="self-end absolute top-0 right-0"
+                                             onclick={() => info.workExperience.splice(i, 1)}/>
+                                <h4 class="text-md font-normal">{work.role}</h4>
+                                <h4 class="text-md font-light">{work.employer}</h4>
+                                <p class="text-sm font-thin">{work.dates}</p>
+                                {#if work.bulletpoints.length}
+                                    <ul class="list-disc pl-[1.5ch] mt-0.5">
+                                        {#each work.bulletpoints as bulletpoint}
+                                            <li class="text-sm font-normal">{bulletpoint}</li>
+                                        {/each}
+                                    </ul>
+                                {/if}
+                            </Card>
+                        {/each}
+                    </div>
+
                     <div class="grid grid-cols-2 gap-2">
                         <div>
                             <Label for="work-name-input" class="mb-0.5 text-sm">Employer</Label>
@@ -133,7 +155,7 @@
             </TabItem>
 
 
-            <TabItem title="Education">
+            <TabItem title="Education" open>
                 {#snippet titleSlot()}
                     <div class="text-center flex flex-col items-center gap-y-0.5">
                         <GraduationCapSolid size="sm"/>
@@ -142,6 +164,28 @@
                 {/snippet}
                 <div class="editor-section">
                     <!--                    <h3>Education</h3>-->
+
+                    <h4 class="text-md text-gray-300 font-normal mb-1">Education:</h4>
+                    <div class="mb-6 flex flex-col gap-y-1.5">
+                        {#each info.education as school, i}
+                            <Card class="py-2 px-3 flex flex-col relative" size="md">
+                                <CloseButton size="md"
+                                             class="self-end absolute top-0 right-0"
+                                             onclick={() => info.education.splice(i, 1)}/>
+                                <h4 class="text-md font-normal">{school.school}</h4>
+                                <h4 class="text-md font-light">{school.diploma}</h4>
+                                <p class="text-sm font-thin">{school.dates}</p>
+                                {#if school.bulletpoints}
+                                    <ul class="list-disc pl-[1.5ch] mt-0.5">
+                                        {#each school.bulletpoints as bulletpoint}
+                                            <li class="text-sm font-normal">{bulletpoint}</li>
+                                        {/each}
+                                    </ul>
+                                {/if}
+                            </Card>
+                        {/each}
+                    </div>
+
                     <div class="grid grid-cols-2 gap-2">
                         <div>
                             <Label for="school-name-input" class="mb-0.5 text-sm">Name</Label>
@@ -212,7 +256,7 @@
             </TabItem>
 
 
-            <TabItem title="Certifications" open>
+            <TabItem title="Certifications">
                 {#snippet titleSlot()}
                     <div class="text-center flex flex-col items-center gap-y-0.5">
                         <FileSolid size="sm"/>
@@ -230,7 +274,7 @@
                                              class="self-end absolute top-0 right-0"
                                              onclick={() => info.certifications.splice(i, 1)}/>
                                 <h4 class="text-md font-normal">{cert.title}</h4>
-                                <p class="text-sm font-light">{cert.dates}</p>
+                                <p class="text-sm font-thin">{cert.dates}</p>
                                 {#if cert.bulletpoints.length}
                                     <ul class="list-disc pl-[1.5ch] mt-0.5">
                                         {#each cert.bulletpoints as bulletpoint}

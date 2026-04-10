@@ -8,18 +8,21 @@ class ResumeData {
 
     workExperience: {
         employer: string,
-        title: string,
-        description?: string,
+        role: string,
+        // description?: string,
         bulletpoints?: string[],
-        start: string,
-        end?: string,
+        // start?: string,
+        // end?: string,
+        dates: string
     }[] = $state([]);
 
     education: {
         school: string,
         diploma: string,
-        start: string,
-        end?: string,
+        // start?: string,
+        // end?: string,
+        bulletpoints?: string[],
+        dates?: string
     }[] = $state([]);
 
     projects: {
@@ -56,8 +59,9 @@ class ResumeData {
 
         this.workExperience.push({
             employer: "Self-employed",
-            title: "Frontend Developer",
-            start: "June 2023",
+            role: "Frontend Developer",
+            // start: "June 2023",
+            dates: "June 2023 - Present",
             bulletpoints: [
                 "Created responsive websites and progressive web applications that are designed to look good on any device or screen size.",
                 "Utilized web frameworks like React and Vue to create modular, dynamic web components.",
@@ -69,9 +73,10 @@ class ResumeData {
         });
         this.workExperience.push({
             employer: "IBM",
-            title: "Data Center Specialist",
-            start: "Jan. 2023",
-            end: "June 2023",
+            role: "Data Center Specialist",
+            // start: "Jan. 2023",
+            // end: "June 2023",
+            dates: "Jan. 2023 - June 2023",
             bulletpoints: [
                 "Worked in one of the most active data centers in the world, IBM’s DAL13.",
                 "Racked, built, cabled, configured, and provisioned Intel servers, AMD servers, and Cisco Layer 2 networking equipment.",
@@ -84,8 +89,9 @@ class ResumeData {
         this.education.push({
             school: "The University of Texas at Dallas",
             diploma: "B.A. Arts, Technology, and Emerging Communication",
-            start: "Aug. 2019",
-            end: "Dec. 2025"
+            dates: "Aug. 2019 - Dec. 2025"
+            // start: "Aug. 2019",
+            // end: "Dec. 2025"
         });
 
         this.projects.push({

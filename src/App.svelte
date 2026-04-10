@@ -99,12 +99,13 @@
             <div class="tile">
                 <div class="flex justify-between">
                     <div>
-                        <h3 class="subheader">{entry.title}</h3>
+                        <h3 class="subheader">{entry.role}</h3>
                         <h4 class="subheader-2">{entry.employer}</h4>
                     </div>
 
                     <div class="dates text-right tracking-tight">
-                        <p>{entry.start} - {entry.end || "Present"}</p>
+<!--                        <p>{entry.start} - {entry.end || "Present"}</p>-->
+                        <p>{entry.dates}</p>
                         <p>Dallas, TX</p>
                     </div>
                 </div>
