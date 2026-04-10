@@ -27,7 +27,7 @@
         DownloadSolid,
         CheckCircleSolid
     } from "flowbite-svelte-icons";
-    import {onMount} from "svelte";
+    import { onMount } from "svelte";
 
     let editorOpen = $state(false);
     let {info, openOnLoad = false, downloadPDF} = $props();
@@ -90,7 +90,7 @@
             </TabItem>
 
 
-            <TabItem title="Work">
+            <TabItem title="Work" open>
                 {#snippet titleSlot()}
                     <div class="text-center flex flex-col items-center gap-y-0.5">
                         <BuildingSolid size="sm"/>
@@ -99,10 +99,31 @@
                 {/snippet}
                 <div class="editor-section">
                     <!--                    <h3>Work</h3>-->
-                    <Button size="sm" class="w-fit font-normal">
-                        <CirclePlusOutline size="sm" class="mr-1"/>
-                        Experience
-                    </Button>
+                    <div class="grid grid-cols-2 gap-2">
+                        <div>
+                            <Label for="work-name-input" class="mb-0.5 text-sm">Employer</Label>
+                            <Input name="work-name-input" placeholder="IBM"/>
+                        </div>
+                        <div>
+                            <Label for="work-dates-input" class="mb-0.5 text-sm">Dates</Label>
+                            <Input name="work-dates-input" placeholder="Dec. 2022 - Jul. 2024"/>
+                        </div>
+                        <div class="col-span-full">
+                            <Label for="work-role" class="mb-0.5 text-sm">Role</Label>
+                            <Input name="work-role" placeholder="Data Center Specialist"/>
+                        </div>
+                        <div class="w-full col-span-full">
+                            <Label for="work-bullet-input" class="mb-0.5 text-sm">Bulletpoints</Label>
+                            <Textarea rows={6}
+                                      name="work-bullet-input"
+                                      class="w-full"
+                                      placeholder="Type bulletpoints, one per line..."/>
+                        </div>
+                        <Button size="sm" class="w-fit font-normal">
+                            <CirclePlusOutline size="sm" class="mr-1"/>
+                            Add
+                        </Button>
+                    </div>
                 </div>
             </TabItem>
 
@@ -114,12 +135,33 @@
                         School
                     </div>
                 {/snippet}
-                <div class="editor-section">
+                <div class="editor-section" >
                     <!--                    <h3>Education</h3>-->
-                    <Button size="sm" class="w-fit font-normal">
-                        <CirclePlusOutline size="sm" class="mr-1"/>
-                        Education
-                    </Button>
+                    <div class="grid grid-cols-2 gap-2">
+                        <div>
+                            <Label for="school-name-input" class="mb-0.5 text-sm">Name</Label>
+                            <Input name="school-name-input" placeholder="The University of Texas"/>
+                        </div>
+                        <div>
+                            <Label for="school-dates-input" class="mb-0.5 text-sm">Dates</Label>
+                            <Input name="school-dates-input" placeholder="Aug. 2019 - Dec. 2025"/>
+                        </div>
+                        <div class="col-span-full">
+                            <Label for="school-major" class="mb-0.5 text-sm">Major</Label>
+                            <Input name="school-major" placeholder="B.S. Computer Science"/>
+                        </div>
+                        <div class="w-full col-span-full">
+                            <Label for="school-bullet-input" class="mb-0.5 text-sm">Bulletpoints</Label>
+                            <Textarea rows={3}
+                                      name="school-bullet-input"
+                                      class="w-full"
+                                      placeholder="Type bulletpoints, one per line..."/>
+                        </div>
+                        <Button size="sm" class="w-fit font-normal">
+                            <CirclePlusOutline size="sm" class="mr-1"/>
+                            Add
+                        </Button>
+                    </div>
                 </div>
             </TabItem>
 
@@ -133,10 +175,34 @@
                 {/snippet}
                 <div class="editor-section">
                     <!--                    <h3>Projects</h3>-->
-                    <Button size="sm" class="w-fit font-normal">
-                        <CirclePlusOutline size="sm" class="mr-1"/>
-                        Project
-                    </Button>
+                    <div class="grid grid-cols-2 gap-2">
+                        <div>
+                            <Label for="project-name-input" class="mb-0.5 text-sm">Name</Label>
+                            <Input name="project-name-input" placeholder="Project 01"/>
+                        </div>
+                        <div>
+                            <Label for="project-dates-input" class="mb-0.5 text-sm">Dates</Label>
+                            <Input name="project-dates-input" placeholder="2023 - 2025"/>
+                        </div>
+                        <div class="w-full col-span-full">
+                            <Label for="project-bullet-input" class="mb-0.5 text-sm">Bulletpoints</Label>
+                            <Textarea rows={3}
+                                      name="project-bullet-input"
+                                      class="w-full"
+                                      placeholder="Type bulletpoints, one per line..."/>
+                        </div>
+                        <div class="w-full col-span-full">
+                            <Label for="project-bullet-input" class="mb-0.5 text-sm">Links</Label>
+                            <Textarea rows={2}
+                                      name="project-bullet-input"
+                                      class="w-full"
+                                      placeholder="Type links, one per line..."/>
+                        </div>
+                        <Button size="sm" class="w-fit font-normal">
+                            <CirclePlusOutline size="sm" class="mr-1"/>
+                            Add
+                        </Button>
+                    </div>
                 </div>
             </TabItem>
 
@@ -162,10 +228,10 @@
                         </div>
                         <div class="w-full col-span-full">
                             <Label for="cert-bullet-input" class="mb-0.5 text-sm">Bulletpoints</Label>
-                            <Textarea rows={6}
+                            <Textarea rows={2}
                                       name="cert-bullet-input"
                                       class="w-full"
-                                      placeholder="Type bulletpoints, one per each line..."/>
+                                      placeholder="Type bulletpoints, one per line..."/>
                         </div>
                         <Button size="sm" class="w-fit font-normal">
                             <CirclePlusOutline size="sm" class="mr-1"/>
@@ -176,7 +242,7 @@
             </TabItem>
 
 
-            <TabItem title="Skills" open>
+            <TabItem title="Skills">
                 {#snippet titleSlot()}
                     <div class="text-center flex flex-col items-center gap-y-0.5">
                         <PenSolid size="sm"/>
