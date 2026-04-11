@@ -11,8 +11,10 @@
         PhoneOutline,
     } from "flowbite-svelte-icons";
 
+    const devMode = process.env.NODE_ENV === "development";
+
     import ResumeData from "./lib/ResumeInfo.svelte.ts";
-    const info = new ResumeData(true);
+    const info = new ResumeData(devMode);
 
     import Editor from "./lib/components/Editor.svelte";
 
@@ -35,13 +37,11 @@
         });
     }
 
-    const DEV_MODE = process.env.NODE_ENV;
-    alert(DEV_MODE)
 </script>
 
 
 <!--<EditorDrawer addToast={addToast} openOnLoad={false} info={info}/>-->
-<Editor openOnLoad={(process.env.NODE_ENV === "development")} info={info} {downloadPDF}/>
+<Editor openOnLoad={devMode} info={info} {downloadPDF}/>
 
 <main
         class="w-204 min-h-264 bg-white mx-auto p-12 mt-4 mb-12">
