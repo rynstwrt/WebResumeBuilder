@@ -164,7 +164,7 @@
     {/if}
 
     <!-- PROJECTS SECTION -->
-    {#if info.projects}
+    {#if info.projects?.length}
         <section id="projects">
             <h2 class="header">Projects</h2>
 
