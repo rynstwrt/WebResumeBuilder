@@ -30,9 +30,7 @@
     --color-secondary-900: #0c4a6e;
 }
 
-/*@source "../../node_modules/flowbite-svelte/dist";*/
-/*@source "../../node_modules/flowbite-svelte-icons/dist";*/
-@source '../**/*.{html,js,svelte,ts,md}';
+/*@source '..!**!*.{html,js,svelte,ts,md}';*/
 @source '../node_modules/flowbite-svelte/**/*.{html,js,svelte,ts}';
 @source '../node_modules/flowbite-svelte-icons/**/*.{html,js,svelte,ts}';
 @source '../node_modules/flowbite-svelte-blocks/**/*.{html,js,svelte,ts}';
