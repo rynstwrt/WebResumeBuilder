@@ -29,9 +29,12 @@
         CheckCircleSolid
     } from "flowbite-svelte-icons";
     import { onMount } from "svelte";
+    import SchoolSection from "./SchoolSection.svelte";
 
     let editorOpen = $state(false);
     let {info, openOnLoad = false, downloadPDF, isDevMode} = $props();
+
+    let eduModalOpen = $state(false);
 
     onMount(() => {
         editorOpen = openOnLoad;
@@ -88,6 +91,36 @@
     }
 </script>
 
+
+<Modal bind:open={eduModalOpen} outsideclose={false} form size="xs">
+    <div class="grid grid-cols-2 gap-3 mt-6">
+        <div>
+            <Label for="school">School</Label>
+            <Input name="school" placeholder="University of Texas"/>
+        </div>
+        <div>
+            <Label for="diploma">Diploma</Label>
+            <Input name="diploma" placeholder="B.S. Computer Science"/>
+        </div>
+        <div>
+            <Label for="dates">Dates</Label>
+            <Input name="dates" placeholder="Aug. 2019 - Dec. 2025"/>
+        </div>
+        <div>
+            <Label for="location">Location</Label>
+            <Input name="location" placeholder="Austin, TX"/>
+        </div>
+        <div class="col-span-full">
+            <Label for="bulletpoints">Bulletpoints</Label>
+            <Textarea name="bulletpoints"
+                      placeholder="Type bulletpoints here, one per line..."
+                      class="w-full"
+                      rows={3}/>
+        </div>
+        <Button class="col-span-full mt-5">Save</Button>
+    </div>
+</Modal>
+
 <Modal bind:open={editorOpen}
        outsideclose={false}
        class="max-h-9/12">
@@ -103,9 +136,9 @@
             {/snippet}
             <div class="editor-section">
                 <!--                    <h3>Profile</h3>-->
-                <div class="grid grid-cols-2 gap-2">
+                <div class="grid grid-cols-2 gap-3">
                     <div>
-                        <Label for="name" class="mb-0.5 text-sm">Name</Label>
+                        <Label for="name">Name</Label>
                         <Input name="name"
                                size="md"
                                placeholder="John Doe"
@@ -113,7 +146,7 @@
                                bind:value={info.name}/>
                     </div>
                     <div>
-                        <Label for="phone" class="mb-0.5 text-sm">Phone Number</Label>
+                        <Label for="phone">Phone Number</Label>
                         <Input name="phone"
                                type="tel"
                                placeholder="123-456-7890"
@@ -121,67 +154,40 @@
                                bind:value={info.phone}/>
                     </div>
                     <div>
-                        <Label for="email" class="mb-0.5 text-sm">Email</Label>
+                        <Label for="email">Email</Label>
                         <Input name="email"
                                placeholder="john.doe@gmail.com"
                                required
                                bind:value={info.email}/>
                     </div>
                     <div>
-                        <Label for="location" class="mb-0.5 text-sm">Location</Label>
+                        <Label for="location">Location</Label>
                         <Input name="location"
                                placeholder="Seattle, WA"
                                required
                                bind:value={info.location}/>
+                    </div>
+                    <div class="col-span-full">
+                        <Label for="links">Links</Label>
+                        <Textarea name="links"
+                                  placeholder="Type links here, one per line..."
+                                  bind:value={info.links}
+                                  rows={3}
+                                  class="w-full"/>
                     </div>
                 </div>
             </div>
         </TabItem>
 
 
-        <TabItem title="Work">
+        <TabItem title="Work" open={isDevMode && false}>
             {#snippet titleSlot()}
                 <div class="title-slot">
                     <BuildingSolid size="sm"/>
                     Work
                 </div>
             {/snippet}
-            <div class="editor-section">
-                <div class="grid grid-cols-2 gap-2">
-                    <div>
-                        <Label for="work-name-input" class="mb-0.5 text-sm">Employer</Label>
-                        <Input name="work-name-input" placeholder="IBM" bind:value={workInputFormState.employer}/>
-                    </div>
-                    <div class="">
-                        <Label for="work-role" class="mb-0.5 text-sm">Role</Label>
-                        <Input name="work-role" placeholder="Data Center Specialist"
-                               bind:value={workInputFormState.role}/>
-                    </div>
-                    <div>
-                        <Label for="work-location-input" class="mb-0.5 text-sm">Location</Label>
-                        <Input name="work-location-input" placeholder="Seattle, WA"
-                               bind:value={workInputFormState.location}/>
-                    </div>
-                    <div>
-                        <Label for="work-dates-input" class="mb-0.5 text-sm">Dates</Label>
-                        <Input name="work-dates-input" placeholder="Dec. 2022 - Jul. 2024"
-                               bind:value={workInputFormState.dates}/>
-                    </div>
-                    <div class="w-full col-span-full">
-                        <Label for="work-bullet-input" class="mb-0.5 text-sm">Bulletpoints</Label>
-                        <Textarea rows={6}
-                                  name="work-bullet-input"
-                                  class="w-full"
-                                  placeholder="Type bulletpoints, one per line..."
-                                  bind:value={workInputFormState.bulletpoints}/>
-                    </div>
-                    <Button size="sm" class="w-fit font-normal" onclick={addWorkExperience}>
-                        <CirclePlusOutline size="sm" class="mr-1"/>
-                        Add
-                    </Button>
-                </div>
-            </div>
-            <div class="mt-6 flex flex-col gap-y-2">
+            <div class="mb-8 grid grid-cols-2 gap-2">
                 {#each info.workExperience as work, i}
                     <Card class="py-2 px-3 flex flex-col relative" size="md">
                         <CloseButton size="md"
@@ -200,65 +206,53 @@
                     </Card>
                 {/each}
             </div>
+            <div class="editor-section">
+                <div class="grid grid-cols-2 gap-3">
+                    <div>
+                        <Label for="work-name-input">Employer</Label>
+                        <Input name="work-name-input" placeholder="IBM" bind:value={workInputFormState.employer}/>
+                    </div>
+                    <div class="">
+                        <Label for="work-role">Role</Label>
+                        <Input name="work-role" placeholder="Data Center Specialist"
+                               bind:value={workInputFormState.role}/>
+                    </div>
+                    <div>
+                        <Label for="work-location-input">Location</Label>
+                        <Input name="work-location-input" placeholder="Seattle, WA"
+                               bind:value={workInputFormState.location}/>
+                    </div>
+                    <div>
+                        <Label for="work-dates-input">Dates</Label>
+                        <Input name="work-dates-input" placeholder="Dec. 2022 - Jul. 2024"
+                               bind:value={workInputFormState.dates}/>
+                    </div>
+                    <div class="w-full col-span-full">
+                        <Label for="work-bullet-input">Bulletpoints</Label>
+                        <Textarea rows={6}
+                                  name="work-bullet-input"
+                                  class="w-full"
+                                  placeholder="Type bulletpoints, one per line..."
+                                  bind:value={workInputFormState.bulletpoints}/>
+                    </div>
+                    <Button size="sm" class="w-fit font-normal" onclick={addWorkExperience}>
+                        <CirclePlusOutline size="sm" class="mr-1"/>
+                        Add
+                    </Button>
+                </div>
+            </div>
+
         </TabItem>
 
 
-        <TabItem title="Education">
+        <TabItem title="Education" open={isDevMode && true}>
             {#snippet titleSlot()}
                 <div class="title-slot">
                     <GraduationCapSolid size="sm"/>
                     School
                 </div>
             {/snippet}
-            <div class="editor-section">
-                <!--                    <h3>Education</h3>-->
-                <h4 class="text-md text-gray-300 font-normal mb-1">Education:</h4>
-                <div class="mb-6 flex flex-col gap-y-2">
-                    {#each info.education as school, i}
-                        <Card class="py-2 px-3 flex flex-col relative" size="md">
-                            <CloseButton size="md"
-                                         class="self-end absolute top-0 right-0"
-                                         onclick={() => info.education.splice(i, 1)}/>
-                            <h4 class="text-md font-normal">{school.school}</h4>
-                            <h4 class="text-sm font-light">{school.diploma}</h4>
-                            <p class="text-sm font-thin">{school.dates}</p>
-                            {#if school.bulletpoints}
-                                <ul class="list-disc pl-[1.5ch] mt-0.5">
-                                    {#each school.bulletpoints as bulletpoint}
-                                        <li class="text-sm font-normal">{bulletpoint}</li>
-                                    {/each}
-                                </ul>
-                            {/if}
-                        </Card>
-                    {/each}
-                </div>
-
-                <div class="grid grid-cols-2 gap-2">
-                    <div>
-                        <Label for="school-name-input" class="mb-0.5 text-sm">Name</Label>
-                        <Input name="school-name-input" placeholder="The University of Texas"/>
-                    </div>
-                    <div>
-                        <Label for="school-dates-input" class="mb-0.5 text-sm">Dates</Label>
-                        <Input name="school-dates-input" placeholder="Aug. 2019 - Dec. 2025"/>
-                    </div>
-                    <div class="col-span-full">
-                        <Label for="school-major" class="mb-0.5 text-sm">Major</Label>
-                        <Input name="school-major" placeholder="B.S. Computer Science"/>
-                    </div>
-                    <div class="w-full col-span-full">
-                        <Label for="school-bullet-input" class="mb-0.5 text-sm">Bulletpoints</Label>
-                        <Textarea rows={3}
-                                  name="school-bullet-input"
-                                  class="w-full"
-                                  placeholder="Type bulletpoints, one per line..."/>
-                    </div>
-                    <Button size="sm" class="w-fit font-normal" onclick={addEducation}>
-                        <CirclePlusOutline size="sm" class="mr-1"/>
-                        Add
-                    </Button>
-                </div>
-            </div>
+<!--            <SchoolSection {info}/>-->
         </TabItem>
 
 
@@ -292,22 +286,22 @@
 
                 <div class="grid grid-cols-2 gap-2">
                     <div>
-                        <Label for="project-name-input" class="mb-0.5 text-sm">Name</Label>
+                        <Label for="project-name-input">Name</Label>
                         <Input name="project-name-input" placeholder="Project 01"/>
                     </div>
                     <div>
-                        <Label for="project-dates-input" class="mb-0.5 text-sm">Dates</Label>
+                        <Label for="project-dates-input">Dates</Label>
                         <Input name="project-dates-input" placeholder="2023 - 2025"/>
                     </div>
                     <div class="w-full col-span-full">
-                        <Label for="project-bullet-input" class="mb-0.5 text-sm">Bulletpoints</Label>
+                        <Label for="project-bullet-input">Bulletpoints</Label>
                         <Textarea rows={3}
                                   name="project-bullet-input"
                                   class="w-full"
                                   placeholder="Type bulletpoints, one per line..."/>
                     </div>
                     <div class="w-full col-span-full">
-                        <Label for="project-bullet-input" class="mb-0.5 text-sm">Links</Label>
+                        <Label for="project-bullet-input">Links</Label>
                         <Textarea rows={2}
                                   name="project-bullet-input"
                                   class="w-full"
@@ -354,15 +348,15 @@
 
                 <div class="grid grid-cols-2 gap-2">
                     <div>
-                        <Label for="cert-name-input" class="mb-0.5 text-sm">Name</Label>
+                        <Label for="cert-name-input">Name</Label>
                         <Input name="cert-name-input" placeholder="CCNA"/>
                     </div>
                     <div>
-                        <Label for="cert-dates-input" class="mb-0.5 text-sm">Dates</Label>
+                        <Label for="cert-dates-input">Dates</Label>
                         <Input name="cert-dates-input" placeholder="2025 - Present"/>
                     </div>
                     <div class="w-full col-span-full">
-                        <Label for="cert-bullet-input" class="mb-0.5 text-sm">Bulletpoints</Label>
+                        <Label for="cert-bullet-input">Bulletpoints</Label>
                         <Textarea rows={2}
                                   name="cert-bullet-input"
                                   class="w-full"
@@ -425,7 +419,7 @@
         <Tooltip triggeredBy="#upload-config-btn">Upload Config</Tooltip>
         <Tooltip triggeredBy="#download-pdf-btn">Download Resume PDF</Tooltip>
 
-        <Button type="submit" color="primary" class="w-full">
+        <Button disabled type="submit" color="primary" class="w-full">
             <!--            <CheckCircleSolid size="sm" class="mr-1"/>-->
             Confirm
         </Button>
@@ -446,6 +440,11 @@
 
     .title-slot {
         @apply text-center flex items-center gap-x-1;
+    }
+
+    :global(label) {
+        /*color: red !important;*/
+        @apply text-sm font-normal mb-0.5;
     }
 
     /*#editor-modal :global(ul) {*/

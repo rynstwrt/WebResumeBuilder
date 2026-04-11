@@ -80,18 +80,20 @@
 			</span>
         </div>
 
-        <div class="flex gap-2 text-xs font-light">
-            {#each info.links as link, i}
-				<span>
-					<GlobeOutline size="sm" class="inline"/>
-					<a href={link}>{link}</a>
-				</span>
+        {#if info.links}
+            <div class="flex gap-2 text-xs font-light">
+                {#each info.links.split("\n") as link, i}
+                    <span>
+                        <GlobeOutline size="sm" class="inline"/>
+                        <a href={link}>{link}</a>
+                    </span>
 
-                {#if i !== info.links.length - 1}
-                    |
-                {/if}
-            {/each}
-        </div>
+                    {#if i !== info.links.split("\n").length - 1}
+                        |
+                    {/if}
+                {/each}
+            </div>
+        {/if}
     </section>
 
     <!-- EXPERIENCE SECTION -->
