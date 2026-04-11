@@ -31,7 +31,7 @@
     import { onMount } from "svelte";
 
     let editorOpen = $state(false);
-    let {info, openOnLoad = false, downloadPDF} = $props();
+    let {info, openOnLoad = false, downloadPDF, isDevMode} = $props();
 
     onMount(() => {
         editorOpen = openOnLoad;
@@ -139,7 +139,7 @@
         </TabItem>
 
 
-        <TabItem title="Work" open>
+        <TabItem title="Work">
             {#snippet titleSlot()}
                 <div class="title-slot">
                     <BuildingSolid size="sm"/>
