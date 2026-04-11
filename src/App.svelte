@@ -41,7 +41,7 @@
 
 
 <!--<EditorDrawer addToast={addToast} openOnLoad={false} info={info}/>-->
-<Editor openOnLoad={isDevMode} info={info} {downloadPDF}/>
+<Editor openOnLoad={true} info={info} {isDevMode} {downloadPDF}/>
 
 <main
         class="w-204 min-h-264 bg-white mx-auto p-12 mt-4 mb-12">
