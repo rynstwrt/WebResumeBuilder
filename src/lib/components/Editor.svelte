@@ -10,7 +10,10 @@
         Tooltip,
         ButtonGroup,
         Card,
-        CloseButton
+        CloseButton,
+        Drawer,
+        DrawerHandle,
+        Drawerhead
     } from "flowbite-svelte";
 
     import {
@@ -39,6 +42,8 @@
     onMount(() => {
         editorOpen = openOnLoad;
     });
+
+    const DRAWER_HANDLE_SIZE = 40;
 
     const downloadConfig = () => info.downloadConfig();
     const importConfig = () => info.importConfig();
@@ -92,41 +97,40 @@
 </script>
 
 
-<Modal bind:open={eduModalOpen} outsideclose={false} form size="xs">
-    <div class="grid grid-cols-2 gap-3 mt-6">
-        <div>
-            <Label for="school">School</Label>
-            <Input name="school" placeholder="University of Texas"/>
-        </div>
-        <div>
-            <Label for="diploma">Diploma</Label>
-            <Input name="diploma" placeholder="B.S. Computer Science"/>
-        </div>
-        <div>
-            <Label for="dates">Dates</Label>
-            <Input name="dates" placeholder="Aug. 2019 - Dec. 2025"/>
-        </div>
-        <div>
-            <Label for="location">Location</Label>
-            <Input name="location" placeholder="Austin, TX"/>
-        </div>
-        <div class="col-span-full">
-            <Label for="bulletpoints">Bulletpoints</Label>
-            <Textarea name="bulletpoints"
-                      placeholder="Type bulletpoints here, one per line..."
-                      class="w-full"
-                      rows={3}/>
-        </div>
-        <Button class="col-span-full mt-5">Save</Button>
-    </div>
-</Modal>
+<!--<Modal bind:open={eduModalOpen} outsideclose={false} form size="xs">-->
+<!--    <div class="grid grid-cols-2 gap-3 mt-6">-->
+<!--        <div>-->
+<!--            <Label for="school">School</Label>-->
+<!--            <Input name="school" placeholder="University of Texas"/>-->
+<!--        </div>-->
+<!--        <div>-->
+<!--            <Label for="diploma">Diploma</Label>-->
+<!--            <Input name="diploma" placeholder="B.S. Computer Science"/>-->
+<!--        </div>-->
+<!--        <div>-->
+<!--            <Label for="dates">Dates</Label>-->
+<!--            <Input name="dates" placeholder="Aug. 2019 - Dec. 2025"/>-->
+<!--        </div>-->
+<!--        <div>-->
+<!--            <Label for="location">Location</Label>-->
+<!--            <Input name="location" placeholder="Austin, TX"/>-->
+<!--        </div>-->
+<!--        <div class="col-span-full">-->
+<!--            <Label for="bulletpoints">Bulletpoints</Label>-->
+<!--            <Textarea name="bulletpoints"-->
+<!--                      placeholder="Type bulletpoints here, one per line..."-->
+<!--                      class="w-full"-->
+<!--                      rows={3}/>-->
+<!--        </div>-->
+<!--        <Button class="col-span-full mt-5">Save</Button>-->
+<!--    </div>-->
+<!--</Modal>-->
 
-<Modal bind:open={editorOpen}
-       outsideclose={false}
-       class="max-h-9/12">
+<Drawer bind:open={editorOpen} offset="{DRAWER_HANDLE_SIZE}px" placement="left" width="full" class="text-gray-400 pr-8">
+    <DrawerHandle onclick={() => editorOpen = !editorOpen} class="h-14 my-auto" />
     <!--    class="max-h-9/12">-->
     <!--    <div id="editor-modal">-->
-    <Tabs tabStyle="underline" class="mt-7 w-full">
+    <Tabs tabStyle="underline" class="max-w-fit">
         <TabItem title="Profile">
             {#snippet titleSlot()}
                 <div class="title-slot">
@@ -253,6 +257,53 @@
                 </div>
             {/snippet}
 <!--            <SchoolSection {info}/>-->
+            <div class="editor-section">
+                <div class="mb-6 flex flex-col gap-y-2">
+                    {#each info.education as school, i}
+                        <Card class="py-2 px-3 flex flex-col relative" size="md">
+                            <CloseButton size="md"
+                                         class="self-end absolute top-0 right-0"
+                                         onclick={() => info.education.splice(i, 1)}/>
+                            <h4 class="text-md font-normal">{school.school}</h4>
+                            <h4 class="text-sm font-light">{school.diploma}</h4>
+                            <p class="text-sm font-thin">{school.dates}</p>
+                            {#if school.bulletpoints}
+                                <ul class="list-disc pl-[1.5ch] mt-0.5">
+                                    {#each school.bulletpoints as bulletpoint}
+                                        <li class="text-sm font-normal">{bulletpoint}</li>
+                                    {/each}
+                                </ul>
+                            {/if}
+                        </Card>
+                    {/each}
+                </div>
+                <div class="grid grid-cols-2 gap-3 mt-6">
+                    <div>
+                        <Label for="school">School</Label>
+                        <Input name="school" placeholder="University of Texas"/>
+                    </div>
+                    <div>
+                        <Label for="diploma">Diploma</Label>
+                        <Input name="diploma" placeholder="B.S. Computer Science"/>
+                    </div>
+                    <div>
+                        <Label for="dates">Dates</Label>
+                        <Input name="dates" placeholder="Aug. 2019 - Dec. 2025"/>
+                    </div>
+                    <div>
+                        <Label for="location">Location</Label>
+                        <Input name="location" placeholder="Austin, TX"/>
+                    </div>
+                    <div class="col-span-full">
+                        <Label for="bulletpoints">Bulletpoints</Label>
+                        <Textarea name="bulletpoints"
+                                  placeholder="Type bulletpoints here, one per line..."
+                                  class="w-full"
+                                  rows={3}/>
+                    </div>
+                    <Button class="col-span-full mt-5">Save</Button>
+                </div>
+            </div>
         </TabItem>
 
 
@@ -400,31 +451,31 @@
 
     <!--    </div>-->
 
-    {#snippet footer()}
-        <ButtonGroup>
-            <Button id="download-config-btn" onclick={downloadConfig}>
-                <DownloadSolid size="md"/>
-            </Button>
+    <!--{#snippet footer()}-->
+    <!--    <ButtonGroup>-->
+    <!--        <Button id="download-config-btn" onclick={downloadConfig}>-->
+    <!--            <DownloadSolid size="md"/>-->
+    <!--        </Button>-->
 
-            <Button id="upload-config-btn" onclick={importConfig}>
-                <UploadSolid size="md"/>
-            </Button>
+    <!--        <Button id="upload-config-btn" onclick={importConfig}>-->
+    <!--            <UploadSolid size="md"/>-->
+    <!--        </Button>-->
 
-            <Button id="download-pdf-btn" class="text-nowrap" onclick={() => downloadPDF()}>
-                <DownloadSolid size="sm" class="mr-1"/>
-                PDF
-            </Button>
-        </ButtonGroup>
-        <Tooltip triggeredBy="#download-config-btn">Download Config</Tooltip>
-        <Tooltip triggeredBy="#upload-config-btn">Upload Config</Tooltip>
-        <Tooltip triggeredBy="#download-pdf-btn">Download Resume PDF</Tooltip>
+    <!--        <Button id="download-pdf-btn" class="text-nowrap" onclick={() => downloadPDF()}>-->
+    <!--            <DownloadSolid size="sm" class="mr-1"/>-->
+    <!--            PDF-->
+    <!--        </Button>-->
+    <!--    </ButtonGroup>-->
+    <!--    <Tooltip triggeredBy="#download-config-btn">Download Config</Tooltip>-->
+    <!--    <Tooltip triggeredBy="#upload-config-btn">Upload Config</Tooltip>-->
+    <!--    <Tooltip triggeredBy="#download-pdf-btn">Download Resume PDF</Tooltip>-->
 
-        <Button disabled type="submit" color="primary" class="w-full">
-            <!--            <CheckCircleSolid size="sm" class="mr-1"/>-->
-            Confirm
-        </Button>
-    {/snippet}
-</Modal>
+    <!--    <Button disabled type="submit" color="primary" class="w-full">-->
+    <!--        &lt;!&ndash;            <CheckCircleSolid size="sm" class="mr-1"/>&ndash;&gt;-->
+    <!--        Confirm-->
+    <!--    </Button>-->
+    <!--{/snippet}-->
+</Drawer>
 
 
 <Button
@@ -440,6 +491,7 @@
 
     .title-slot {
         @apply text-center flex items-center gap-x-1;
+        /*@apply text-center flex flex-col items-center gap--1;*/
     }
 
     :global(label) {
