@@ -61,13 +61,34 @@
             bulletpoints: ""
         });
     }
+
+    const educationFormState = $state({
+        school: "",
+        diploma: "",
+        dates: "",
+        bulletpoints: ""
+    });
+    function addEducation() {
+        info.education.push({
+            school: educationFormState.school,
+            diploma: educationFormState.diploma,
+            dates: educationFormState.dates,
+            bulletpoints: educationFormState.bulletpoints.split("\n")
+        });
+
+        Object.assign(educationFormState, {
+            school: "",
+            diploma: "",
+            dates: "",
+            bulletpoints: ""
+        });
+    }
 </script>
 
 <Modal bind:open={editorOpen}
        outsideclose={false}
-       form
        size="md"
-       class="w-fit">
+       class="w-min max-h-9/12">
     <div id="editor-modal">
         <Tabs tabStyle="underline" class="mt-7">
             <TabItem title="Profile">
@@ -124,7 +145,6 @@
                 {/snippet}
                 <div class="editor-section">
                     <!--                    <h3>Work</h3>-->
-
                     <h4 class="text-md text-gray-300 font-normal mb-1">Work Experience:</h4>
                     <div class="mb-6 flex flex-col gap-y-1.5">
                         {#each info.workExperience as work, i}
@@ -138,7 +158,7 @@
                                 {#if work.bulletpoints.length}
                                     <ul class="list-disc pl-[1.5ch] mt-0.5">
                                         {#each work.bulletpoints as bulletpoint}
-                                            <li class="text-xs font-light">{bulletpoint}</li>
+                                            <li class="text-sm font-light">{bulletpoint}</li>
                                         {/each}
                                     </ul>
                                 {/if}
@@ -187,7 +207,6 @@
                 {/snippet}
                 <div class="editor-section">
                     <!--                    <h3>Education</h3>-->
-
                     <h4 class="text-md text-gray-300 font-normal mb-1">Education:</h4>
                     <div class="mb-6 flex flex-col gap-y-1.5">
                         {#each info.education as school, i}
@@ -229,7 +248,7 @@
                                       class="w-full"
                                       placeholder="Type bulletpoints, one per line..."/>
                         </div>
-                        <Button size="sm" class="w-fit font-normal">
+                        <Button size="sm" class="w-fit font-normal" onclick={addEducation}>
                             <CirclePlusOutline size="sm" class="mr-1"/>
                             Add
                         </Button>
@@ -260,7 +279,7 @@
                                 {#if project.bulletpoints}
                                     <ul class="list-disc pl-[1.5ch] mt-0.5">
                                         {#each project.bulletpoints as bulletpoint}
-                                            <li class="text-xs font-thin">{bulletpoint}</li>
+                                            <li class="text-sm font-thin">{bulletpoint}</li>
                                         {/each}
                                     </ul>
                                 {/if}
@@ -322,7 +341,7 @@
                                 {#if cert.bulletpoints.length}
                                     <ul class="list-disc pl-[1.5ch] mt-0.5">
                                         {#each cert.bulletpoints as bulletpoint}
-                                            <li class="text-xs font-thin">{bulletpoint}</li>
+                                            <li class="text-sm font-thin">{bulletpoint}</li>
                                         {/each}
                                     </ul>
                                 {/if}
@@ -412,7 +431,10 @@
 </Modal>
 
 
-<Button pill onclick={() => (editorOpen = true)} class="w-10 h-10">
+<Button
+        pill
+        onclick={() => (editorOpen = true)}
+        class="fixed bottom-0 right-0 m-5 w-12 h-12">
     <AdjustmentsVerticalSolid/>
 </Button>
 

@@ -9,18 +9,14 @@ class ResumeData {
     workExperience: {
         employer: string,
         role: string,
-        // description?: string,
         bulletpoints?: string[],
-        // start?: string,
-        // end?: string,
-        dates: string
+        dates: string,
+        location?: string
     }[] = $state([]);
 
     education: {
         school: string,
         diploma: string,
-        // start?: string,
-        // end?: string,
         bulletpoints?: string[],
         dates?: string
     }[] = $state([]);
@@ -28,21 +24,16 @@ class ResumeData {
     projects: {
         title: string,
         dates?: string,
-        // description?: string,
         bulletpoints?: string[],
         links?: string[]
     }[] = $state([]);
 
     certifications: {
         title: string,
-        description?: string,
         bulletpoints?: string[],
-        start?: string,
-        end?: string,
         dates?: string
     }[] = $state([]);
 
-    // skills: string[] = $state([]);
     skills: string = $state("");
 
 

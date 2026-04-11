@@ -11,6 +11,9 @@ importers:
       '@fontsource-variable/inter':
         specifier: ^5.2.8
         version: 5.2.8
+      '@popperjs/core':
+        specifier: ^2.11.8
+        version: 2.11.8
       '@tailwindcss/vite':
         specifier: ^4.2.2
         version: 4.2.2(vite@8.0.3(@emnapi/core@1.9.2)(@emnapi/runtime@1.9.2)(@types/node@24.12.2)(jiti@2.6.1))
@@ -58,8 +61,8 @@ importers:
         specifier: ^4.0.1
         version: 4.0.1
       flowbite-svelte:
-        specifier: ^1.33.0
-        version: 1.33.0(svelte@5.55.1)(tailwindcss@4.2.2)
+        specifier: ^1.33.1
+        version: 1.33.1(svelte@5.55.1)(tailwindcss@4.2.2)
       flowbite-svelte-icons:
         specifier: ^3.1.0
         version: 3.1.0(svelte@5.55.1)
@@ -500,8 +503,8 @@ packages:
     peerDependencies:
       svelte: ^5.0.0
 
-  flowbite-svelte@1.33.0:
-    resolution: {integrity: sha512-Klo4rcCGNvCLxM9+bmRso6ZdUEh9XvCGyfkWuzpC2CrQmYti2N6PXRSSlUVjD2vb30JRc4V21Tv4p4hm3iznrA==}
+  flowbite-svelte@1.33.1:
+    resolution: {integrity: sha512-HIG61H/YvWbfk0JTfirbPFb1F/YRPiJWYlUE7KTlmZ1X/ZTG6NZA9CgRuraO358cdpt0kv1gPYldrAKM1Apx2w==}
     peerDependencies:
       svelte: ^5.40.0
       tailwindcss: ^4.1.4
@@ -1189,7 +1192,7 @@ snapshots:
       svelte: 5.55.1
       tailwind-merge: 3.5.0
 
-  flowbite-svelte@1.33.0(svelte@5.55.1)(tailwindcss@4.2.2):
+  flowbite-svelte@1.33.1(svelte@5.55.1)(tailwindcss@4.2.2):
     dependencies:
       '@floating-ui/dom': 1.7.6
       '@floating-ui/utils': 0.2.11

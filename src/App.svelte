@@ -42,6 +42,7 @@
 
 <main
         class="w-204 min-h-264 bg-white mx-auto p-12 mt-4 mb-12">
+<!--    class="w-204 min-h-264 bg-white mx-auto p-12 mt-4 mb-12">-->
     <!--    class="w-204 h-264 border border-gray-400 bg-white mx-auto p-12 mt-4 mb-12">-->
     <!-- ABOUT SECTION  -->
 

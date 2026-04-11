@@ -5,10 +5,6 @@
 
 @custom-variant dark (&:where(.dark, .dark *));
 
-@source '../**/*.{html,js,svelte,ts,md}';
-@source '../node_modules/flowbite-svelte/**/*.{html,js,svelte,ts}';
-@source '../node_modules/flowbite-svelte-icons/**/*.{html,js,svelte,ts}';
-@source '../node_modules/flowbite-svelte-blocks/**/*.{html,js,svelte,ts}';
 
 @theme {
     --color-primary-50: #fff5f2;
@@ -36,6 +32,11 @@
 
 /*@source "../../node_modules/flowbite-svelte/dist";*/
 /*@source "../../node_modules/flowbite-svelte-icons/dist";*/
+@source '../**/*.{html,js,svelte,ts,md}';
+@source '../node_modules/flowbite-svelte/**/*.{html,js,svelte,ts}';
+@source '../node_modules/flowbite-svelte-icons/**/*.{html,js,svelte,ts}';
+@source '../node_modules/flowbite-svelte-blocks/**/*.{html,js,svelte,ts}';
+
 
 @layer base {
     button, [role="button"] {
