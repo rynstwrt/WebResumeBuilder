@@ -29,7 +29,7 @@
         education: false,
         work: false,
         projects: false,
-        certifications: true,
+        certifications: false,
         skills: false
     });
 

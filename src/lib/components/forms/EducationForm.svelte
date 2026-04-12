@@ -3,14 +3,20 @@
     import { CirclePlusOutline, CloseCircleOutline } from "flowbite-svelte-icons";
 
     import { educationData } from "../../ResumeData.svelte.ts";
+    import type { Snapshot } from "@sveltejs/kit";
 
     let {open = $bindable()} = $props();
 
-    let newItem = {
+    let formData = {
         school: "",
         degree: "",
         city: "",
         date: ""
+    };
+
+    export const snapshot: Snapshot<typeof formData> = {
+        capture: () => ({...formData}),
+        restore: (value) => Object.assign(formData, value)
     };
 </script>
 
@@ -38,36 +44,36 @@
 </div>
 
 
-<div class="grid grid-cols-2 gap-x-2 gap-y-0.5">
+<form class="grid grid-cols-2 gap-x-2 gap-y-0.5">
     <Label>
         School
-        <Input bind:value={newItem.school}
+        <Input bind:value={formData.school}
                placeholder="University of Fictionville"
                required/>
     </Label>
 
     <Label>
         Diploma/Degree
-        <Input bind:value={newItem.degree}
+        <Input bind:value={formData.degree}
                placeholder="B.A. Computer Science"
                required/>
     </Label>
 
     <Label>
         City
-        <Input bind:value={newItem.city}
+        <Input bind:value={formData.city}
                placeholder="Seattle, WA"/>
     </Label>
 
     <Label>
         Graduation Date
-        <Input bind:value={newItem.date}
+        <Input bind:value={formData.date}
                placeholder="Aug 2025"/>
     </Label>
-</div>
+</form>
 
 
-<Button size="md" onclick={() => educationData.push(newItem)}>
+<Button size="md" onclick={() => educationData.push(formData)}>
     <span class="flex items-center text-sm font-light">
         <CirclePlusOutline class="me-1" size="sm"/>
         Add
