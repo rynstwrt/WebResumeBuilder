@@ -1,7 +1,7 @@
 <script lang="ts">
     import { MapPinAltOutline, EnvelopeOutline, PhoneOutline, GlobeOutline } from "flowbite-svelte-icons";
 
-    import { profileData } from "../ResumeData.svelte.ts";
+    import { profileData } from "../../ResumeData.svelte.ts";
 </script>
 
 
@@ -36,7 +36,7 @@
         {/if}
     </div>
 
-    {#if profileData.links.length}
+    {#if profileData?.links?.length}
         <div class="flex gap-2 text-xs font-light">
             {#each profileData.links as link, idx}
                     <span>

@@ -3,7 +3,6 @@
 <!--</script>-->
 
 
-<!--&lt;!&ndash; SKILLS SECTION &ndash;&gt;-->
 <!--{#if info.skills?.length}-->
 <!--    <section id="skills">-->
 <!--        <h2 class="header">Skills</h2>-->

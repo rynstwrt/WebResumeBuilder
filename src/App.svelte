@@ -8,12 +8,12 @@
 
     import html2pdf from "html2pdf.js";
     import html2canvas from "html2canvas-pro";
-    import ProfileSection from "./lib/sections/ProfileSection.svelte";
-    import WorkSection from "./lib/sections/WorkSection.svelte";
-    import EducationSection from "./lib/sections/EducationSection.svelte";
-    import ProjectsSection from "./lib/sections/ProjectsSection.svelte";
-    import CertificationsSection from "./lib/sections/CertificationsSection.svelte";
-    import SkillsSection from "./lib/sections/SkillsSection.svelte";
+    import ProfileSection from "./lib/components/sections/ProfileSection.svelte";
+    import WorkSection from "./lib/components/sections/WorkSection.svelte";
+    import EducationSection from "./lib/components/sections/EducationSection.svelte";
+    import ProjectsSection from "./lib/components/sections/ProjectsSection.svelte";
+    import CertificationsSection from "./lib/components/sections/CertificationsSection.svelte";
+    import SkillsSection from "./lib/components/sections/SkillsSection.svelte";
 
     function downloadPDF() {
         const el: HTMLElement = document.querySelector("main")!;
