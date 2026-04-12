@@ -8,7 +8,6 @@
 
     import html2pdf from "html2pdf.js";
     import html2canvas from "html2canvas-pro";
-    import { onMount } from "svelte";
     import ProfileSection from "./lib/sections/ProfileSection.svelte";
     import WorkSection from "./lib/sections/WorkSection.svelte";
     import EducationSection from "./lib/sections/EducationSection.svelte";
@@ -34,7 +33,7 @@
 </script>
 
 
-<Editor {downloadPDF} />
+<Editor />
 
 <main class="w-204 min-h-264 bg-white mx-auto p-12 mt-4 mb-12">
     <ProfileSection />

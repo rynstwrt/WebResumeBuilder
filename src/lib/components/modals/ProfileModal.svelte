@@ -8,7 +8,7 @@
 
     let linksText: string = $state("");
 
-    import { profileData } from "../ResumeData.svelte.ts";
+    import { profileData } from "../../ResumeData.svelte.ts";
 
     $effect(() => {
         profileData.links = linksText.length && linksText.trim().split("\n") || [];

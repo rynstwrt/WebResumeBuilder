@@ -14,7 +14,7 @@
 
     let {open = $bindable()} = $props();
 
-    let skillsText = $state("asdf\ntest1\ntest2");
+    let skillsText = $state("");
     let skills = $derived(skillsText.split("\n"));
 
     function removeSkill(idx: number) {
