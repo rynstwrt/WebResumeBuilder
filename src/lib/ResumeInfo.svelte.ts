@@ -4,7 +4,7 @@ class ResumeData {
     email: string = $state("");
     location: string = $state("");
 
-    links: string = $state("");
+    links: string[] = $state([]);
 
     workExperience: {
         employer: string,
@@ -48,7 +48,7 @@ class ResumeData {
         this.email = "john.doe@gmail.com";
         this.location = "Seattle, WA";
         // this.links = ["https://rynstew.art", "https://github.com/rynstwrt"];
-        this.links = "https://rynstew.art\nhttps://github.com/rynstwrt"
+        this.links = ["https://rynstew.art", "https://github.com/rynstwrt"]
 
         this.workExperience.push({
             employer: "Self-employed",

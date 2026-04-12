@@ -16,10 +16,13 @@
     import ResumeData from "./lib/ResumeInfo.svelte.ts";
     const info = new ResumeData(isDevMode);
 
+    import {profileData} from "./lib/ResumeData.svelte.ts";
+
     import Editor from "./lib/components/Editor.svelte";
 
     import html2pdf from "html2pdf.js";
     import html2canvas from "html2canvas-pro";
+    import { onMount } from "svelte";
 
     function downloadPDF() {
         const el: HTMLElement = document.querySelector("main")!;
@@ -36,59 +39,42 @@
             });
         });
     }
-
 </script>
 
 
-<!--<EditorDrawer addToast={addToast} openOnLoad={false} info={info}/>-->
-<Editor openOnLoad={true} info={info} {isDevMode} {downloadPDF}/>
+<Editor {info} {downloadPDF} />
 
-<main
-        class="w-204 min-h-264 bg-white mx-auto p-12 mt-4 mb-12">
-    <!--    class="w-204 min-h-264 bg-white mx-auto p-12 mt-4 mb-12">-->
-    <!--    class="w-204 h-264 border border-gray-400 bg-white mx-auto p-12 mt-4 mb-12">-->
-    <!-- ABOUT SECTION  -->
-
-    <section
-            id="about"
-            class="text-center flex flex-col items-center">
-        <h1 class="text-3xl font-semibold mb-1">{info.name}</h1>
-        <!--        <p class="text-sm font-light flex gap-1 items-center">-->
-        <!--            <span><EnvelopeOutline size="sm" class="inline align-middle mr-1"/>{info.email}</span> |-->
-        <!--            <span><PhoneOutline size="sm" class="inline align-middle mr-1" />{info.phone}</span> |-->
-        <!--            <span><MapPinAltOutline size="sm" class="inline align-middle mr-1" />{info.location}</span>-->
-        <!--        </p>-->
+<main class="w-204 min-h-264 bg-white mx-auto p-12 mt-4 mb-12">
+    <section id="about"
+             class="text-center flex flex-col items-center">
+        <h1 class="text-3xl font-semibold mb-1">{profileData.name}</h1>
 
         <div class="text-xs font-light flex gap-2">
-			<span>
-				<EnvelopeOutline size="sm" class="inline"/>
-                {info.email}
-			</span>
-
-            |
-
-            <span>
-				<PhoneOutline size="sm" class="inline"/>
-                {info.phone}
-			</span>
-
-            |
-
             <span>
 				<MapPinAltOutline size="sm" class="inline"/>
-                {info.location}
+                {profileData.location}
+			</span>
+            |
+			<span>
+				<EnvelopeOutline size="sm" class="inline"/>
+                {profileData.email}
+			</span>
+            |
+            <span>
+				<PhoneOutline size="sm" class="inline"/>
+                {profileData.phone}
 			</span>
         </div>
 
-        {#if info.links}
+        {#if profileData.links.length}
             <div class="flex gap-2 text-xs font-light">
-                {#each info.links.split("\n") as link, i}
+                {#each profileData.links as link, idx}
                     <span>
                         <GlobeOutline size="sm" class="inline"/>
                         <a href={link}>{link}</a>
                     </span>
 
-                    {#if i !== info.links.split("\n").length - 1}
+                    {#if idx !== profileData.links.length - 1}
                         |
                     {/if}
                 {/each}
