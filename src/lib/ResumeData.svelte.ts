@@ -24,7 +24,7 @@ interface IWorkData {
 interface IProjectData {
     name: string,
     link?: string,
-    bulletpoints?: []
+    bulletpoints?: string[]
 }
 
 interface ICertification {
@@ -39,24 +39,72 @@ interface ISkill {
 
 
 let profileData: IProfileData = $state({
-    name: "",
-    location: "",
-    phone: "",
-    email: "",
-    links: []
+    name: "John Doe",
+    location: "Seattle, WA",
+    phone: "+1 000000000",
+    email: "john.doe@example.com",
+    links: ["https://johndoe.com", "https://johnswebsite.net"]
 });
-let educationData: IEducationData[] = $state([]);
-let workData: IWorkData[] = $state([]);
-let projectsData: IProjectData[] = $state([]);
-let certificationsData: ICertification[] = $state([]);
+
+let educationData: IEducationData[] = $state([
+    {
+        school: "The University of Fictionville",
+        degree: "B.S. Computer Science",
+        city: "Fictionville, WA",
+        date: "Dec 2025"
+    }
+]);
+
+let workData: IWorkData[] = $state([
+    {
+        company: "Fiction Co.",
+        position: "Frontend Developer",
+        city: "Seattle, WA",
+        dates: "Dec 2024 - April 2026",
+        bulletpoints: [
+            "Bulletpoint 1",
+            "Bulletpoint 2",
+            "Bulletpoint 3",
+            "Bulletpoint 4"
+        ]
+    }
+]);
+
+let projectsData: IProjectData[] = $state([
+    {
+        name: "Project 1",
+        link: "https://github.com/johndoe/project1",
+        bulletpoints: [
+            "Bulletpoint 1",
+            "Bulletpoint 2",
+            "Bulletpoint 3",
+            "Bulletpoint 4"
+        ]
+    },
+    {
+        name: "Project 2",
+        link: "https://github.com/johndoe/project2",
+        bulletpoints: [
+            "Bulletpoint 1",
+            "Bulletpoint 2",
+            "Bulletpoint 3",
+            "Bulletpoint 4"
+        ]
+    }
+]);
+
+let certificationsData: ICertification[] = $state([
+    {
+        name: "Cisco Certified Network Associate (CCNA)",
+        date: "Aug 2021",
+        from: "Cisco"
+    }
+]);
+
 let skillsData: ISkill = $state({
-    skills: []
+    skills: ["skill 1", "skill 2", "skill 3"]
 });
-// let skills: {
-//     arr: string[]
-// } = $state({
-//     arr: []
-// });
+
 
 
 export {

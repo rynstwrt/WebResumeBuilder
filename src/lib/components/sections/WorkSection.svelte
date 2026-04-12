@@ -1,24 +1,54 @@
-<!--<script lang="ts">-->
+<script lang="ts">
+    import { P, Li } from "flowbite-svelte";
+    import Section from "../Section.svelte";
+    import { workData } from "../../ResumeData.svelte.ts";
+</script>
 
-<!--</script>-->
+
+{#if workData.length}
+    <Section title="Experience">
+        {#each workData as entry}
+            <div class="entry">
+                <div class="flex justify-between">
+                    <div>
+                        <h3 class="header">{entry.company}</h3>
+                        <h4 class="subheader">{entry.position}</h4>
+                    </div>
+
+                    <div>
+                        <P class="detail">{entry.city}</P>
+                        <P class="detail">{entry.dates}</P>
+                    </div>
+                </div>
+
+                {#if entry.bulletpoints?.length}
+                    <ul class="list-disc pl-[1.5ch] mt-0.5">
+                        {#each entry.bulletpoints as bulletpoint}
+                            <Li class="text-sm font-light">{bulletpoint}</Li>
+                        {/each}
+                    </ul>
+                {/if}
+            </div>
+        {/each}
+    </Section>
+{/if}
 
 
-<!--{#if info.workExperience?.length}-->
+<!--{#if workData.length}-->
 <!--    <section id="experience">-->
 <!--        <h2 class="header">Experience</h2>-->
 
-<!--        {#each info.workExperience as entry}-->
+<!--        {#each workData as entry}-->
 <!--            <div class="tile">-->
 <!--                <div class="flex justify-between">-->
 <!--                    <div>-->
-<!--                        <h3 class="subheader">{entry.role}</h3>-->
-<!--                        <h4 class="subheader-2">{entry.employer}</h4>-->
+<!--                        <h3 class="subheader">{entry.company}</h3>-->
+<!--                        <h4 class="subheader-2">{entry.position}</h4>-->
 <!--                    </div>-->
 
 <!--                    <div class="dates text-right tracking-tight">-->
-<!--                        &lt;!&ndash;                        <p>{entry.start} - {entry.end || "Present"}</p>&ndash;&gt;-->
+<!--                        <p>{entry.city}</p>-->
 <!--                        <p>{entry.dates}</p>-->
-<!--                        <p>Dallas, TX</p>-->
 <!--                    </div>-->
 <!--                </div>-->
 

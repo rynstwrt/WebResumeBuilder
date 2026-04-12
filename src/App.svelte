@@ -51,33 +51,18 @@
 
     main {
         font-family: "Inter Variable", sans-serif;
+        /*font-family: "Times New Roman", serif;*/
     }
 
-    :global(section) {
-        &:not(:last-of-type) {
-            @apply mb-6;
-        }
+    /*:global(section) {*/
+        /*&:not(:last-of-type) {*/
+        /*    @apply mb-6;*/
+        /*}*/
 
-        .tile {
-            @apply py-2.5;
-        }
-
-        :global(.header) {
-            @apply text-lg font-semibold border-b border-gray-400 -tracking-[0.02rem] mb-1;
-        }
-
-        :global(.subheader) {
-            @apply font-bold text-sm -tracking-[0.01rem];
-        }
-
-        :global(.subheader-2) {
-            @apply font-normal text-sm;
-        }
-
-        .dates {
-            @apply text-xs font-light italic text-gray-600 tracking-tight;
-        }
-    }
+        /*:global(.tile) {*/
+        /*    @apply py-2.5;*/
+        /*}*/
+    /*}*/
 
 
 </style>
