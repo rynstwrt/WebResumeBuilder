@@ -14,4 +14,6 @@ let profileData: IProfileData = $state({
     links: []
 });
 
-export { profileData };
+export {
+    profileData
+};

@@ -31,15 +31,14 @@
         PaperPlaneOutline,
     } from "flowbite-svelte-icons";
 
-    import SkillsSection from "./SkillsSection.svelte";
     import ProfileModal from "./ProfileModal.svelte";
     import { onMount } from "svelte";
 
-    let {info, downloadPDF} = $props();
+    let {downloadPDF} = $props();
 </script>
 
 
-<ProfileModal info2={info}/>
+<ProfileModal />
 
 
 <SpeedDialTrigger class="fixed right-6 bottom-6 w-13 h-13">
