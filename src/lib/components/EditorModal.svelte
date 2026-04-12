@@ -6,7 +6,7 @@
 
 
 
-<Modal bind:open outsideclose={false} size="sm">
+<Modal bind:open outsideclose={false} size="md">
     {#snippet header()}
         <span class="flex items-center">
             <Icon size="xl" class="me-0.5"/>

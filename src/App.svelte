@@ -2,7 +2,7 @@
     import "@fontsource/open-sans";
     import '@fontsource-variable/inter/standard.css'; // Supports weights 100-900
 
-    import Editor from "./lib/components/Editor.svelte";
+    import ResumeEditor from "./lib/components/ResumeEditor.svelte";
 
     import html2pdf from "html2pdf.js";
     import html2canvas from "html2canvas-pro";
@@ -16,11 +16,12 @@
         PhoneOutline
     } from "flowbite-svelte-icons";
 
+
     import {
         certificationsData,
         educationData,
         profileData,
-        projectsData,
+        projectsData, projectsHTML,
         skillsData,
         workData
     } from "./lib/ResumeData.svelte.ts";
@@ -43,10 +44,11 @@
             });
         });
     }
+
 </script>
 
 
-<Editor/>
+<ResumeEditor/>
 
 
 <main class="w-204 min-h-264 bg-white mx-auto p-12 mt-4 mb-12">
@@ -140,6 +142,7 @@
 
     {#if projectsData.length}
         <Section title="Projects">
+            <!--{@html projectsHTML.html}-->
             {#each projectsData as entry}
                 <div class="entry">
                     <h3 class="header">{entry.name}</h3>

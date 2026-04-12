@@ -106,6 +106,10 @@ let skillsData: ISkill = $state({
 });
 
 
+let projectsHTML = $state({
+    html: ""
+});
+
 
 export {
     profileData,
@@ -114,4 +118,5 @@ export {
     projectsData,
     certificationsData,
     skillsData,
+    projectsHTML
 };

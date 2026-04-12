@@ -3,7 +3,11 @@
         SpeedDialTrigger,
         SpeedDial,
         Listgroup,
-        Modal
+        Textarea,
+        Toolbar,
+        ToolbarGroup,
+        ToolbarButton,
+        Button
     } from "flowbite-svelte";
 
     import {
@@ -15,6 +19,7 @@
         FileOutline,
         PaperPlaneOutline
     } from "flowbite-svelte-icons";
+
 
     import EditorModal from "./EditorModal.svelte";
     import ProfileForm from "./forms/ProfileForm.svelte";
@@ -28,7 +33,7 @@
         profile: false,
         education: false,
         work: false,
-        projects: false,
+        projects: true,
         certifications: false,
         skills: false
     });
@@ -41,6 +46,8 @@
         {name: "Certifications", Icon: FileOutline, onclick: () => modalStates.certifications = true},
         {name: "Skills", Icon: PaperClipOutline, onclick: () => modalStates.skills = true}
     ];
+
+
 </script>
 
 
