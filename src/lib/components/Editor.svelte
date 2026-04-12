@@ -29,7 +29,7 @@
         education: false,
         work: false,
         projects: false,
-        certifications: false,
+        certifications: true,
         skills: false
     });
 
@@ -42,7 +42,6 @@
         {name: "Skills", Icon: PaperClipOutline, onclick: () => modalStates.skills = true}
     ];
 </script>
-
 
 
 <EditorModal title="Profile"
@@ -82,7 +81,6 @@
 </EditorModal>
 
 
-
 <SpeedDialTrigger class="fixed right-6 bottom-6 w-13 h-13">
     {#snippet icon()}
         <EditOutline size="lg"/>
@@ -95,11 +93,14 @@
 </SpeedDial>
 
 
-
 <style>
     @import "tailwindcss";
 
     :global(label) {
         @apply text-sm font-normal mb-0.5;
+    }
+
+    :global(Input) {
+        /*@apply bg-gray-600 text-white;*/
     }
 </style>
