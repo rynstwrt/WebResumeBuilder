@@ -1,11 +1,12 @@
 <script lang="ts">
+    import { P } from "flowbite-svelte";
     import { skillsData } from "../../ResumeData.svelte.ts";
+    import Section from "../Section.svelte";
 </script>
 
 
 {#if skillsData.skills.length}
-    <section id="skills">
-        <h2 class="header">Skills</h2>
-        <p class="text-xs font-light">{skillsData.skills.join(", ")}.</p>
-    </section>
+    <Section title="Skills">
+        <P class="detail text-left!">{skillsData.skills.join(", ")}.</P>
+    </Section>
 {/if}

@@ -114,5 +114,4 @@ export {
     projectsData,
     certificationsData,
     skillsData,
-    // skills
 };

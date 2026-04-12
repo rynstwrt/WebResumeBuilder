@@ -1,30 +1,21 @@
 <script lang="ts">
+    import { P } from "flowbite-svelte";
     import { certificationsData } from "../../ResumeData.svelte.ts";
+    import Section from "../Section.svelte";
 </script>
 
 
 {#if certificationsData.length}
-    <section id="certifications">
-        <h2 class="header">Certifications</h2>
-
+    <Section title="Certifications">
         {#each certificationsData as entry}
-            <div class="tile">
-                <div class="flex justify-between">
-                    <h3 class="subheader">{entry.name}</h3>
-                    <p class="dates">{entry.date}</p>
+            <div class="entry flex justify-between">
+                <div class="">
+                    <h3 class="header">{entry.name}</h3>
+                    <h4 class="subheader">{entry.from}</h4>
                 </div>
 
-                <p>{entry.from}</p>
-
-                <!--{#if entry.bulletpoints?.length}-->
-                <!--    <ul class="list-disc pl-[1.5ch] mt-0.5">-->
-                <!--        {#each entry.bulletpoints as bulletpoint}-->
-                <!--            &lt;!&ndash;                            <li class="text-sm font-light">• {bulletpoint}</li>&ndash;&gt;-->
-                <!--            <li class="text-sm font-light">{bulletpoint}</li>-->
-                <!--        {/each}-->
-                <!--    </ul>-->
-                <!--{/if}-->
+                <P class="detail">{entry.date}</P>
             </div>
         {/each}
-    </section>
+    </Section>
 {/if}
