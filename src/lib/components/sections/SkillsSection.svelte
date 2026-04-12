@@ -1,11 +1,11 @@
-<!--<script lang="ts">-->
+<script lang="ts">
+    import { skillsData } from "../../ResumeData.svelte.ts";
+</script>
 
-<!--</script>-->
 
-
-<!--{#if info.skills?.length}-->
-<!--    <section id="skills">-->
-<!--        <h2 class="header">Skills</h2>-->
-<!--        <p class="text-xs font-light">{info.skills}</p>-->
-<!--    </section>-->
-<!--{/if}-->
+{#if skillsData.skills.length}
+    <section id="skills">
+        <h2 class="header">Skills</h2>
+        <p class="text-xs font-light">{skillsData.skills.join(", ")}.</p>
+    </section>
+{/if}

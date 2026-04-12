@@ -2,8 +2,6 @@
     import "@fontsource/open-sans";
     import '@fontsource-variable/inter/standard.css'; // Supports weights 100-900
 
-    const isDevMode = process.env.NODE_ENV === "development";
-
     import Editor from "./lib/components/Editor.svelte";
 
     import html2pdf from "html2pdf.js";
@@ -33,21 +31,20 @@
 </script>
 
 
+
 <Editor />
+
 
 <main class="w-204 min-h-264 bg-white mx-auto p-12 mt-4 mb-12">
     <ProfileSection />
-
     <EducationSection />
-
     <WorkSection />
-
     <ProjectsSection />
-
     <CertificationsSection />
-
     <SkillsSection />
 </main>
+
+
 
 <style>
     @import "tailwindcss";

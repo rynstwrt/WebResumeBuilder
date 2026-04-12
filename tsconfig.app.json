@@ -5,7 +5,11 @@
     "target": "ES2023",
     "useDefineForClassFields": true,
     "module": "ESNext",
-    "types": ["node", "svelte", "vite/client"],
+    "types": [
+      "node",
+      "svelte",
+      "vite/client"
+    ],
     "noEmit": true,
     /**
      * Typecheck JS in `.svelte` and `.js` files by default.
@@ -14,9 +18,16 @@
      * of JS in `.svelte` files.
      */
     "allowJs": true,
-    "checkJs": true,
-    "moduleDetection": "force",
-    "allowImportingTsExtensions": true
+    "allowImportingTsExtensions": true,
+    "checkJs": false,
+    "noImplicitAny": false,
+    "strict": false,
+    "moduleDetection": "force"
+    //    "allowImportingTsExtensions": true
   },
-  "include": ["src/**/*.ts", "src/**/*.js", "src/**/*.svelte"]
+  "include": [
+    "src/**/*.ts",
+    "src/**/*.js",
+    "src/**/*.svelte"
+  ]
 }

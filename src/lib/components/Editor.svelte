@@ -3,6 +3,7 @@
         SpeedDialTrigger,
         SpeedDial,
         Listgroup,
+        Modal
     } from "flowbite-svelte";
 
     import {
@@ -15,12 +16,13 @@
         PaperPlaneOutline
     } from "flowbite-svelte-icons";
 
-    import ProfileModal from "./modals/ProfileModal.svelte";
-    import SkillsModal from "./modals/SkillsModal.svelte";
-    import EducationModal from "./modals/EducationModal.svelte";
-    import WorkModal from "./modals/WorkModal.svelte";
-    import ProjectsModal from "./modals/ProjectsModal.svelte";
-    import CertificationsModal from "./modals/CertificationsModal.svelte";
+    import EditorModal from "./EditorModal.svelte";
+    import ProfileForm from "./forms/ProfileForm.svelte";
+    import SkillsForm from "./forms/SkillsForm.svelte";
+    import EducationForm from "./forms/EducationForm.svelte";
+    import WorkForm from "./forms/WorkForm.svelte";
+    import ProjectsForm from "./forms/ProjectsForm.svelte";
+    import CertificationsForm from "./forms/CertificationsForm.svelte";
 
     let modalStates = $state({
         profile: false,
@@ -42,12 +44,43 @@
 </script>
 
 
-<ProfileModal bind:open={modalStates.profile}/>
-<EducationModal bind:open={modalStates.education}/>
-<WorkModal bind:open={modalStates.work}/>
-<ProjectsModal bind:open={modalStates.projects}/>
-<CertificationsModal bind:open={modalStates.certifications}/>
-<SkillsModal bind:open={modalStates.skills}/>
+
+<EditorModal title="Profile"
+             Icon={UserOutline}
+             bind:open={modalStates.profile}>
+    <ProfileForm/>
+</EditorModal>
+
+<EditorModal title="Education"
+             Icon={GraduationCapOutline}
+             bind:open={modalStates.education}>
+    <EducationForm/>
+</EditorModal>
+
+<EditorModal title="Work Experience"
+             Icon={BuildingOutline}
+             bind:open={modalStates.work}>
+    <WorkForm/>
+</EditorModal>
+
+<EditorModal title="Projects"
+             Icon={PaperPlaneOutline}
+             bind:open={modalStates.projects}>
+    <ProjectsForm/>
+</EditorModal>
+
+<EditorModal title="Certifications"
+             Icon={FileOutline}
+             bind:open={modalStates.certifications}>
+    <CertificationsForm/>
+</EditorModal>
+
+<EditorModal title="Skills"
+             Icon={PaperClipOutline}
+             bind:open={modalStates.skills}>
+    <SkillsForm/>
+</EditorModal>
+
 
 
 <SpeedDialTrigger class="fixed right-6 bottom-6 w-13 h-13">
@@ -55,10 +88,12 @@
         <EditOutline size="lg"/>
     {/snippet}
 </SpeedDialTrigger>
-<SpeedDial tooltip="none" placement="top-end">
+<SpeedDial tooltip="none" placement="top-end" trigger="click">
     <Listgroup active
-               items={listgroupItems}/>
+               items={listgroupItems}
+               class="select-none"/>
 </SpeedDial>
+
 
 
 <style>

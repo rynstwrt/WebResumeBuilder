@@ -34,7 +34,7 @@ interface ICertification {
 }
 
 interface ISkill {
-    name: string
+    skills: string[]
 }
 
 
@@ -49,7 +49,14 @@ let educationData: IEducationData[] = $state([]);
 let workData: IWorkData[] = $state([]);
 let projectsData: IProjectData[] = $state([]);
 let certificationsData: ICertification[] = $state([]);
-let skillsData: ISkill[] = $state([]);
+let skillsData: ISkill = $state({
+    skills: []
+});
+// let skills: {
+//     arr: string[]
+// } = $state({
+//     arr: []
+// });
 
 
 export {
@@ -58,5 +65,6 @@ export {
     workData,
     projectsData,
     certificationsData,
-    skillsData
+    skillsData,
+    // skills
 };
