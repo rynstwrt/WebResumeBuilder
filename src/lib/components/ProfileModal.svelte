@@ -3,7 +3,8 @@
     import { Label, Input, Textarea, Modal, Button } from "flowbite-svelte";
     import { UserOutline } from "flowbite-svelte-icons";
 
-    let open = $state(true);
+    // let open = $state(false);
+    let {open = $bindable()} = $props();
 
     let linksText: string = $state("");
 
@@ -19,7 +20,7 @@
     }
 </script>
 
-<Modal bind:open>
+<Modal bind:open outsideclose={false} size="sm">
     {#snippet header()}
         <span class="flex items-center">
             <UserOutline size="xl" class="me-0.5"/>
