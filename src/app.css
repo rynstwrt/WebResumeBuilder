@@ -49,4 +49,9 @@
     /*input, textarea {*/
     /*    @apply text-gray-300 font-light;*/
     /*}*/
+
+    main {
+        font-family: "Inter Variable", sans-serif;
+        /*font-family: "Times New Roman", serif;*/
+    }
 }

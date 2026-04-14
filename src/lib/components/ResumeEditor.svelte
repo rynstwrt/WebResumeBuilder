@@ -7,7 +7,14 @@
         Toolbar,
         ToolbarGroup,
         ToolbarButton,
-        Button
+        Button,
+        BreadcrumbStepper,
+        DetailedStepper,
+        ProgressStepper,
+        Stepper,
+        TimelineStepper,
+        VerticalStepper,
+        Modal
     } from "flowbite-svelte";
 
     import {
@@ -17,87 +24,106 @@
         GraduationCapOutline,
         PaperClipOutline,
         FileOutline,
-        PaperPlaneOutline
+        PaperPlaneOutline,
+        UserCircleOutline,
+        PlusOutline,
+        FileLinesOutline,
+        ChevronRightOutline,
+        ChevronLeftOutline
     } from "flowbite-svelte-icons";
 
+    import { type Component, type SvelteComponent } from "svelte";
 
-    import EditorModal from "./EditorModal.svelte";
     import ProfileForm from "./forms/ProfileForm.svelte";
+    import ProjectsForm from "./forms/ProjectsForm.svelte";
+    import CertificationsForm from "./forms/CertificationsForm.svelte";
     import SkillsForm from "./forms/SkillsForm.svelte";
     import EducationForm from "./forms/EducationForm.svelte";
     import WorkForm from "./forms/WorkForm.svelte";
-    import ProjectsForm from "./forms/ProjectsForm.svelte";
-    import CertificationsForm from "./forms/CertificationsForm.svelte";
 
-    let modalStates = $state({
-        profile: false,
-        education: false,
-        work: false,
-        projects: true,
-        certifications: false,
-        skills: false
-    });
+    let open = $state(true);
 
-    let listgroupItems = [
-        {name: "Profile", Icon: UserOutline, onclick: () => modalStates.profile = true},
-        {name: "Education", Icon: GraduationCapOutline, onclick: () => modalStates.education = true},
-        {name: "Work Experience", Icon: BuildingOutline, onclick: () => modalStates.work = true},
-        {name: "Projects", Icon: PaperPlaneOutline, onclick: () => modalStates.projects = true},
-        {name: "Certifications", Icon: FileOutline, onclick: () => modalStates.certifications = true},
-        {name: "Skills", Icon: PaperClipOutline, onclick: () => modalStates.skills = true}
+    let currentStep = $state(1);
+    const STEP_ICON_CLASS = "h-5 2-5 lg:h-6 lg:w-6";
+    let steps = [
+        {
+            id: 1,
+            icon: UserOutline,
+            iconClass: STEP_ICON_CLASS
+        },
+        {
+            id: 2,
+            icon: GraduationCapOutline,
+            iconClass: STEP_ICON_CLASS
+        },
+        {
+            id: 3,
+            icon: BuildingOutline,
+            iconClass: STEP_ICON_CLASS
+        },
+        {
+            id: 4,
+            icon: PaperPlaneOutline,
+            iconClass: STEP_ICON_CLASS
+        },
+        {
+            id: 5,
+            icon: FileLinesOutline,
+            iconClass: STEP_ICON_CLASS
+        },
+        {
+            id: 6,
+            icon: PaperClipOutline,
+            iconClass: STEP_ICON_CLASS
+        }
     ];
 
+    let stepLabels = ["Profile", "Education", "Work Experience", "Projects", "Certifications", "Skills"];
+
+    let stepForms: Component[] = [ProfileForm, EducationForm, WorkForm, ProjectsForm, CertificationsForm, SkillsForm];
+    // let currentForm: typeof SvelteComponent<any> | Component = ProfileForm;
 
 </script>
 
 
-<EditorModal title="Profile"
-             Icon={UserOutline}
-             bind:open={modalStates.profile}>
-    <ProfileForm/>
-</EditorModal>
-
-<EditorModal title="Education"
-             Icon={GraduationCapOutline}
-             bind:open={modalStates.education}>
-    <EducationForm/>
-</EditorModal>
-
-<EditorModal title="Work Experience"
-             Icon={BuildingOutline}
-             bind:open={modalStates.work}>
-    <WorkForm/>
-</EditorModal>
-
-<EditorModal title="Projects"
-             Icon={PaperPlaneOutline}
-             bind:open={modalStates.projects}>
-    <ProjectsForm/>
-</EditorModal>
-
-<EditorModal title="Certifications"
-             Icon={FileOutline}
-             bind:open={modalStates.certifications}>
-    <CertificationsForm/>
-</EditorModal>
-
-<EditorModal title="Skills"
-             Icon={PaperClipOutline}
-             bind:open={modalStates.skills}>
-    <SkillsForm/>
-</EditorModal>
+{#snippet stepForm(StepForm)}
+    <StepForm/>
+{/snippet}
 
 
-<SpeedDialTrigger class="fixed right-6 bottom-6 w-13 h-13">
-    {#snippet icon()}
-        <EditOutline size="lg"/>
+<Modal title="Editor"
+       bind:open
+       size="md"
+       outsideclose={false}>
+
+    <h2 class="text-2xl font-normal tracking-wide">{stepLabels[currentStep - 1]}</h2>
+
+    <ProgressStepper {steps}
+                     bind:current={currentStep}
+                     showCheckmarkForCompleted={false}
+                     class="mb-9"/>
+
+    {@render stepForm(stepForms[currentStep - 1])}
+
+    {#snippet footer()}
+        <div class="flex justify-between w-full">
+            <Button pill class="p-1.5!" disabled={currentStep < 2} onclick={() => --currentStep}>
+                <ChevronLeftOutline class="w-7 h-7"/>
+            </Button>
+
+            <Button pill class="p-1.5!" disabled={currentStep === steps.length} onclick={() => ++currentStep}>
+                <ChevronRightOutline class="w-7 h-7"/>
+            </Button>
+        </div>
     {/snippet}
-</SpeedDialTrigger>
-<SpeedDial tooltip="none" placement="top-end" trigger="click">
-    <Listgroup active
-               items={listgroupItems}
-               class="select-none"/>
-</SpeedDial>
+</Modal>
+
+
+<Button onclick={() => (open = true)}
+        pill
+        class="fixed bottom-0 right-0 mr-4 mb-4 p-3!">
+    <EditOutline size="lg" class="w-6 h-6"/>
+</Button>
 
 
 <style>
@@ -105,9 +131,5 @@
 
     :global(label) {
         @apply text-sm font-normal mb-0.5;
-    }
-
-    :global(Input) {
-        /*@apply bg-gray-600 text-white;*/
     }
 </style>

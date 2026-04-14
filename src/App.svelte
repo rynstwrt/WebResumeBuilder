@@ -184,8 +184,5 @@
 <style>
     @import "tailwindcss";
 
-    main {
-        font-family: "Inter Variable", sans-serif;
-        /*font-family: "Times New Roman", serif;*/
-    }
+
 </style>
