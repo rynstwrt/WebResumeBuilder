@@ -78,11 +78,19 @@
         }
     ];
 
-    let stepLabels = ["Profile", "Education", "Work Experience", "Projects", "Certifications", "Skills"];
+    let stepLabels = ["Profile",
+        "Education",
+        "Work Experience",
+        "Projects",
+        "Certifications",
+        "Skills"];
 
-    let stepForms: Component[] = [ProfileForm, EducationForm, WorkForm, ProjectsForm, CertificationsForm, SkillsForm];
-    // let currentForm: typeof SvelteComponent<any> | Component = ProfileForm;
-
+    let stepForms: Component[] = [ProfileForm,
+        EducationForm,
+        WorkForm,
+        ProjectsForm,
+        CertificationsForm,
+        SkillsForm];
 </script>
 
 
