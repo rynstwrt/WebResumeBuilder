@@ -188,16 +188,4 @@
         font-family: "Inter Variable", sans-serif;
         /*font-family: "Times New Roman", serif;*/
     }
-
-    /*:global(section) {*/
-    /*&:not(:last-of-type) {*/
-    /*    @apply mb-6;*/
-    /*}*/
-
-    /*:global(.tile) {*/
-    /*    @apply py-2.5;*/
-    /*}*/
-    /*}*/
-
-
 </style>

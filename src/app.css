@@ -46,7 +46,7 @@
 #app {
     @apply bg-gray-900/90 p-3;
 
-    input, textarea {
-        @apply text-gray-300 font-light;
-    }
+    /*input, textarea {*/
+    /*    @apply text-gray-300 font-light;*/
+    /*}*/
 }
