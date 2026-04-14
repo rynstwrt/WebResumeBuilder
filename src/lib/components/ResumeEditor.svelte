@@ -9,10 +9,8 @@
         ToolbarButton,
         Button,
         BreadcrumbStepper,
-        DetailedStepper,
         ProgressStepper,
         Stepper,
-        TimelineStepper,
         VerticalStepper,
         Modal
     } from "flowbite-svelte";
@@ -29,7 +27,8 @@
         PlusOutline,
         FileLinesOutline,
         ChevronRightOutline,
-        ChevronLeftOutline
+        ChevronLeftOutline,
+        DownloadOutline
     } from "flowbite-svelte-icons";
 
     import { type Component, type SvelteComponent } from "svelte";
@@ -40,10 +39,11 @@
     import SkillsForm from "./forms/SkillsForm.svelte";
     import EducationForm from "./forms/EducationForm.svelte";
     import WorkForm from "./forms/WorkForm.svelte";
+    import DownloadForm from "./forms/DownloadForm.svelte";
 
     let open = $state(true);
 
-    let currentStep = $state(1);
+    let currentStep = $state(7);
     const STEP_ICON_CLASS = "h-5 2-5 lg:h-6 lg:w-6";
     let steps = [
         {
@@ -75,22 +75,33 @@
             id: 6,
             icon: PaperClipOutline,
             iconClass: STEP_ICON_CLASS
+        },
+        {
+            id: 7,
+            icon: DownloadOutline,
+            iconClass: STEP_ICON_CLASS
         }
     ];
 
-    let stepLabels = ["Profile",
+    let stepLabels = [
+        "Profile",
         "Education",
         "Work Experience",
         "Projects",
         "Certifications",
-        "Skills"];
+        "Skills",
+        "Download"
+    ];
 
-    let stepForms: Component[] = [ProfileForm,
+    let stepForms: Component[] = [
+        ProfileForm,
         EducationForm,
         WorkForm,
         ProjectsForm,
         CertificationsForm,
-        SkillsForm];
+        SkillsForm,
+        DownloadForm
+    ];
 </script>
 
 
@@ -104,12 +115,15 @@
        size="md"
        outsideclose={false}>
 
-    <h2 class="text-2xl font-normal tracking-wide">{stepLabels[currentStep - 1]}</h2>
-
     <ProgressStepper {steps}
                      bind:current={currentStep}
                      showCheckmarkForCompleted={false}
-                     class="mb-9"/>
+                     class="mb-8"/>
+
+<!--    <h2 class="text-2xl font-normal tracking-wide">{stepLabels[currentStep - 1]}</h2>-->
+    <h2 class="mb-4 text-lg leading-none font-medium text-gray-900 dark:text-white">
+        {stepLabels[currentStep-1]}
+    </h2>
 
     {@render stepForm(stepForms[currentStep - 1])}
 
