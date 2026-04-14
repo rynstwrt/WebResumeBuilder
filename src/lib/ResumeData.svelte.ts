@@ -23,8 +23,11 @@ interface IWorkData {
 
 interface IProjectData {
     name: string,
-    link?: string,
-    bulletpoints?: string[]
+    // link?: string,
+    // links?: string[],
+    // bulletpoints?: string[]
+    links?: string,
+    bulletpoints?: string
 }
 
 interface ICertification {
@@ -71,26 +74,41 @@ let workData: IWorkData[] = $state([
 ]);
 
 let projectsData: IProjectData[] = $state([
+    // {
+    //     name: "Project 1",
+    //     link: "https://github.com/johndoe/project1",
+    //     bulletpoints: [
+    //         "Bulletpoint 1",
+    //         "Bulletpoint 2",
+    //         "Bulletpoint 3",
+    //         "Bulletpoint 4"
+    //     ]
+    // },
+    // {
+    //     name: "Project 2",
+    //     link: "https://github.com/johndoe/project2",
+    //     bulletpoints: [
+    //         "Bulletpoint 1",
+    //         "Bulletpoint 2",
+    //         "Bulletpoint 3",
+    //         "Bulletpoint 4"
+    //     ]
+    // }
     {
         name: "Project 1",
-        link: "https://github.com/johndoe/project1",
-        bulletpoints: [
-            "Bulletpoint 1",
-            "Bulletpoint 2",
-            "Bulletpoint 3",
-            "Bulletpoint 4"
-        ]
+        links: "https://github.com/johndoe/link1\nhttps://github.com/johndoe/link2",
+        bulletpoints: "Bulletpoint 1\nBulletpoint 2"
     },
-    {
-        name: "Project 2",
-        link: "https://github.com/johndoe/project2",
-        bulletpoints: [
-            "Bulletpoint 1",
-            "Bulletpoint 2",
-            "Bulletpoint 3",
-            "Bulletpoint 4"
-        ]
-    }
+    // {
+    //     name: "Project 2",
+    //     links: ["https://github.com/johndoe/link1", "https://github.com/johndoe/link2"],
+    //     bulletpoints: [
+    //         "Bulletpoint 1",
+    //         "Bulletpoint 2",
+    //         "Bulletpoint 3",
+    //         "Bulletpoint 4"
+    //     ]
+    // }
 ]);
 
 let certificationsData: ICertification[] = $state([
@@ -106,17 +124,11 @@ let skillsData: ISkill = $state({
 });
 
 
-let projectsHTML = $state({
-    html: ""
-});
-
-
 export {
     profileData,
     educationData,
     workData,
     projectsData,
     certificationsData,
-    skillsData,
-    projectsHTML
+    skillsData
 };

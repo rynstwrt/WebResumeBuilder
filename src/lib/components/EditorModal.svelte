@@ -1,17 +1,9 @@
 <script lang="ts">
     import {
-        SpeedDialTrigger,
-        SpeedDial,
         Listgroup,
         Textarea,
-        Toolbar,
-        ToolbarGroup,
-        ToolbarButton,
         Button,
-        BreadcrumbStepper,
         ProgressStepper,
-        Stepper,
-        VerticalStepper,
         Modal
     } from "flowbite-svelte";
 
@@ -41,11 +33,11 @@
     import WorkForm from "./forms/WorkForm.svelte";
     import DownloadForm from "./forms/DownloadForm.svelte";
 
-    let { importConfig, exportConfig, downloadPDF} = $props();
+    // let {importConfig, exportConfig, downloadPDF} = $props();
 
     let open = $state(true);
 
-    let currentStep = $state(7);
+    let currentStep = $state(4);
     const STEP_ICON_CLASS = "h-5 2-5 lg:h-6 lg:w-6";
     let steps = [
         {
@@ -95,7 +87,7 @@
         "Download"
     ];
 
-    let stepForms: Component[] = [
+    let stepForms = [
         ProfileForm,
         EducationForm,
         WorkForm,
@@ -110,7 +102,8 @@
 
 {#snippet stepForm(StepForm)}
     {#if currentStep === steps.length}
-        <StepForm {importConfig} {exportConfig} {downloadPDF}/>
+<!--        <StepForm {importConfig} {exportConfig} {downloadPDF}/>-->
+        <StepForm />
     {:else}
         <StepForm/>
     {/if}
@@ -127,9 +120,8 @@
                      showCheckmarkForCompleted={false}
                      class="mb-8"/>
 
-<!--    <h2 class="text-2xl font-normal tracking-wide">{stepLabels[currentStep - 1]}</h2>-->
     <h2 class="mb-4 text-lg leading-none font-medium text-gray-900 dark:text-white">
-        {stepLabels[currentStep-1]}
+        {stepLabels[currentStep - 1]}
     </h2>
 
     {@render stepForm(stepForms[currentStep - 1])}

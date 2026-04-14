@@ -1,3 +1,3 @@
-# Resumé Web Builder 
+# Web Résumé Builder 
 
-Generate a resumé with ease.
+Generate a résumé with ease.

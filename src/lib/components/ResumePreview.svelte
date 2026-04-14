@@ -1,13 +1,8 @@
 <script lang="ts">
-    import "@fontsource/open-sans";
-    import '@fontsource-variable/inter/standard.css'; // Supports weights 100-900
-
-    import EditorModal from "./lib/components/EditorModal.svelte";
-
-    import html2pdf from "html2pdf.js";
-    import html2canvas from "html2canvas-pro";
-
-    import { Li, P } from "flowbite-svelte";
+    import {
+        Li,
+        P
+    } from "flowbite-svelte";
 
     import {
         EnvelopeOutline,
@@ -16,46 +11,18 @@
         PhoneOutline
     } from "flowbite-svelte-icons";
 
-
     import {
         certificationsData,
         educationData,
         profileData,
-        projectsData, projectsHTML,
+        projectsData,
         skillsData,
         workData
-    } from "./lib/ResumeData.svelte.ts";
+    } from "../ResumeData.svelte.ts";
 
-    import ResumeSection from "./lib/components/ResumeSection.svelte";
-
-
-    function importConfig() {
-        alert("Import");
-    }
-
-    function exportConfig() {
-        alert("Export");
-    }
-
-    function downloadPDF() {
-        const el: HTMLElement = document.querySelector("main")!;
-        html2canvas(el).then(canvas => {
-            console.log(canvas);
-            document.body.append(canvas);
-            html2pdf(canvas, {
-                filename: "Resume.pdf",
-                jsPDF: {
-                    unit: "in",
-                    format: "letter",
-                    orientation: "portrait"
-                }
-            });
-        });
-    }
+    import ResumeSection from "../components/ResumeSection.svelte";
 </script>
 
-
-<EditorModal {importConfig} {exportConfig} {downloadPDF}/>
 
 
 <main class="w-204 min-h-264 bg-white mx-auto p-12 mt-4 mb-12">
@@ -149,14 +116,24 @@
 
     {#if projectsData.length}
         <ResumeSection title="Projects">
-            <!--{@html projectsHTML.html}-->
             {#each projectsData as entry}
                 <div class="entry">
                     <h3 class="header">{entry.name}</h3>
-                    <a class="subheader" href={entry.link}>{entry.link}</a>
+                    <!--                    <a class="subheader" href={entry.link}>{entry.link}</a>-->
+                    {#if entry.links?.length}
+                        {#each entry.links.split("\n") as link, idx}
+                            <!--{#if idx === entry.links.length - 1}-->
+                            <!--    <a class="text-xs text-left place-self-start block mb-1" href={link}>{link}</a>-->
+                            <!--{:else}-->
+                            <!--    <a class="text-xs text-left place-self-start block" href={link}>{link}</a>-->
+                            <!--{/if}-->
+                            <a class="text-sm text-left place-self-start block {(idx === entry.links.length - 1) && 'mb-0.5'}"
+                               href={link}>{link}</a>
+                        {/each}
+                    {/if}
                     {#if entry.bulletpoints?.length}
                         <ul class="list-disc pl-[1.5ch] mt-0.5">
-                            {#each entry.bulletpoints as bulletpoint}
+                            {#each entry.bulletpoints.split("\n") as bulletpoint}
                                 <Li class="text-sm font-light">{bulletpoint}</Li>
                             {/each}
                         </ul>
@@ -186,10 +163,3 @@
         </ResumeSection>
     {/if}
 </main>
-
-
-<style>
-    @import "tailwindcss";
-
-
-</style>
