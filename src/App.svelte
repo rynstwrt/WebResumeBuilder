@@ -2,7 +2,7 @@
     import "@fontsource/open-sans";
     import '@fontsource-variable/inter/standard.css'; // Supports weights 100-900
 
-    import ResumeEditor from "./lib/components/ResumeEditor.svelte";
+    import EditorModal from "./lib/components/EditorModal.svelte";
 
     import html2pdf from "html2pdf.js";
     import html2canvas from "html2canvas-pro";
@@ -26,8 +26,16 @@
         workData
     } from "./lib/ResumeData.svelte.ts";
 
-    import Section from "./lib/components/Section.svelte";
+    import ResumeSection from "./lib/components/ResumeSection.svelte";
 
+
+    function importConfig() {
+        alert("Import");
+    }
+
+    function exportConfig() {
+        alert("Export");
+    }
 
     function downloadPDF() {
         const el: HTMLElement = document.querySelector("main")!;
@@ -44,11 +52,10 @@
             });
         });
     }
-
 </script>
 
 
-<ResumeEditor/>
+<EditorModal {importConfig} {exportConfig} {downloadPDF}/>
 
 
 <main class="w-204 min-h-264 bg-white mx-auto p-12 mt-4 mb-12">
@@ -96,7 +103,7 @@
     </section>
 
     {#if workData.length}
-        <Section title="Experience">
+        <ResumeSection title="Experience">
             {#each workData as entry}
                 <div class="entry">
                     <div class="flex justify-between">
@@ -118,11 +125,11 @@
                     {/if}
                 </div>
             {/each}
-        </Section>
+        </ResumeSection>
     {/if}
 
     {#if educationData.length}
-        <Section title="Education">
+        <ResumeSection title="Education">
             {#each educationData as entry}
                 <div class="entry flex justify-between">
                     <div class="w-full flex justify-between">
@@ -137,11 +144,11 @@
                     </div>
                 </div>
             {/each}
-        </Section>
+        </ResumeSection>
     {/if}
 
     {#if projectsData.length}
-        <Section title="Projects">
+        <ResumeSection title="Projects">
             <!--{@html projectsHTML.html}-->
             {#each projectsData as entry}
                 <div class="entry">
@@ -156,11 +163,11 @@
                     {/if}
                 </div>
             {/each}
-        </Section>
+        </ResumeSection>
     {/if}
 
     {#if certificationsData.length}
-        <Section title="Certifications">
+        <ResumeSection title="Certifications">
             {#each certificationsData as entry}
                 <div class="entry flex justify-between">
                     <div class="">
@@ -171,12 +178,12 @@
                     <P class="detail">{entry.date}</P>
                 </div>
             {/each}
-        </Section>
+        </ResumeSection>
     {/if}
     {#if skillsData.skills.length}
-        <Section title="Skills">
+        <ResumeSection title="Skills">
             <P class="detail text-left!">{skillsData.skills.join(", ")}.</P>
-        </Section>
+        </ResumeSection>
     {/if}
 </main>
 

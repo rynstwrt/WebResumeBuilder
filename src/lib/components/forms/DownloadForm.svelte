@@ -3,22 +3,12 @@
 
     import { DownloadOutline, FileImportOutline, FileExportOutline } from "flowbite-svelte-icons";
 
-
-    function onDownloadBtnClick() {
-        alert("Download");
-    }
-
-    function onImportBtnClick() {
-        alert("Import");
-    }
-
-    function onExportBtnClick() {
-        alert("Export");
-    }
+    let {importConfig, exportConfig, downloadPDF} = $props();
 </script>
 
 
-{#snippet createButton(Icon, text = "", classes = "", size, onclick = () => {})}
+{#snippet createButton(Icon, text = "", classes = "", size, onclick = () => {
+})}
     <Button {size}
             class="flex items-center h-fit {classes}"
             {onclick}>
@@ -29,11 +19,11 @@
 
 
 <div class="grid grid-cols-2 grid-rows-2 gap-x-2 gap-y-1">
-    {@render createButton(FileImportOutline, "Import Config", "bg-secondary-500!", "md", onImportBtnClick)}
+    {@render createButton(FileImportOutline, "Import Config", "bg-secondary-500!", "md", importConfig)}
 
-    {@render createButton(FileExportOutline, "Export Config", "bg-secondary-500!", "md", onExportBtnClick)}
+    {@render createButton(FileExportOutline, "Export Config", "bg-secondary-500!", "md", exportConfig)}
 
-    {@render createButton(DownloadOutline, "Download", "col-span-full", "lg", onDownloadBtnClick)}
+    {@render createButton(DownloadOutline, "Download", "col-span-full", "lg", downloadPDF)}
 </div>
 
 
