@@ -1,7 +1,7 @@
 <script lang="ts">
-    import ResumePreview from "$lib/components/ResumePreview.svelte";
+    import ResumePreview from "./lib/components/ResumePreview.svelte";
 
-    import EditorModal from "$lib/components/EditorModal.svelte";
+    import EditorModal from "./lib/components/EditorModal.svelte";
 
     // function importConfig() {
     //     alert("Import");
@@ -28,8 +28,9 @@
     // }
 </script>
 
-<!--<EditorModal {importConfig} {exportConfig} {downloadPDF}/>-->
+<h1>APP.SVELTE</h1>
 
 <EditorModal />
 
 <ResumePreview />
+
