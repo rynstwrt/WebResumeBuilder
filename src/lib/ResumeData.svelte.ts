@@ -123,6 +123,25 @@ let skillsData: ISkill = $state({
     skills: ["skill 1", "skill 2", "skill 3"]
 });
 
+// let skillTags: string[] = $state();
+let data = $state({
+    skillTags: ["asfd"],
+    workExperience: [
+        {
+            employer: "employer1",
+            position: "software engineer",
+            dates: "jan 2000 - aug 2025"
+        }
+    ]
+});
+
+// class ResumeData {
+//     public skillTags: string[];
+//
+//     constructor() {
+//         this.skillTags = $state([]);
+//     }
+// }
 
 export {
     profileData,
@@ -130,5 +149,8 @@ export {
     workData,
     projectsData,
     certificationsData,
-    skillsData
+    skillsData,
+    data,
+    // ResumeData
 };
+

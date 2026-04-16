@@ -4,45 +4,42 @@
         Textarea,
         Helper,
         P,
+        Tags
     } from "flowbite-svelte";
 
     import {
         CloseCircleSolid,
     } from "flowbite-svelte-icons";
-    import { skillsData } from "../../ResumeData.svelte.ts";
+
+    // import { skillsData } from "../../ResumeData.svelte.ts";
+    import { data } from "../../ResumeData.svelte.ts";
 
     let {open = $bindable()} = $props();
 
-    let skillsText = $state("");
-    let skillsArr = $derived(skillsText.length && skillsText.trim().split("\n"));
+    // let tags: string[] = $state([]);
 
-    function removeSkill(idx: number) {
-        skillsArr = skillsArr.toSpliced(idx, 1);
-        skillsText = skillsArr.join("\n");
-    }
-
-    $effect(() => {
-        skillsData.skills = skillsArr;
-    });
+    // let resumeData = new ResumeData();
 </script>
 
 
-
-<Textarea rows={5}
-          class="w-full"
-          placeholder="Type skills, one per line..."
-          bind:value={skillsText}/>
-<Helper class="text-sm">Type skills, one per line.</Helper>
+<Tags bind:value={data.skillTags} onclosecapture={e => e.preventDefault()}/>
 
 
-<Label class="mb-2 block mt-6">Skills:</Label>
-<div class="flex flex-wrap gap-2">
-    {#if skillsText.length}
-        {#each skillsArr as skill, idx}
-            <div class="flex items-center bg-gray-700 rounded-sm py-0.5 px-1.5">
-                <P weight="thin" size="sm">{skill}</P>
-                <CloseCircleSolid size="sm" class="ml-1" onclick={() => removeSkill(idx)}/>
-            </div>
-        {/each}
-    {/if}
-</div>
+<!--<Textarea rows={5}-->
+<!--          class="w-full"-->
+<!--          placeholder="Type skills, one per line..."-->
+<!--          bind:value={skillsText}/>-->
+<!--<Helper class="text-sm">Type skills, one per line.</Helper>-->
+
+
+<!--<Label class="mb-2 block mt-6">Skills:</Label>-->
+<!--<div class="flex flex-wrap gap-2">-->
+<!--    {#if skillsText.length}-->
+<!--        {#each skillsArr as skill, idx}-->
+<!--            <div class="flex items-center bg-gray-700 rounded-sm py-0.5 px-1.5">-->
+<!--                <P weight="thin" size="sm">{skill}</P>-->
+<!--                <CloseCircleSolid size="sm" class="ml-1" onclick={() => removeSkill(idx)}/>-->
+<!--            </div>-->
+<!--        {/each}-->
+<!--    {/if}-->
+<!--</div>-->
