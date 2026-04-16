@@ -20,9 +20,10 @@
         workData
     } from "../ResumeData.svelte.ts";
 
+    import { projects } from "../DataHandler.svelte.ts";
+
     import ResumeSection from "../components/ResumeSection.svelte";
 </script>
-
 
 
 <main class="w-204 min-h-264 bg-white mx-auto p-12 mt-4 mb-12">
@@ -114,14 +115,14 @@
         </ResumeSection>
     {/if}
 
-    {#if projectsData.length}
+    {#if projects.length}
         <ResumeSection title="Projects">
-            {#each projectsData as entry}
+            {#each projects as entry}
                 <div class="entry">
                     <h3 class="header">{entry.name}</h3>
                     <!--                    <a class="subheader" href={entry.link}>{entry.link}</a>-->
                     {#if entry.links?.length}
-                        {#each entry.links.split("\n") as link, idx}
+                        {#each entry.links as link, idx}
                             <!--{#if idx === entry.links.length - 1}-->
                             <!--    <a class="text-xs text-left place-self-start block mb-1" href={link}>{link}</a>-->
                             <!--{:else}-->
@@ -133,7 +134,7 @@
                     {/if}
                     {#if entry.bulletpoints?.length}
                         <ul class="list-disc pl-[1.5ch] mt-0.5">
-                            {#each entry.bulletpoints.split("\n") as bulletpoint}
+                            {#each entry.bulletpoints as bulletpoint}
                                 <Li class="text-sm font-light">{bulletpoint}</Li>
                             {/each}
                         </ul>
@@ -142,6 +143,34 @@
             {/each}
         </ResumeSection>
     {/if}
+    <!--{#if projectsData.length}-->
+    <!--    <ResumeSection title="Projects">-->
+    <!--        {#each projectsData as entry}-->
+    <!--            <div class="entry">-->
+    <!--                <h3 class="header">{entry.name}</h3>-->
+    <!--                &lt;!&ndash;                    <a class="subheader" href={entry.link}>{entry.link}</a>&ndash;&gt;-->
+    <!--                {#if entry.links?.length}-->
+    <!--                    {#each entry.links.split("\n") as link, idx}-->
+    <!--                        &lt;!&ndash;{#if idx === entry.links.length - 1}&ndash;&gt;-->
+    <!--                        &lt;!&ndash;    <a class="text-xs text-left place-self-start block mb-1" href={link}>{link}</a>&ndash;&gt;-->
+    <!--                        &lt;!&ndash;{:else}&ndash;&gt;-->
+    <!--                        &lt;!&ndash;    <a class="text-xs text-left place-self-start block" href={link}>{link}</a>&ndash;&gt;-->
+    <!--                        &lt;!&ndash;{/if}&ndash;&gt;-->
+    <!--                        <a class="text-sm text-left place-self-start block {(idx === entry.links.length - 1) && 'mb-0.5'}"-->
+    <!--                           href={link}>{link}</a>-->
+    <!--                    {/each}-->
+    <!--                {/if}-->
+    <!--                {#if entry.bulletpoints?.length}-->
+    <!--                    <ul class="list-disc pl-[1.5ch] mt-0.5">-->
+    <!--                        {#each entry.bulletpoints.split("\n") as bulletpoint}-->
+    <!--                            <Li class="text-sm font-light">{bulletpoint}</Li>-->
+    <!--                        {/each}-->
+    <!--                    </ul>-->
+    <!--                {/if}-->
+    <!--            </div>-->
+    <!--        {/each}-->
+    <!--    </ResumeSection>-->
+    <!--{/if}-->
 
     {#if certificationsData.length}
         <ResumeSection title="Certifications">

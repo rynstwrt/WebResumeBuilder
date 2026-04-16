@@ -28,7 +28,6 @@
     // }
 </script>
 
-<h1>APP.SVELTE</h1>
 
 <EditorModal />
 

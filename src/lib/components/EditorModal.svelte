@@ -153,4 +153,8 @@
     :global(label) {
         @apply text-sm font-normal mb-0.5;
     }
+
+    :global(input), :global(textarea) {
+        @apply rounded-sm;
+    }
 </style>
