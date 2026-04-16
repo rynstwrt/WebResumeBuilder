@@ -128,6 +128,11 @@ let data = $state({
     skillTags: ["asfd"],
     workExperience: [
         {
+            employer: "employer2",
+            position: "software engineer",
+            dates: "feb 2026 - Present"
+        },
+        {
             employer: "employer1",
             position: "software engineer",
             dates: "jan 2000 - aug 2025"

@@ -110,9 +110,9 @@
         {/each}
     </Tabs>
 
-    {#snippet footer()}
-        <Button>asdf</Button>
-    {/snippet}
+    <!--{#snippet footer()}-->
+<!--        <Button>asdf</Button>-->
+<!--    {/snippet}-->
 </Modal>
 
 

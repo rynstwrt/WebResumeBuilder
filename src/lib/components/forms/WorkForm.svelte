@@ -14,23 +14,29 @@
     let {open = $bindable()} = $props();
 
     import { data } from "../../ResumeData.svelte.ts";
+
+    let formData = {
+        employer: "",
+        position: "",
+        dates: ""
+    };
 </script>
 
 
 <div class="grid grid-cols-2 gap-6">
     <div class="grid grid-cols-1 gap-y-6 auto-rows-min">
-<!--        <Input placeholder="Employer"/>-->
-<!--        <Input placeholder="Position"/>-->
-<!--        <Input placeholder="Dates"/>-->
-        <FloatingLabelInput type="text">Employer</FloatingLabelInput>
-        <FloatingLabelInput type="text">Position</FloatingLabelInput>
-        <FloatingLabelInput type="text">Dates</FloatingLabelInput>
+        <FloatingLabelInput type="text"
+                            bind:value={formData.employer}>Employer</FloatingLabelInput>
+        <FloatingLabelInput type="text" bind:value={formData.position}>Position</FloatingLabelInput>
+        <FloatingLabelInput type="text" bind:value={formData.dates}>Dates</FloatingLabelInput>
 
-        <Button size="sm" class="flex items-center">
-            <!--{#snippet ()}-->
+        <Button size="sm" onclick={() => {
+            data.workExperience.push(formData);
+        }}>
+            <span class="flex items-center">
                 <PlusOutline class="me-1"/>
                 Add
-            <!--{/snippet}-->
+            </span>
         </Button>
     </div>
 

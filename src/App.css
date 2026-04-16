@@ -42,23 +42,11 @@ body {
     main {
         font-family: "Inter Variable", sans-serif;
     }
-
-    /*&::after {*/
-    /*	position: absolute;*/
-    /*	top: 0;*/
-    /*	right: 0;*/
-    /*	bottom: 0;*/
-    /*	left: 0;*/
-    /*	content: "";*/
-    /*	background-color: red;*/
-    /*}*/
 }
 
 #app {
-    /*@apply bg-gray-900/90 p-3;*/
-
-
-    /*main {*/
-    /*	font-family: "Inter Variable", sans-serif;*/
-    /*}*/
+    :global(div):not(main) {
+        background-color: red !important;
+    }
+    /*@apply text-gray-400;*/
 }
