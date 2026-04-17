@@ -91,6 +91,9 @@
         let aMoment = moment(a.endDate);
         let bMoment = moment(b.endDate);
 
+        if (a.ongoing)
+            return 1;
+
         if (aMoment.isSame(bMoment))
             return 0;
 
@@ -157,7 +160,7 @@
                 {#each sortedEducation as school, i}
                     {@const startDate = moment(school.startDate).format(DATE_FORMAT)}
                     {@const endDate = school.ongoing ? "Present" : moment(school.endDate).format(DATE_FORMAT)}
-                    <TimelineItem title={school.school + school.id}
+                    <TimelineItem title={school.school}
                                   date={`${startDate} - ${endDate}`}
                                   class="mb-4">
                         <Button class="absolute top-0 right-0 p-0 bg-transparent! focus-within:ring-0!"
