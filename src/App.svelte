@@ -92,12 +92,12 @@
         let bMoment = moment(b.endDate);
 
         if (a.ongoing)
-            return 1;
+            return -1;
 
         if (aMoment.isSame(bMoment))
             return 0;
 
-        return aMoment.isAfter(bMoment) ? 1 : -1;
+        return aMoment.isAfter(bMoment) ? -1 : 1;
     }));
 </script>
 
