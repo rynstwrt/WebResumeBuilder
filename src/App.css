@@ -1,4 +1,5 @@
 @import 'tailwindcss';
+
 @plugin 'flowbite/plugin';
 @custom-variant dark (&:where(.dark, .dark *));
 
@@ -44,9 +45,6 @@ body {
     }
 }
 
-#app {
-    :global(div):not(main) {
-        background-color: red !important;
-    }
-    /*@apply text-gray-400;*/
+#drawer {
+    @apply text-gray-400;
 }

@@ -5,7 +5,8 @@
         Button,
         Drawer,
         Input,
-        Label
+        Label,
+        Tags
     } from "flowbite-svelte";
 
     import {
@@ -19,13 +20,6 @@
     } from "flowbite-svelte-icons";
 
     import ResumePreview from "./lib/components/ResumePreview.svelte";
-
-    import ProfileForm from "./lib/components/forms/ProfileForm.svelte";
-    import WorkForm from "./lib/components/forms/WorkForm.svelte";
-    import EducationForm from "./lib/components/forms/EducationForm.svelte";
-    import ProjectsForm from "./lib/components/forms/ProjectsForm.svelte";
-    import CertificationsForm from "./lib/components/forms/CertificationsForm.svelte";
-    import SkillsForm from "./lib/components/forms/SkillsForm.svelte";
 
     // function downloadPDF() {
     //     const el: HTMLElement = document.querySelector("main")!;
@@ -86,18 +80,11 @@
 </script>
 
 
-<!--<EditorModal />-->
-<!--<EditorAccordionModal />-->
-<!--<EditorTabsModal/>-->
-<!--<EditorBottomNavModal />-->
-
-<!--<Test />-->
-
 <ResumePreview/>
 
 
 <Button onclick={() => drawerOpen = true}
-        class="absolute bottom-5 right-5 p-4"
+        class="fixed bottom-5 right-5 p-4"
         pill>
     <EditOutline class="w-6 h-6"/>
 </Button>
@@ -106,7 +93,8 @@
 <Drawer bind:open={drawerOpen}
         outsideclose={false}
         placement="left"
-        width="half">
+        width="half"
+        id="drawer">
     <Accordion class="mt-10" flush={true}>
         <AccordionItem open>
             {#snippet header()}
@@ -131,6 +119,10 @@
                 <div>
                     <Label for="email" class="text-sm font-normal leading-6">Email</Label>
                     <Input size="md" name="email" bind:value={email} placeholder="john.doe@example.com"/>
+                </div>
+                <div class="col-span-full">
+                    <Label for="links" class="text-sm font-normal leading-6">Links</Label>
+                    <Tags id="links" placeholder="Enter links here and press enter" bind:value={links} />
                 </div>
             </div>
         </AccordionItem>
