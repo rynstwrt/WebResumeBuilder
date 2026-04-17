@@ -11,41 +11,46 @@
         Timeline,
         TimelineItem,
         Datepicker,
-        Checkbox
+        Checkbox,
+        ButtonGroup
     } from "flowbite-svelte";
 
     import {
-        BuildingOutline,
         EditOutline,
-        FileLinesOutline,
-        GraduationCapOutline,
         PaperClipOutline,
-        PaperPlaneOutline,
-        UserOutline,
         PlusOutline,
         CloseOutline,
-        SchoolOutline
+        FileImportSolid,
+        FileExportSolid,
+        UserSolid,
+        GraduationCapSolid,
+        PaperPlaneSolid,
+        HammerSolid,
+        ClipboardCheckSolid,
+        DownloadSolid
     } from "flowbite-svelte-icons";
 
     import moment from "moment";
 
     import ResumePreview from "./lib/components/ResumePreview.svelte";
+    import html2canvas from "html2canvas-pro";
+    import html2pdf from "html2pdf.js";
 
-    // function downloadPDF() {
-    //     const el: HTMLElement = document.querySelector("main")!;
-    //     html2canvas(el).then(canvas => {
-    //         console.log(canvas);
-    //         document.body.append(canvas);
-    //         html2pdf(canvas, {
-    //             filename: "Resume.pdf",
-    //             jsPDF: {
-    //                 unit: "in",
-    //                 format: "letter",
-    //                 orientation: "portrait"
-    //             }
-    //         });
-    //     });
-    // }
+    function downloadPDF() {
+        const el: HTMLElement = document.querySelector("main")!;
+        html2canvas(el).then(canvas => {
+            console.log(canvas);
+            document.body.append(canvas);
+            html2pdf(canvas, {
+                filename: "Resume.pdf",
+                jsPDF: {
+                    unit: "in",
+                    format: "letter",
+                    orientation: "portrait"
+                }
+            });
+        });
+    }
 
     let drawerOpen = $state(true);
 
@@ -117,11 +122,27 @@
         placement="left"
         width="half"
         id="drawer">
-    <Accordion class="mt-10" flush={true}>
+
+        <ButtonGroup class="grid grid-cols-3 mt-8.5 mb-4">
+            <Button outline>
+                <FileImportSolid class="me-2 h-4 w-4"/>
+                Import
+            </Button>
+            <Button outline>
+                <FileExportSolid class="me-2 h-4 w-4" />
+                Export
+            </Button>
+            <Button outline onclick={downloadPDF}>
+                <DownloadSolid class="me-2 h-4 w-4"/>
+                Download
+            </Button>
+        </ButtonGroup>
+
+    <Accordion flush={true}>
         <AccordionItem>
             {#snippet header()}
                 <span class="flex items-center">
-                    <UserOutline size="md" class="me-1"/>
+                    <UserSolid size="md" class="me-2"/>
                     Profile
                 </span>
             {/snippet}
@@ -149,14 +170,14 @@
             </div>
         </AccordionItem>
 
-        <AccordionItem open>
+        <AccordionItem>
             {#snippet header()}
                 <span class="flex items-center">
-                    <GraduationCapOutline size="md" class="me-1"/>
+                    <GraduationCapSolid size="md" class="me-2"/>
                     Education
                 </span>
             {/snippet}
-            <Timeline>
+            <Timeline class="mx-1">
                 {#each sortedEducation as school, i}
                     {@const startDate = moment(school.startDate).format(DATE_FORMAT)}
                     {@const endDate = school.ongoing ? "Present" : moment(school.endDate).format(DATE_FORMAT)}
@@ -238,7 +259,7 @@
         <AccordionItem>
             {#snippet header()}
                 <span class="flex items-center">
-                    <BuildingOutline size="md" class="me-1"/>
+                    <HammerSolid size="md" class="me-2"/>
                     Work Experience
                 </span>
             {/snippet}
@@ -248,7 +269,7 @@
         <AccordionItem>
             {#snippet header()}
                 <span class="flex items-center">
-                    <PaperPlaneOutline size="md" class="me-1"/>
+                    <PaperPlaneSolid size="md" class="me-2"/>
                     Projects
                 </span>
             {/snippet}
@@ -258,7 +279,7 @@
         <AccordionItem>
             {#snippet header()}
                 <span class="flex items-center">
-                    <FileLinesOutline size="md" class="me-1"/>
+                    <ClipboardCheckSolid size="md" class="me-2"/>
                     Certifications
                 </span>
             {/snippet}
@@ -268,7 +289,7 @@
         <AccordionItem>
             {#snippet header()}
                 <span class="flex items-center">
-                    <PaperClipOutline size="md" class="me-1"/>
+                    <PaperClipOutline size="md" class="me-2"/>
                     Skills
                 </span>
             {/snippet}
