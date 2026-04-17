@@ -27,6 +27,7 @@
 		"@fontsource/inter": "^5.2.8",
 		"@fontsource/open-sans": "^5.2.7",
 		"html2canvas-pro": "^2.0.2",
-		"html2pdf.js": "^0.14.0"
+		"html2pdf.js": "^0.14.0",
+		"moment": "^2.30.1"
 	}
 }
