@@ -12,7 +12,7 @@
         TimelineItem,
         Datepicker,
         Checkbox,
-        ButtonGroup
+        ButtonGroup, P, Li
     } from "flowbite-svelte";
 
     import {
@@ -27,14 +27,16 @@
         PaperPlaneSolid,
         HammerSolid,
         ClipboardCheckSolid,
-        DownloadSolid
+        DownloadSolid, MapPinAltOutline, EnvelopeOutline, GlobeOutline, PhoneOutline
     } from "flowbite-svelte-icons";
 
     import moment from "moment";
 
-    import ResumePreview from "./lib/components/ResumePreview.svelte";
     import html2canvas from "html2canvas-pro";
     import html2pdf from "html2pdf.js";
+    import { certificationsData, skillsData, workData } from "./lib/ResumeData.svelte.ts";
+    import { projects } from "./lib/DataHandler.svelte.ts";
+    import ResumeSection from "./lib/components/ResumeSection.svelte";
 
     function downloadPDF() {
         const el: HTMLElement = document.querySelector("main")!;
@@ -52,21 +54,24 @@
         });
     }
 
+    const DATE_FORMAT = "MMM YYYY";
+
     let drawerOpen = $state(true);
 
-    let name: string = $state("");
-    let location: string = $state("");
-    let phoneNumber: string = $state("");
-    let email: string = $state("");
-    let links: string[] = $state([]);
+    let name: string = $state("John Doe");
+    let location: string = $state("Seattle, WA");
+    let phone: string = $state("+1 123 456 7890");
+    let email: string = $state("john.doe@example.com");
+    let links: string[] = $state(["https://example.com", "https://example2.com"]);
 
     let education = $state([
         {
             id: 0,
             school: "The University of Texas",
             concentration: "B.S. Electrical Engineering",
-            startDate: new Date("August 1, 2019"),
-            endDate: new Date("Dec 1, 2025"),
+            location: "Austin, TX",
+            startDate: moment("August 1, 2019").format(DATE_FORMAT),
+            endDate: moment("Dec 1, 2025").format(DATE_FORMAT),
             ongoing: false,
             summary: "summarytext"
         },
@@ -74,8 +79,9 @@
             id: 1,
             school: "Plano West Senior High School",
             concentration: "High School Diploma",
-            startDate: new Date("August 1, 2015"),
-            endDate: new Date("June 1, 2019"),
+            location: "Plano, TX",
+            startDate: moment("August 1, 2015").format(DATE_FORMAT),
+            endDate: moment("June 1, 2019").format(DATE_FORMAT),
             ongoing: false,
             summary: "summarytext"
         }
@@ -85,13 +91,13 @@
         id: 0,
         school: "",
         concentration: "",
+        location: "",
         startDate: undefined,
         endDate: undefined,
         ongoing: false,
         summary: ""
     });
 
-    const DATE_FORMAT = "MMM YYYY";
     let sortedEducation = $derived([...education].sort((a, b) => {
         let aMoment = moment(a.endDate);
         let bMoment = moment(b.endDate);
@@ -107,9 +113,6 @@
 </script>
 
 
-<ResumePreview/>
-
-
 <Button onclick={() => drawerOpen = true}
         class="fixed bottom-5 right-5 p-4"
         pill>
@@ -123,20 +126,20 @@
         width="half"
         id="drawer">
 
-        <ButtonGroup class="grid grid-cols-3 mt-8.5 mb-4">
-            <Button outline>
-                <FileImportSolid class="me-2 h-4 w-4"/>
-                Import
-            </Button>
-            <Button outline>
-                <FileExportSolid class="me-2 h-4 w-4" />
-                Export
-            </Button>
-            <Button outline onclick={downloadPDF}>
-                <DownloadSolid class="me-2 h-4 w-4"/>
-                Download
-            </Button>
-        </ButtonGroup>
+    <ButtonGroup class="grid grid-cols-3 mt-8.5 mb-4">
+        <Button outline>
+            <FileImportSolid class="me-2 h-4 w-4"/>
+            Import
+        </Button>
+        <Button outline>
+            <FileExportSolid class="me-2 h-4 w-4"/>
+            Export
+        </Button>
+        <Button outline onclick={downloadPDF}>
+            <DownloadSolid class="me-2 h-4 w-4"/>
+            Download
+        </Button>
+    </ButtonGroup>
 
     <Accordion flush={true}>
         <AccordionItem>
@@ -157,7 +160,7 @@
                 </div>
                 <div>
                     <Label for="phone" class="text-sm font-normal leading-6">Phone</Label>
-                    <Input size="md" name="phone" bind:value={phoneNumber} placeholder="+1 123 456 7890"/>
+                    <Input size="md" name="phone" bind:value={phone} placeholder="+1 123 456 7890"/>
                 </div>
                 <div>
                     <Label for="email" class="text-sm font-normal leading-6">Email</Label>
@@ -170,7 +173,7 @@
             </div>
         </AccordionItem>
 
-        <AccordionItem>
+        <AccordionItem open>
             {#snippet header()}
                 <span class="flex items-center">
                     <GraduationCapSolid size="md" class="me-2"/>
@@ -210,6 +213,14 @@
                            bind:value={educationForm.concentration}
                            placeholder="B.S. Electrical Engineering"/>
                 </div>
+                <div class="col-span-full">
+                    <Label class="text-sm font-normal leading-6">
+                        Location
+                        <Input type="md"
+                               bind:value={educationForm.location}
+                               placeholder="Fictionville, MA"/>
+                    </Label>
+                </div>
                 <div>
                     <Label for="school-start" class="text-sm font-normal leading-6">Start Date</Label>
                     <Datepicker id="school-start"
@@ -242,6 +253,7 @@
                         id: 0,
                         school: "",
                         concentration: "",
+                        location: "",
                         startDate: undefined,
                         endDate: undefined,
                         ongoing: false,
@@ -249,7 +261,7 @@
                     };
                 }}>
                     <span class="flex items-center">
-                        <PlusOutline size="sm" class="me-0.5"/>
+                        <plusOutline size="sm" class="me-0.5"/>
                         Add
                     </span>
                 </Button>
@@ -297,3 +309,147 @@
         </AccordionItem>
     </Accordion>
 </Drawer>
+
+
+<main class="w-204 min-h-264 bg-white mx-auto p-12 mt-4 mb-12">
+    <section id="profile" class="text-center flex flex-col items-center">
+        <h1 class="text-3xl font-semibold mb-1">{name || "John Doe"}</h1>
+        <div class="text-xs font-light flex gap-2">
+            {#if location}
+                <span>
+				    <MapPinAltOutline size="sm" class="inline"/>
+                    {location}
+			    </span>
+                {#if phone || email}
+                    |
+                {/if}
+            {/if}
+            {#if phone}
+                <span>
+                    <phoneOutline size="sm" class="inline"/>
+                    {phone}
+                </span>
+                {#if email}
+                    |
+                {/if}
+            {/if}
+            {#if email}
+                <span>
+                    <EnvelopeOutline size="sm" class="inline"/>
+                    {email}
+                </span>
+            {/if}
+        </div>
+        {#if links?.length}
+            <div class="flex gap-2 text-xs font-light">
+                {#each links as link, idx}
+                    <span>
+                        <GlobeOutline size="sm" class="inline"/>
+                        <a href={link}>{link}</a>
+                    </span>
+                    {#if idx !== links.length - 1}
+                        |
+                    {/if}
+                {/each}
+            </div>
+        {/if}
+    </section>
+
+    {#if sortedEducation.length}
+        <ResumeSection title="Education">
+            {#each sortedEducation as school}
+                {@const dates = `${school.startDate} - ${school.endDate}`}
+                <div class="entry flex justify-between">
+                    <div class="w-full flex justify-between">
+                        <div>
+                            <h3 class="header">{school.school}</h3>
+                            <h4 class="subheader">{school.concentration}</h4>
+                        </div>
+                        <div class="text-right tracking-tight">
+                            <p class="detail">{school.location}</p>
+                            <p class="detail">{dates}</p>
+                        </div>
+                    </div>
+                </div>
+            {/each}
+        </ResumeSection>
+    {/if}
+
+    {#if workData.length}
+        <ResumeSection title="Experience">
+            {#each workData as entry}
+                <div class="entry">
+                    <div class="flex justify-between">
+                        <div>
+                            <h3 class="header">{entry.company}</h3>
+                            <h4 class="subheader">{entry.position}</h4>
+                        </div>
+                        <div>
+                            <p class="detail">{entry.city}</p>
+                            <p class="detail">{entry.dates}</p>
+                        </div>
+                    </div>
+                    {#if entry.bulletpoints?.length}
+                        <ul class="list-disc pl-[1.5ch] mt-0.5">
+                            {#each entry.bulletpoints as bulletpoint}
+                                <Li class="text-sm font-light">{bulletpoint}</Li>
+                            {/each}
+                        </ul>
+                    {/if}
+                </div>
+            {/each}
+        </ResumeSection>
+    {/if}
+
+    {#if projects.length}
+        <ResumeSection title="Projects">
+            {#each projects as entry}
+                <div class="entry">
+                    <h3 class="header">{entry.name}</h3>
+                    <!--                    <a class="subheader" href={entry.link}>{entry.link}</a>-->
+                    {#if entry.links?.length}
+                        {#each entry.links as link, idx}
+                            <!--{#if idx === entry.links.length - 1}-->
+                            <!--    <a class="text-xs text-left place-self-start block mb-1" href={link}>{link}</a>-->
+                            <!--{:else}-->
+                            <!--    <a class="text-xs text-left place-self-start block" href={link}>{link}</a>-->
+                            <!--{/if}-->
+                            <a class="text-sm text-left place-self-start block {(idx === entry.links.length - 1) && 'mb-0.5'}"
+                               href={link}>{link}</a>
+                        {/each}
+                    {/if}
+                    {#if entry.bulletpoints?.length}
+                        <ul class="list-disc pl-[1.5ch] mt-0.5">
+                            {#each entry.bulletpoints as bulletpoint}
+                                <Li class="text-sm font-light">{bulletpoint}</Li>
+                            {/each}
+                        </ul>
+                    {/if}
+                </div>
+            {/each}
+        </ResumeSection>
+    {/if}
+
+    {#if certificationsData.length}
+        <ResumeSection title="Certifications">
+            {#each certificationsData as entry}
+                <div class="entry flex justify-between">
+                    <div class="">
+                        <h3 class="header">{entry.name}</h3>
+                        <h4 class="subheader">{entry.from}</h4>
+                    </div>
+
+                    <p class="detail">{entry.date}</p>
+                </div>
+            {/each}
+        </ResumeSection>
+    {/if}
+
+    {#if skillsData.skills.length}
+        <ResumeSection title="Skills">
+            <p class="detail text-left!">{skillsData.skills.join(", ")}.</p>
+        </ResumeSection>
+    {/if}
+</main>
+
+
