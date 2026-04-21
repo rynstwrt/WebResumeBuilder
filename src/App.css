@@ -40,6 +40,9 @@
 body {
     @apply bg-gray-900/90 p-3;
 
+    #app {
+    }
+
     main {
         font-family: "Inter Variable", sans-serif;
     }

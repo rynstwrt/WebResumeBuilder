@@ -42,27 +42,11 @@
     import html2pdf from "html2pdf.js";
     import ResumeSection from "./lib/components/ResumeSection.svelte";
 
-    function downloadPDF() {
-        const el: HTMLElement = document.querySelector("main")!;
-        html2canvas(el).then(canvas => {
-            console.log(canvas);
-            document.body.append(canvas);
-            html2pdf(canvas, {
-                filename: "Resume.pdf",
-                jsPDF: {
-                    unit: "in",
-                    format: "letter",
-                    orientation: "portrait"
-                }
-            });
-        });
-    }
-
 
     const DATE_FORMAT = "MMM YYYY";
 
-    let drawerOpen = $state(false);
-
+    let drawerOpen = $state(true);
+    let drawerSection = $state(0);
 
     let name: string = $state("");
     let location: string = $state("");
@@ -160,6 +144,73 @@
 
 
     let skills: string[] = $state([]);
+
+
+
+    function downloadPDF() {
+        const el: HTMLElement = document.querySelector("main")!;
+        html2canvas(el).then(canvas => {
+            document.body.append(canvas);
+            html2pdf(canvas, {
+                filename: "Resume.pdf",
+                jsPDF: {
+                    unit: "in",
+                    format: "letter",
+                    orientation: "portrait"
+                }
+            });
+        });
+    }
+
+    function exportConfig() {
+        let config = {
+            name: name,
+            location: location,
+            phone: phone,
+            email: email,
+            links: links,
+            education: education,
+            workExperience: workExperience,
+            projects: projects,
+            certifications: certifications,
+            skills: skills
+        };
+
+        let dataStr = `data:text/json;charset=utf-8,${encodeURIComponent(JSON.stringify(config, null, 4))}`
+
+        let downloadAnchorNode = document.createElement("a");
+        downloadAnchorNode.setAttribute("href", dataStr);
+        downloadAnchorNode.setAttribute("download", "wrb-config.json");
+        document.body.appendChild(downloadAnchorNode);
+        downloadAnchorNode.click();
+        downloadAnchorNode.remove();
+    }
+
+    let importFileInput;
+    async function onImportFileChange(event) {
+        let importedFiles = event.target.files;
+        if (!importedFiles.length)
+            return;
+
+        const reader = new FileReader();
+
+        reader.onload = (e) => {
+            let config = JSON.parse(e.target.result);
+            console.log(config);
+            name = config.name;
+            location = config.location;
+            phone = config.phone;
+            email = config.email;
+            links = config.links;
+            education = config.education;
+            workExperience = config.workExperience;
+            projects = config.projects;
+            certifications = config.certifications;
+            skills = config.skills;
+        }
+
+        reader.readAsText(importedFiles[0]);
+    }
 </script>
 
 
@@ -181,18 +232,22 @@
 <Drawer bind:open={drawerOpen}
         outsideclose={false}
         placement="left"
-        width="half"
-        id="drawer">
+        id="drawer"
+        class="w-100">
 
     <ButtonGroup class="grid grid-cols-3 mt-8.5 mb-4">
-        <Button outline>
-            <FileImportSolid class="me-2 h-4 w-4"/>
-            Import
-        </Button>
-        <Button outline>
+        <Button outline onclick={exportConfig}>
             <FileExportSolid class="me-2 h-4 w-4"/>
-            Export
+            Save
         </Button>
+        <Button outline onclick={() => importFileInput.click()}>
+            <FileImportSolid class="me-2 h-4 w-4"/>
+            Load
+        </Button>
+        <input type="file"
+               bind:this={importFileInput}
+               onchange={onImportFileChange}
+               class="hidden"/>
         <Button outline onclick={downloadPDF}>
             <DownloadSolid class="me-2 h-4 w-4"/>
             Download
@@ -200,7 +255,7 @@
     </ButtonGroup>
 
     <Accordion flush={true}>
-        <AccordionItem>
+        <AccordionItem open>
             {#snippet header()}
                 <span class="flex items-center">
                     <UserSolid size="md" class="me-2"/>
