@@ -110,6 +110,8 @@
 
         return aMoment.isAfter(bMoment) ? -1 : 1;
     }));
+
+
 </script>
 
 
@@ -181,7 +183,7 @@
                 </span>
             {/snippet}
             <Timeline class="mx-1">
-                {#each sortedEducation as school, i}
+                {#each sortedEducation as school}
                     {@const startDate = moment(school.startDate).format(DATE_FORMAT)}
                     {@const endDate = school.ongoing ? "Present" : moment(school.endDate).format(DATE_FORMAT)}
                     <TimelineItem title={school.school}
@@ -200,18 +202,20 @@
             </Timeline>
             <div class="grid grid-cols-2 gap-1.5">
                 <div class="col-span-full">
-                    <Label for="school" class="text-sm font-normal leading-6">School</Label>
-                    <Input size="md"
-                           name="school"
-                           bind:value={educationForm.school}
-                           placeholder="The University of Fictionville"/>
+                    <Label class="text-sm font-normal leading-6">
+                        School
+                        <Input size="md"
+                               bind:value={educationForm.school}
+                               placeholder="The University of Fictionville"/>
+                    </Label>
                 </div>
                 <div class="col-span-full">
-                    <Label for="concentration" class="text-sm font-normal leading-6">Concentration</Label>
-                    <Input size="md"
-                           name="concentration"
-                           bind:value={educationForm.concentration}
-                           placeholder="B.S. Electrical Engineering"/>
+                    <Label class="text-sm font-normal leading-6">
+                        Concentration
+                        <Input size="md"
+                               bind:value={educationForm.concentration}
+                               placeholder="B.S. Electrical Engineering"/>
+                    </Label>
                 </div>
                 <div class="col-span-full">
                     <Label class="text-sm font-normal leading-6">
@@ -222,29 +226,33 @@
                     </Label>
                 </div>
                 <div>
-                    <Label for="school-start" class="text-sm font-normal leading-6">Start Date</Label>
-                    <Datepicker id="school-start"
-                                dateFormat={{month: "short", year: "numeric"}}
-                                bind:value={educationForm.startDate}/>
+                    <Label class="text-sm font-normal leading-6">
+                        Start Date
+                        <Datepicker dateFormat={{month: "short", year: "numeric"}}
+                                    bind:value={educationForm.startDate}/>
+                    </Label>
+
                 </div>
                 <div>
-                    <Label for="school-end" class="text-sm font-normal leading-6">End Date</Label>
-                    <Datepicker id="school-end"
-                                dateFormat={{month: "short", year: "numeric"}}
-                                bind:value={educationForm.endDate}
-                                disabled={educationForm.ongoing}/>
+                    <Label for="school-end" class="text-sm font-normal leading-6">
+                        End Date
+                        <Datepicker dateFormat={{month: "short", year: "numeric"}}
+                                    bind:value={educationForm.endDate}
+                                    disabled={educationForm.ongoing}/>
+                    </Label>
                     <Label class="float-right mt-1">
                         Ongoing
                         <Checkbox class="ml-0.5" bind:checked={educationForm.ongoing}/>
                     </Label>
                 </div>
                 <div class="col-span-full">
-                    <Label for="school-summary" class="text-sm font-normal leading-6">Summary</Label>
-                    <Textarea name="school-summary"
-                              rows={3}
-                              bind:value={educationForm.summary}
-                              class="w-full bg-gray-700! border-gray-600!"
-                              placeholder="Add additional info or bulletpoints"/>
+                    <Label class="text-sm font-normal leading-6">
+                        Summary
+                        <Textarea rows={3}
+                                  bind:value={educationForm.summary}
+                                  class="w-full bg-gray-700! border-gray-600!"
+                                  placeholder="Add additional info or bulletpoints"/>
+                    </Label>
                 </div>
                 <Button class="col-span-full" onclick={() => {
                     educationForm.id = education.length;
@@ -261,7 +269,7 @@
                     };
                 }}>
                     <span class="flex items-center">
-                        <plusOutline size="sm" class="me-0.5"/>
+                        <PlusOutline size="sm" class="me-0.5"/>
                         Add
                     </span>
                 </Button>
@@ -272,7 +280,7 @@
             {#snippet header()}
                 <span class="flex items-center">
                     <HammerSolid size="md" class="me-2"/>
-                    Work Experience
+                    Work Experience (WIP)
                 </span>
             {/snippet}
             <p>Work Experience</p>
@@ -282,7 +290,7 @@
             {#snippet header()}
                 <span class="flex items-center">
                     <PaperPlaneSolid size="md" class="me-2"/>
-                    Projects
+                    Projects (WIP)
                 </span>
             {/snippet}
             <p>Projects</p>
@@ -292,7 +300,7 @@
             {#snippet header()}
                 <span class="flex items-center">
                     <ClipboardCheckSolid size="md" class="me-2"/>
-                    Certifications
+                    Certifications (WIP)
                 </span>
             {/snippet}
             <p>Certifications</p>
@@ -302,7 +310,7 @@
             {#snippet header()}
                 <span class="flex items-center">
                     <PaperClipOutline size="md" class="me-2"/>
-                    Skills
+                    Skills (WIP)
                 </span>
             {/snippet}
             <p>Skills</p>
