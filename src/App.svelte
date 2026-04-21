@@ -30,17 +30,16 @@
         HammerSolid,
         ClipboardCheckSolid,
         DownloadSolid,
-        MapPinAltOutline,
-        EnvelopeOutline,
-        GlobeOutline,
-        PhoneOutline
+        MapPinAltSolid,
+        PhoneSolid,
+        EnvelopeSolid,
+        LinkOutline
     } from "flowbite-svelte-icons";
 
     import moment from "moment";
 
     import html2canvas from "html2canvas-pro";
     import html2pdf from "html2pdf.js";
-    import { workData } from "./lib/ResumeData.svelte.ts";
     import ResumeSection from "./lib/components/ResumeSection.svelte";
 
     function downloadPDF() {
@@ -59,9 +58,10 @@
         });
     }
 
+
     const DATE_FORMAT = "MMM YYYY";
 
-    let drawerOpen = $state(true);
+    let drawerOpen = $state(false);
 
 
     let name: string = $state("John Doe");
@@ -378,11 +378,11 @@
             </div>
         </AccordionItem>
 
-        <AccordionItem open>
+        <AccordionItem>
             {#snippet header()}
                 <span class="flex items-center">
                     <HammerSolid size="md" class="me-2"/>
-                    Work Experience (WIP)
+                    Work Experience
                 </span>
             {/snippet}
             <Timeline class="mx-1">
@@ -625,7 +625,7 @@
         <div class="text-xs font-light flex gap-2">
             {#if location}
                 <span>
-				    <MapPinAltOutline size="sm" class="inline"/>
+				    <MapPinAltSolid size="sm" class="inline"/>
                     {location}
 			    </span>
                 {#if phone || email}
@@ -634,7 +634,7 @@
             {/if}
             {#if phone}
                 <span>
-                    <PhoneOutline size="sm" class="inline"/>
+                    <PhoneSolid size="sm" class="inline"/>
                     {phone}
                 </span>
                 {#if email}
@@ -643,7 +643,7 @@
             {/if}
             {#if email}
                 <span>
-                    <EnvelopeOutline size="sm" class="inline"/>
+                    <EnvelopeSolid size="sm" class="inline"/>
                     {email}
                 </span>
             {/if}
@@ -652,7 +652,7 @@
             <div class="flex gap-2 text-xs font-light">
                 {#each links as link, idx}
                     <span>
-                        <GlobeOutline size="sm" class="inline"/>
+                        <LinkOutline size="sm" class="inline"/>
                         <a href={link}>{link}</a>
                     </span>
                     {#if idx !== links.length - 1}
