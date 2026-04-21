@@ -68,32 +68,10 @@
     let location: string = $state("");
     let phone: string = $state("");
     let email: string = $state("");
-    // let links: string[] = $state(["https://example.com", "https://example2.com"]);
     let links: string[] = $state([]);
 
 
-    let education = $state([
-        {
-            id: 0,
-            school: "The University of Texas",
-            concentration: "B.S. Electrical Engineering",
-            location: "Austin, TX",
-            startDate: moment("August 1, 2019").format(DATE_FORMAT),
-            endDate: moment("Dec 1, 2025").format(DATE_FORMAT),
-            ongoing: false,
-            summary: "summarytext"
-        },
-        {
-            id: 1,
-            school: "Plano West Senior High School",
-            concentration: "High School Diploma",
-            location: "Plano, TX",
-            startDate: moment("August 1, 2015").format(DATE_FORMAT),
-            endDate: moment("June 1, 2019").format(DATE_FORMAT),
-            ongoing: false,
-            summary: "summarytext"
-        }
-    ]);
+    let education = $state([]);
 
     let educationForm = $state({
         id: 0,
@@ -121,18 +99,7 @@
 
 
 
-    let workExperience = $state([
-        {
-            id: 0,
-            company: "Fiction Co.",
-            role: "Frontend Developer",
-            location: "Dallas, TX",
-            startDate: moment("August 1, 2019").format(DATE_FORMAT),
-            endDate: moment("Dec 1, 2025").format(DATE_FORMAT),
-            ongoing: false,
-            desc: "Bulletpoint 1\nBulletpoint 2"
-        }
-    ]);
+    let workExperience = $state([]);
 
     let workExperienceForm = $state({
         id: 0,
@@ -160,14 +127,7 @@
 
 
 
-    let projects = $state([
-        {
-            id: 0,
-            name: "Project 1",
-            links: ["https://example.com", "https://example2.com"],
-            desc: "Bulletpoint 1\nBulletpoint 2"
-        }
-    ]);
+    let projects = $state([]);
 
     let projectForm = $state({
         id: 0,
@@ -178,14 +138,7 @@
 
 
 
-    let certifications = $state([
-        {
-            id: 0,
-            cert: "Cisco Certified Networking Associate (CCNA)",
-            awarder: "Cisco",
-            date: new Date("2021-12-1")
-        }
-    ]);
+    let certifications = $state([]);
 
     let certificationForm = $state({
         id: 0,
@@ -206,7 +159,7 @@
 
 
 
-    let skills: string[] = $state(["Skill 1", "Skill 2", "Skill 3"]);
+    let skills: string[] = $state([]);
 </script>
 
 
@@ -651,98 +604,122 @@
         </div>
     </section>
 
-    {#if sortedEducation.length}
-        <ResumeSection title="Education">
-            {#each sortedEducation as school}
-                {@const startDate = moment(school.startDate).format(DATE_FORMAT)}
-                {@const endDate = school.ongoing ? "Present" : moment(school.endDate).format(DATE_FORMAT)}
-                <div class="entry flex justify-between">
-                    <div class="w-full flex justify-between">
-                        <div>
-                            <h3 class="header">{school.school}</h3>
-                            <h4 class="subheader">{school.concentration}</h4>
-                        </div>
-                        <div class="text-right tracking-tight">
-                            <p class="detail">{school.location}</p>
-                            <p class="detail">{startDate} - {endDate}</p>
-                        </div>
-                    </div>
-                </div>
-            {/each}
-        </ResumeSection>
-    {/if}
-
-    {#if sortedWorkExperience.length}
-        <ResumeSection title="Experience">
-            {#each sortedWorkExperience as job}
-                {@const startDate = moment(job.startDate).format(DATE_FORMAT)}
-                {@const endDate = job.ongoing ? "Present" : moment(job.endDate).format(DATE_FORMAT)}
-                <div class="entry">
-                    <div class="flex justify-between">
-                        <div>
-                            <h3 class="header">{job.company}</h3>
-                            <h4 class="subheader">{job.role}</h4>
-                        </div>
-                        <div>
-                            <p class="detail">{job.location}</p>
-                            <p class="detail">{startDate} - {endDate}</p>
-                        </div>
-                    </div>
-                    {#if job.desc.length}
-                        <ul class="list-disc pl-[1.5ch] mt-0.5">
-                            {#each job.desc.trim().replace(/^- /gm, "").split("\n") as bulletpoint}
-                                <Li class="text-sm font-light">{bulletpoint}</Li>
+    <ResumeSection title="Education">
+        {#each (sortedEducation.length ? sortedEducation : [{
+            id: 0,
+            school: "Boston University",
+            concentration: "B.S. Electrical Engineering",
+            location: "Boston, MA",
+            startDate: moment("August 1, 2019").format(DATE_FORMAT),
+            endDate: moment("Dec 1, 2025").format(DATE_FORMAT),
+            ongoing: false,
+            summary: "3.73 GPA"
+        }]) as school}
+            {@const startDate = moment(school.startDate).format(DATE_FORMAT)}
+            {@const endDate = school.ongoing ? "Present" : moment(school.endDate).format(DATE_FORMAT)}
+            {@const summary = school.summary.trim().replace(/^- a/gm, "").split("\n")}
+            <div class="entry flex justify-between">
+                <div class="w-full flex justify-between">
+                    <div>
+                        <h3 class="header">{school.school}</h3>
+                        <h4 class="subheader">{school.concentration}</h4>
+                        <ul>
+                            {#each summary as bulletpoint}
+                                <Li class="list-disc text-sm ml-[2ch] font-light">{bulletpoint}</Li>
                             {/each}
                         </ul>
-                    {/if}
+                    </div>
+                    <div class="text-right tracking-tight">
+                        <p class="detail">{school.location}</p>
+                        <p class="detail">{startDate} - {endDate}</p>
+                    </div>
                 </div>
-            {/each}
-        </ResumeSection>
-    {/if}
+            </div>
+        {/each}
+    </ResumeSection>
 
-    {#if projects.length}
-        <ResumeSection title="Projects">
-            {#each projects as project}
-                <div class="entry">
-                    <h3 class="header">{project.name}</h3>
-                    {#if project.links?.length}
-                        {#each project.links as link}
-                            <a class="text-sm text-left place-self-start block leading-4" href={link}>{link}</a>
+    <ResumeSection title="Experience">
+        {#each (workExperience.length ? sortedWorkExperience : [{
+            id: 0,
+            company: "Fiction Co.",
+            role: "Frontend Developer",
+            location: "Seattle, WA",
+            startDate: moment("August 1, 2019").format(DATE_FORMAT),
+            endDate: moment("Dec 1, 2025").format(DATE_FORMAT),
+            ongoing: false,
+            desc: "Bulletpoint 1\nBulletpoint 2"
+        }]) as job}
+            {@const startDate = moment(job.startDate).format(DATE_FORMAT)}
+            {@const endDate = job.ongoing ? "Present" : moment(job.endDate).format(DATE_FORMAT)}
+            <div class="entry">
+                <div class="flex justify-between">
+                    <div>
+                        <h3 class="header">{job.company}</h3>
+                        <h4 class="subheader">{job.role}</h4>
+                    </div>
+                    <div>
+                        <p class="detail">{job.location}</p>
+                        <p class="detail">{startDate} - {endDate}</p>
+                    </div>
+                </div>
+                {#if job.desc.length}
+                    <ul class="list-disc pl-[1.5ch] mt-0.5">
+                        {#each job.desc.trim().replace(/^- /gm, "").split("\n") as bulletpoint}
+                            <Li class="text-sm font-light">{bulletpoint}</Li>
                         {/each}
-                    {/if}
-                    {#if project.desc?.length}
-                        <ul class="list-disc pl-[1.5ch] mt-1">
-                            {#each project.desc.split("\n") as bulletpoint}
-                                <Li class="text-sm font-light">{bulletpoint}</Li>
-                            {/each}
-                        </ul>
-                    {/if}
+                    </ul>
+                {/if}
+            </div>
+        {/each}
+    </ResumeSection>
+
+    <ResumeSection title="Projects">
+        {#each (projects.length ? projects : [{
+            id: 0,
+            name: "Project 1",
+            links: ["https://example.com", "https://example2.com"],
+            desc: "Bulletpoint 1\nBulletpoint 2"
+        }]) as project}
+            <div class="entry">
+                <h3 class="header">{project.name}</h3>
+                {#if project.links?.length}
+                    {#each project.links as link}
+                        <a class="text-sm text-left place-self-start block leading-4" href={link}>{link}</a>
+                    {/each}
+                {/if}
+                {#if project.desc?.length}
+                    <ul class="list-disc pl-[1.5ch] mt-1">
+                        {#each project.desc.split("\n") as bulletpoint}
+                            <Li class="text-sm font-light">{bulletpoint}</Li>
+                        {/each}
+                    </ul>
+                {/if}
+            </div>
+        {/each}
+    </ResumeSection>
+
+    <ResumeSection title="Certifications">
+        {#each (certifications.length ? sortedCertifications : [{
+            id: 0,
+            cert: "Cisco Certified Network Associate (CCNA)",
+            awarder: "Cisco",
+            date: new Date("2021-12-1")
+        }]) as cert}
+            {@const date = moment(cert.date).format(DATE_FORMAT)}
+            <div class="entry flex justify-between">
+                <div class="">
+                    <h3 class="header">{cert.cert}</h3>
+                    <h4 class="subheader">{cert.awarder}</h4>
                 </div>
-            {/each}
-        </ResumeSection>
-    {/if}
 
-    {#if sortedCertifications.length}
-        <ResumeSection title="Certifications">
-            {#each sortedCertifications as cert}
-                {@const date = moment(cert.date).format(DATE_FORMAT)}
-                <div class="entry flex justify-between">
-                    <div class="">
-                        <h3 class="header">{cert.cert}</h3>
-                        <h4 class="subheader">{cert.awarder}</h4>
-                    </div>
+                <p class="detail">{date}</p>
+            </div>
+        {/each}
+    </ResumeSection>
 
-                    <p class="detail">{date}</p>
-                </div>
-            {/each}
-        </ResumeSection>
-    {/if}
-
-    {#if skills.length}
-        <ResumeSection title="Skills">
-            <p class="detail text-left!">{skills.join(", ")}.</p>
-        </ResumeSection>
-    {/if}
+    <ResumeSection title="Skills">
+        <p class="detail text-left!">{(skills.length ? skills : ["Skill 1", "Skill 2"]).join(", ")}.</p>
+    </ResumeSection>
 </main>
 
 
