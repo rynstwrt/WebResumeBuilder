@@ -1,5 +1,5 @@
 # Web Résumé Builder 
 
-Generate a résumé with ease.
+A web app to create a résumé online for free.
 
 ![screenshot.png](.github/screenshot.png "A screenshot of WebResumeBuilder")
