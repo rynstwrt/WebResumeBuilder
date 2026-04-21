@@ -10,6 +10,8 @@
 <a href="https://rynstwrt.github.io/WebResumeBuilder/">https://rynstwrt.github.io/WebResumeBuilder</a>
 </p>
 
+<br> 
+
 <p align="center" style="display: flex; gap: 5;">
 <img src="https://img.shields.io/github/last-commit/rynstwrt/WebResumeBuilder?style=for-the-badge" alt="Last commit">
 &nbsp;
@@ -18,6 +20,7 @@
 <img src="https://img.shields.io/github/actions/workflow/status/rynstwrt/WebResumeBuilder/deploy.yml?style=for-the-badge" alt="Deploy build passing">
 </p>
 
+<br>
 <br>
 
 <p align="center">
