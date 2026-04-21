@@ -12,7 +12,9 @@
         TimelineItem,
         Datepicker,
         Checkbox,
-        ButtonGroup, P, Li
+        ButtonGroup,
+        Li,
+        Helper
     } from "flowbite-svelte";
 
     import {
@@ -111,7 +113,7 @@
         return aMoment.isAfter(bMoment) ? -1 : 1;
     }));
 
-
+    let skills: string[] = $state([]);
 </script>
 
 
@@ -175,7 +177,7 @@
             </div>
         </AccordionItem>
 
-        <AccordionItem open>
+        <AccordionItem>
             {#snippet header()}
                 <span class="flex items-center">
                     <GraduationCapSolid size="md" class="me-2"/>
@@ -306,14 +308,18 @@
             <p>Certifications</p>
         </AccordionItem>
 
-        <AccordionItem>
+        <AccordionItem open>
             {#snippet header()}
                 <span class="flex items-center">
                     <PaperClipOutline size="md" class="me-2"/>
                     Skills (WIP)
                 </span>
             {/snippet}
-            <p>Skills</p>
+            <Tags bind:value={skills}
+                  placeholder="Enter skills as tags"
+                  unique={true}
+                  showHelper={true}/>
+            <Helper class="mt-1 text-sm">Press enter after typing a skill to enter a tag.</Helper>
         </AccordionItem>
     </Accordion>
 </Drawer>
