@@ -353,7 +353,7 @@
             {#snippet header()}
                 <span class="flex items-center">
                     <PaperPlaneSolid size="md" class="me-2"/>
-                    Projects (WIP)
+                    Projects
                 </span>
             {/snippet}
             <div class="grid grid-cols-2 gap-1.5">
