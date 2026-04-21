@@ -46,7 +46,6 @@
     const DATE_FORMAT = "MMM YYYY";
 
     let drawerOpen = $state(true);
-    let drawerSection = $state(0);
 
     let name: string = $state("");
     let location: string = $state("");
@@ -158,6 +157,8 @@
                     format: "letter",
                     orientation: "portrait"
                 }
+            }).then(() => {
+                canvas.remove();
             });
         });
     }
@@ -186,8 +187,8 @@
         downloadAnchorNode.remove();
     }
 
-    let importFileInput;
-    async function onImportFileChange(event) {
+    let importFileInput: HTMLInputElement;
+    async function onImportFileChange(event: any) {
         let importedFiles = event.target.files;
         if (!importedFiles.length)
             return;
@@ -195,7 +196,7 @@
         const reader = new FileReader();
 
         reader.onload = (e) => {
-            let config = JSON.parse(e.target.result);
+            let config = JSON.parse(e.target.result.toString());
             console.log(config);
             name = config.name;
             location = config.location;
