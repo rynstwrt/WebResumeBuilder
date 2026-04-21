@@ -36,7 +36,7 @@
 
     import html2canvas from "html2canvas-pro";
     import html2pdf from "html2pdf.js";
-    import { certificationsData, skillsData, workData } from "./lib/ResumeData.svelte.ts";
+    import { workData } from "./lib/ResumeData.svelte.ts";
     import { projects } from "./lib/DataHandler.svelte.ts";
     import ResumeSection from "./lib/components/ResumeSection.svelte";
 
@@ -113,7 +113,34 @@
         return aMoment.isAfter(bMoment) ? -1 : 1;
     }));
 
-    let skills: string[] = $state([]);
+
+    let certifications = $state([
+        {
+            id: 0,
+            cert: "Cisco Certified Networking Associate (CCNA)",
+            awarder: "Cisco",
+            date: new Date("2021-12-1")
+        }
+    ]);
+
+    let certificationForm = $state({
+        id: 0,
+        cert: "",
+        awarder: "",
+        date: undefined
+    });
+
+    let sortedCertifications = $derived([...certifications].sort((a, b) => {
+        let aMoment = moment(a.date);
+        let bMoment = moment(b.date);
+
+        if (aMoment.isSame(bMoment))
+            return 0;
+
+        return aMoment.isAfter(bMoment) ? -1 : 1;
+    }));
+
+    let skills: string[] = $state(["Skill 1", "Skill 2", "Skill 3"]);
 </script>
 
 
@@ -233,7 +260,6 @@
                         <Datepicker dateFormat={{month: "short", year: "numeric"}}
                                     bind:value={educationForm.startDate}/>
                     </Label>
-
                 </div>
                 <div>
                     <Label for="school-end" class="text-sm font-normal leading-6">
@@ -298,21 +324,76 @@
             <p>Projects</p>
         </AccordionItem>
 
-        <AccordionItem>
-            {#snippet header()}
-                <span class="flex items-center">
-                    <ClipboardCheckSolid size="md" class="me-2"/>
-                    Certifications (WIP)
-                </span>
-            {/snippet}
-            <p>Certifications</p>
-        </AccordionItem>
-
         <AccordionItem open>
             {#snippet header()}
                 <span class="flex items-center">
+                    <ClipboardCheckSolid size="md" class="me-2"/>
+                    Certifications
+                </span>
+            {/snippet}
+            <Timeline class="mx-1">
+                {#each sortedCertifications as cert}
+                    {@const date = moment(cert.date).format(DATE_FORMAT)}
+                    <TimelineItem title={cert.cert}
+                                  date={`${date}`}
+                                  class="mb-4">
+                        <Button class="absolute top-0 right-0 p-0 bg-transparent! focus-within:ring-0!"
+                                onclick={() => {
+                                    certifications = certifications.filter(c => c.id !== cert.id)
+                                }}>
+                            <CloseOutline size="sm"/>
+                        </Button>
+                        <p class="text-sm font-medium">{cert.awarder}</p>
+                    </TimelineItem>
+                {/each}
+            </Timeline>
+            <div class="grid grid-cols-2 gap-1.5">
+                <div class="col-span-full">
+                    <Label class="text-sm font-normal leading-6">
+                        Name
+                        <Input size="md"
+                               bind:value={certificationForm.cert}
+                               placeholder="CCNA"/>
+                    </Label>
+                </div>
+                <div class="col-span-full">
+                    <Label class="text-sm font-normal leading-6">
+                        Awarder
+                        <Input size="md"
+                               bind:value={certificationForm.awarder}
+                               placeholder="Cisco Systems, Inc."/>
+                    </Label>
+                </div>
+                <div class="col-span-full">
+                    <Label class="text-sm font-normal leading-6">
+                        Awarded Date
+                        <Datepicker dateFormat={{month: "short", year: "numeric"}}
+                                    bind:value={certificationForm.date}/>
+                    </Label>
+                </div>
+                <Button class="col-span-full mt-1.5" onclick={() => {
+                    certificationForm.id = certifications.length;
+                    certifications.push(certificationForm);
+                    certificationForm = {
+                        id: 0,
+                        cert: "",
+                        awarder: "",
+                        date: undefined
+                    };
+                }}>
+                    <span class="flex items-center">
+                        <PlusOutline size="sm" class="me-0.5"/>
+                        Add
+                    </span>
+                </Button>
+            </div>
+        </AccordionItem>
+
+        <AccordionItem>
+            {#snippet header()}
+                <span class="flex items-center">
                     <PaperClipOutline size="md" class="me-2"/>
-                    Skills (WIP)
+                    Skills
                 </span>
             {/snippet}
             <Tags bind:value={skills}
@@ -444,24 +525,25 @@
         </ResumeSection>
     {/if}
 
-    {#if certificationsData.length}
+    {#if sortedCertifications.length}
         <ResumeSection title="Certifications">
-            {#each certificationsData as entry}
+            {#each sortedCertifications as cert}
+                {@const date = moment(cert.date).format(DATE_FORMAT)}
                 <div class="entry flex justify-between">
                     <div class="">
-                        <h3 class="header">{entry.name}</h3>
-                        <h4 class="subheader">{entry.from}</h4>
+                        <h3 class="header">{cert.cert}</h3>
+                        <h4 class="subheader">{cert.awarder}</h4>
                     </div>
 
-                    <p class="detail">{entry.date}</p>
+                    <p class="detail">{date}</p>
                 </div>
             {/each}
         </ResumeSection>
     {/if}
 
-    {#if skillsData.skills.length}
+    {#if skills.length}
         <ResumeSection title="Skills">
-            <p class="detail text-left!">{skillsData.skills.join(", ")}.</p>
+            <p class="detail text-left!">{skills.join(", ")}.</p>
         </ResumeSection>
     {/if}
 </main>
