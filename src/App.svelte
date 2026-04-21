@@ -34,8 +34,6 @@
         PhoneSolid,
         EnvelopeSolid,
         LinkOutline,
-        EyeSolid,
-        EyeSlashSolid,
         EyeOutline,
         EyeSlashOutline
     } from "flowbite-svelte-icons";
