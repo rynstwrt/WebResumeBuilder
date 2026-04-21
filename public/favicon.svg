@@ -4,8 +4,9 @@
     <defs>
         <style>
             .st0 {
-<!--            fill: #ddd;-->
-            fill: none;
+<!--            fill: #eee;-->
+            fill: #0043;
+<!--            fill: none;-->
 <!--            stroke: #fe795d;-->
             stroke: #ef562f;
             stroke-linecap: round;
