@@ -29,7 +29,11 @@
         PaperPlaneSolid,
         HammerSolid,
         ClipboardCheckSolid,
-        DownloadSolid, MapPinAltOutline, EnvelopeOutline, GlobeOutline, PhoneOutline
+        DownloadSolid,
+        MapPinAltOutline,
+        EnvelopeOutline,
+        GlobeOutline,
+        PhoneOutline
     } from "flowbite-svelte-icons";
 
     import moment from "moment";
@@ -324,7 +328,7 @@
             <p>Projects</p>
         </AccordionItem>
 
-        <AccordionItem open>
+        <AccordionItem>
             {#snippet header()}
                 <span class="flex items-center">
                     <ClipboardCheckSolid size="md" class="me-2"/>
@@ -421,7 +425,7 @@
             {/if}
             {#if phone}
                 <span>
-                    <phoneOutline size="sm" class="inline"/>
+                    <PhoneOutline size="sm" class="inline"/>
                     {phone}
                 </span>
                 {#if email}
