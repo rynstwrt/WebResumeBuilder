@@ -212,31 +212,14 @@
         reader.readAsText(importedFiles[0]);
     }
 
-    
+
     let sections = $state({
-        profile: {
-            open: false
-        },
-        education: {
-            visible: true,
-            open: true
-        },
-        work: {
-            visible: true,
-            open: false
-        },
-        projects: {
-            visible: true,
-            open: false
-        },
-        certifications: {
-            visible: true,
-            open: false
-        },
-        skills: {
-            visible: true,
-            open: false
-        }
+        profile: {open: true},
+        education: {open: false, visible: true},
+        work: {open: false, visible: true},
+        projects: {open: false, visible: true},
+        certifications: {open: false, visible: true},
+        skills: {open: false, visible: true}
     });
 </script>
 
@@ -257,21 +240,19 @@
 
 
 {#snippet sectionToggle(section)}
-    <Button size="xs"
-            outline
-            class="text-sm select-none mb-3"
-            onclick={() => {
-                // let section = sections[sectionName];
-                section.visible = !section.visible;
-            }}>
-        {#if section.visible}
-            <EyeOutline size="md" class="mr-1"/>
-            Hide Section
-        {:else}
-            <EyeSlashOutline size="md" class="mr-1"/>
-            Show Section
-        {/if}
-    </Button>
+    <div class="flex justify-end">
+        <Button class="p-0.5"
+                outline
+                onclick={() => {
+                    section.visible = !section.visible;
+                }}>
+            {#if section.visible}
+                <EyeOutline size="lg"/>
+            {:else}
+                <EyeSlashOutline size="lg"/>
+            {/if}
+        </Button>
+    </div>
 {/snippet}
 
 
