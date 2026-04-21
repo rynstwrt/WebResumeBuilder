@@ -70,6 +70,7 @@
     let email: string = $state("john.doe@example.com");
     let links: string[] = $state(["https://example.com", "https://example2.com"]);
 
+
     let education = $state([
         {
             id: 0,
@@ -146,6 +147,14 @@
 
     let skills: string[] = $state(["Skill 1", "Skill 2", "Skill 3"]);
 </script>
+
+
+<svelte:window on:keydown={(e) => {
+    if (e.key === "Tab" && !drawerOpen) {
+        e.preventDefault();
+        drawerOpen = !drawerOpen;
+    }
+}}/>
 
 
 <Button onclick={() => drawerOpen = true}
@@ -551,5 +560,3 @@
         </ResumeSection>
     {/if}
 </main>
-
-
