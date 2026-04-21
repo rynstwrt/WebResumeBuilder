@@ -64,12 +64,12 @@
     let drawerOpen = $state(false);
 
 
-    let name: string = $state("John Doe");
-    let location: string = $state("Seattle, WA");
-    let phone: string = $state("+1 123 456 7890");
-    let email: string = $state("john.doe@example.com");
-    let links: string[] = $state(["https://example.com", "https://example2.com"]);
-
+    let name: string = $state("");
+    let location: string = $state("");
+    let phone: string = $state("");
+    let email: string = $state("");
+    // let links: string[] = $state(["https://example.com", "https://example2.com"]);
+    let links: string[] = $state([]);
 
 
     let education = $state([
@@ -623,44 +623,32 @@
     <section id="profile" class="text-center flex flex-col items-center">
         <h1 class="text-3xl font-semibold mb-1">{name || "John Doe"}</h1>
         <div class="text-xs font-light flex gap-2">
-            {#if location}
-                <span>
-				    <MapPinAltSolid size="sm" class="inline"/>
-                    {location}
-			    </span>
-                {#if phone || email}
-                    |
-                {/if}
-            {/if}
-            {#if phone}
-                <span>
-                    <PhoneSolid size="sm" class="inline"/>
-                    {phone}
-                </span>
-                {#if email}
-                    |
-                {/if}
-            {/if}
-            {#if email}
-                <span>
-                    <EnvelopeSolid size="sm" class="inline"/>
-                    {email}
-                </span>
-            {/if}
+            <span>
+                <MapPinAltSolid size="sm" class="inline"/>
+                {location || "Seattle, WA"}
+            </span>
+            |
+            <span>
+                <PhoneSolid size="sm" class="inline"/>
+                {phone || "+1 123 456 7890"}
+            </span>
+            |
+            <span>
+                <EnvelopeSolid size="sm" class="inline"/>
+                {email || "john.doe@example.com"}
+            </span>
         </div>
-        {#if links?.length}
-            <div class="flex gap-2 text-xs font-light">
-                {#each links as link, idx}
+        <div class="flex gap-2 text-xs font-light">
+            {#each links.length ? links : ['https://example.com', 'https://example.com'] as link, i}
                     <span>
                         <LinkOutline size="sm" class="inline"/>
                         <a href={link}>{link}</a>
                     </span>
-                    {#if idx !== links.length - 1}
-                        |
-                    {/if}
-                {/each}
-            </div>
-        {/if}
+                {#if i !== (links.length ? links : ['https://example.com', 'https://example.com']).length - 1}
+                    |
+                {/if}
+            {/each}
+        </div>
     </section>
 
     {#if sortedEducation.length}
@@ -756,7 +744,6 @@
         </ResumeSection>
     {/if}
 </main>
-
 
 
 <style>
