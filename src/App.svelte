@@ -756,3 +756,25 @@
         </ResumeSection>
     {/if}
 </main>
+
+
+
+<style>
+    @import "tailwindcss";
+
+    .entry {
+        @apply not-last:mb-3;
+    }
+
+    .header {
+        @apply font-bold text-sm -tracking-[0.01rem];
+    }
+
+    .subheader {
+        @apply font-normal text-sm;
+    }
+
+    .detail {
+        @apply text-right text-xs font-light text-gray-600 tracking-tight;
+    }
+</style>
