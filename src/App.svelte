@@ -187,7 +187,6 @@
     }
 
     let importFileInput;
-    // let importedFiles = $state();
     async function onImportFileChange(event) {
         let importedFiles = event.target.files;
         if (!importedFiles.length)
@@ -233,8 +232,8 @@
 <Drawer bind:open={drawerOpen}
         outsideclose={false}
         placement="left"
-        width="half"
-        id="drawer">
+        id="drawer"
+        class="w-100">
 
     <ButtonGroup class="grid grid-cols-3 mt-8.5 mb-4">
         <Button outline onclick={exportConfig}>
