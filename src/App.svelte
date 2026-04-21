@@ -46,7 +46,6 @@
     const DATE_FORMAT = "MMM YYYY";
 
     let drawerOpen = $state(true);
-    let drawerSection = $state(0);
 
     let name: string = $state("");
     let location: string = $state("");
@@ -158,6 +157,8 @@
                     format: "letter",
                     orientation: "portrait"
                 }
+            }).then(() => {
+                canvas.remove();
             });
         });
     }
