@@ -187,8 +187,9 @@
     }
 
     let importFileInput;
-    let importedFiles = $state();
-    async function importConfig() {
+    // let importedFiles = $state();
+    async function onImportFileChange(event) {
+        let importedFiles = event.target.files;
         if (!importedFiles.length)
             return;
 
@@ -246,8 +247,7 @@
         </Button>
         <input type="file"
                bind:this={importFileInput}
-               bind:files={importedFiles}
-               onchange={importConfig}
+               onchange={onImportFileChange}
                class="hidden"/>
         <Button outline onclick={downloadPDF}>
             <DownloadSolid class="me-2 h-4 w-4"/>
