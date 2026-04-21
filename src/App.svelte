@@ -41,7 +41,6 @@
     import html2canvas from "html2canvas-pro";
     import html2pdf from "html2pdf.js";
     import { workData } from "./lib/ResumeData.svelte.ts";
-    import { projects } from "./lib/DataHandler.svelte.ts";
     import ResumeSection from "./lib/components/ResumeSection.svelte";
 
     function downloadPDF() {
@@ -64,11 +63,13 @@
 
     let drawerOpen = $state(true);
 
+
     let name: string = $state("John Doe");
     let location: string = $state("Seattle, WA");
     let phone: string = $state("+1 123 456 7890");
     let email: string = $state("john.doe@example.com");
     let links: string[] = $state(["https://example.com", "https://example2.com"]);
+
 
 
     let education = $state([
@@ -119,6 +120,25 @@
     }));
 
 
+
+    let projects = $state([
+        {
+            id: 0,
+            name: "Project 1",
+            links: ["https://example.com", "https://example2.com"],
+            desc: "Bulletpoint 1\nBulletpoint 2"
+        }
+    ]);
+
+    let projectForm = $state({
+        id: 0,
+        name: "",
+        links: [],
+        desc: "",
+    });
+
+
+
     let certifications = $state([
         {
             id: 0,
@@ -144,6 +164,8 @@
 
         return aMoment.isAfter(bMoment) ? -1 : 1;
     }));
+
+
 
     let skills: string[] = $state(["Skill 1", "Skill 2", "Skill 3"]);
 </script>
@@ -327,14 +349,57 @@
             <p>Work Experience</p>
         </AccordionItem>
 
-        <AccordionItem>
+        <AccordionItem open>
             {#snippet header()}
                 <span class="flex items-center">
                     <PaperPlaneSolid size="md" class="me-2"/>
                     Projects (WIP)
                 </span>
             {/snippet}
-            <p>Projects</p>
+            <div class="grid grid-cols-2 gap-1.5">
+                <div class="col-span-full">
+                    <Label class="text-sm font-normal leading-6">
+                        Project Name
+                        <Input size="md"
+                               bind:value={projectForm.name}
+                               placeholder="My Awesome Project"/>
+                    </Label>
+                </div>
+                <div class="col-span-full">
+                    <Label class="text-sm font-normal leading-6">
+                        Bulletpoints
+                        <Textarea rows={3}
+                                  bind:value={projectForm.desc}
+                                  class="w-full bg-gray-700! border-gray-600! -mb-2"
+                                  placeholder="Add bulletpoints, one per each line"/>
+                    </Label>
+                </div>
+                <div class="col-span-full">
+                    <Label class="text-sm font-normal leading-6">
+                        Links
+                        <Tags bind:value={projectForm.links}
+                              placeholder="Enter links as tags"
+                              unique={true}
+                              showHelper={true}/>
+                    </Label>
+                    <Helper class="mt-0.5 text-sm">Press enter after typing a link to enter a tag.</Helper>
+                </div>
+                <Button class="col-span-full mt-1" onclick={() => {
+                    projectForm.id = projects.length;
+                    projects.push(projectForm);
+                    projectForm = {
+                        id: 0,
+                        name: "",
+                        links: [],
+                        desc: ""
+                    };
+                }}>
+                    <span class="flex items-center">
+                        <PlusOutline size="sm" class="me-0.5"/>
+                        Add
+                    </span>
+                </Button>
+            </div>
         </AccordionItem>
 
         <AccordionItem>
@@ -511,24 +576,17 @@
 
     {#if projects.length}
         <ResumeSection title="Projects">
-            {#each projects as entry}
+            {#each projects as project}
                 <div class="entry">
-                    <h3 class="header">{entry.name}</h3>
-                    <!--                    <a class="subheader" href={entry.link}>{entry.link}</a>-->
-                    {#if entry.links?.length}
-                        {#each entry.links as link, idx}
-                            <!--{#if idx === entry.links.length - 1}-->
-                            <!--    <a class="text-xs text-left place-self-start block mb-1" href={link}>{link}</a>-->
-                            <!--{:else}-->
-                            <!--    <a class="text-xs text-left place-self-start block" href={link}>{link}</a>-->
-                            <!--{/if}-->
-                            <a class="text-sm text-left place-self-start block {(idx === entry.links.length - 1) && 'mb-0.5'}"
-                               href={link}>{link}</a>
+                    <h3 class="header">{project.name}</h3>
+                    {#if project.links?.length}
+                        {#each project.links as link}
+                            <a class="text-sm text-left place-self-start block leading-4" href={link}>{link}</a>
                         {/each}
                     {/if}
-                    {#if entry.bulletpoints?.length}
-                        <ul class="list-disc pl-[1.5ch] mt-0.5">
-                            {#each entry.bulletpoints as bulletpoint}
+                    {#if project.desc?.length}
+                        <ul class="list-disc pl-[1.5ch] mt-1">
+                            {#each project.desc.split("\n") as bulletpoint}
                                 <Li class="text-sm font-light">{bulletpoint}</Li>
                             {/each}
                         </ul>
