@@ -121,6 +121,45 @@
 
 
 
+    let workExperience = $state([
+        {
+            id: 0,
+            company: "Fiction Co.",
+            role: "Frontend Developer",
+            location: "Dallas, TX",
+            startDate: moment("August 1, 2019").format(DATE_FORMAT),
+            endDate: moment("Dec 1, 2025").format(DATE_FORMAT),
+            ongoing: false,
+            desc: "Bulletpoint 1\nBulletpoint 2"
+        }
+    ]);
+
+    let workExperienceForm = $state({
+        id: 0,
+        company: "",
+        role: "",
+        location: "",
+        startDate: undefined,
+        endDate: undefined,
+        ongoing: false,
+        desc: ""
+    });
+
+    let sortedWorkExperience = $derived([...workExperience].sort((a, b) => {
+        let aMoment = moment(a.endDate);
+        let bMoment = moment(b.endDate);
+
+        if (a.ongoing)
+            return -1;
+
+        if (aMoment.isSame(bMoment))
+            return 0;
+
+        return aMoment.isAfter(bMoment) ? -1 : 1;
+    }));
+
+
+
     let projects = $state([
         {
             id: 0,
@@ -339,17 +378,113 @@
             </div>
         </AccordionItem>
 
-        <AccordionItem>
+        <AccordionItem open>
             {#snippet header()}
                 <span class="flex items-center">
                     <HammerSolid size="md" class="me-2"/>
                     Work Experience (WIP)
                 </span>
             {/snippet}
-            <p>Work Experience</p>
+            <Timeline class="mx-1">
+                {#each sortedWorkExperience as job}
+                    {@const startDate = moment(job.startDate).format(DATE_FORMAT)}
+                    {@const endDate = job.ongoing ? "Present" : moment(job.endDate).format(DATE_FORMAT)}
+                    <TimelineItem title={job.company}
+                                  date={`${startDate} - ${endDate}`}
+                                  class="mb-4">
+                        <Button class="absolute top-0 right-0 p-0 bg-transparent! focus-within:ring-0!"
+                                onclick={() => {
+                                    workExperience = workExperience.filter(sch => sch.id !== job.id)
+                                }}>
+                            <CloseOutline size="sm"/>
+                        </Button>
+                        <p class="text-sm font-medium">{job.role}</p>
+                        {#if job.desc.trim().length}
+                            <ul>
+                                {#each job.desc.trim().replace(/^- /gm, "").split("\n") as bulletpoint}
+                                    <Li class="text-sm font-thin list-disc ml-[2ch]">{bulletpoint}</Li>
+                                {/each}
+                            </ul>
+                        {/if}
+                    </TimelineItem>
+                {/each}
+            </Timeline>
+            <div class="grid grid-cols-2 gap-1.5">
+                <div class="col-span-full">
+                    <Label class="text-sm font-normal leading-6">
+                        Company
+                        <Input size="md"
+                               bind:value={workExperienceForm.company}
+                               placeholder="Fiction Co."/>
+                    </Label>
+                </div>
+                <div class="col-span-full">
+                    <Label class="text-sm font-normal leading-6">
+                        Role
+                        <Input size="md"
+                               bind:value={workExperienceForm.role}
+                               placeholder="Frontend Developer"/>
+                    </Label>
+                </div>
+                <div class="col-span-full">
+                    <Label class="text-sm font-normal leading-6">
+                        Location
+                        <Input type="md"
+                               bind:value={workExperienceForm.location}
+                               placeholder="Fictionville, MA"/>
+                    </Label>
+                </div>
+                <div>
+                    <Label class="text-sm font-normal leading-6">
+                        Start Date
+                        <Datepicker dateFormat={{month: "short", year: "numeric"}}
+                                    bind:value={workExperienceForm.startDate}/>
+                    </Label>
+                </div>
+                <div>
+                    <Label class="text-sm font-normal leading-6">
+                        End Date
+                        <Datepicker dateFormat={{month: "short", year: "numeric"}}
+                                    bind:value={workExperienceForm.endDate}
+                                    disabled={workExperienceForm.ongoing}/>
+                    </Label>
+                    <Label class="float-right mt-1">
+                        Ongoing
+                        <Checkbox class="ml-0.5" bind:checked={workExperienceForm.ongoing}/>
+                    </Label>
+                </div>
+                <div class="col-span-full">
+                    <Label class="text-sm font-normal leading-6">
+                        Description
+                        <Textarea rows={3}
+                                  bind:value={workExperienceForm.desc}
+                                  class="w-full bg-gray-700! border-gray-600!"
+                                  placeholder="Add bulletpoints, one per line"/>
+                    </Label>
+                </div>
+                <Button class="col-span-full" onclick={() => {
+                    workExperienceForm.id = workExperience.length;
+                    workExperience.push(workExperienceForm);
+                    workExperienceForm = {
+                        id: 0,
+                        company: "",
+                        role: "",
+                        location: "",
+                        startDate: undefined,
+                        endDate: undefined,
+                        ongoing: false,
+                        desc: ""
+                    };
+                }}>
+                    <span class="flex items-center">
+                        <PlusOutline size="sm" class="me-0.5"/>
+                        Add
+                    </span>
+                </Button>
+            </div>
         </AccordionItem>
 
-        <AccordionItem open>
+        <AccordionItem>
             {#snippet header()}
                 <span class="flex items-center">
                     <PaperPlaneSolid size="md" class="me-2"/>
@@ -531,7 +666,8 @@
     {#if sortedEducation.length}
         <ResumeSection title="Education">
             {#each sortedEducation as school}
-                {@const dates = `${school.startDate} - ${school.endDate}`}
+                {@const startDate = moment(school.startDate).format(DATE_FORMAT)}
+                {@const endDate = school.ongoing ? "Present" : moment(school.endDate).format(DATE_FORMAT)}
                 <div class="entry flex justify-between">
                     <div class="w-full flex justify-between">
                         <div>
@@ -540,7 +676,7 @@
                         </div>
                         <div class="text-right tracking-tight">
                             <p class="detail">{school.location}</p>
-                            <p class="detail">{dates}</p>
+                            <p class="detail">{startDate} - {endDate}</p>
                         </div>
                     </div>
                 </div>
@@ -548,23 +684,25 @@
         </ResumeSection>
     {/if}
 
-    {#if workData.length}
+    {#if sortedWorkExperience.length}
         <ResumeSection title="Experience">
-            {#each workData as entry}
+            {#each sortedWorkExperience as job}
+                {@const startDate = moment(job.startDate).format(DATE_FORMAT)}
+                {@const endDate = job.ongoing ? "Present" : moment(job.endDate).format(DATE_FORMAT)}
                 <div class="entry">
                     <div class="flex justify-between">
                         <div>
-                            <h3 class="header">{entry.company}</h3>
-                            <h4 class="subheader">{entry.position}</h4>
+                            <h3 class="header">{job.company}</h3>
+                            <h4 class="subheader">{job.role}</h4>
                         </div>
                         <div>
-                            <p class="detail">{entry.city}</p>
-                            <p class="detail">{entry.dates}</p>
+                            <p class="detail">{job.location}</p>
+                            <p class="detail">{startDate} - {endDate}</p>
                         </div>
                     </div>
-                    {#if entry.bulletpoints?.length}
+                    {#if job.desc.length}
                         <ul class="list-disc pl-[1.5ch] mt-0.5">
-                            {#each entry.bulletpoints as bulletpoint}
+                            {#each job.desc.trim().replace(/^- /gm, "").split("\n") as bulletpoint}
                                 <Li class="text-sm font-light">{bulletpoint}</Li>
                             {/each}
                         </ul>
