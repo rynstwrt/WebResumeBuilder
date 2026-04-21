@@ -10,4 +10,8 @@
 <a href="https://rynstwrt.github.io/WebResumeBuilder/">https://rynstwrt.github.io/WebResumeBuilder</a>
 </p>
 
-![Editor Screenshot](.github/screenshot.png)
+<br>
+
+<p align="center">
+    <img src=".github/screenshot.png" alt="Screenshot" width="75%">
+</p>
